@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frequently Asked Questions | Synvio AI</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            pitch: '#000000',
+            obsidian: '#070707',
+            surface: '#111111',
+            accentCyan: '#00f0ff',
+            accentEmerald: '#10b981'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    .bg-grid-canvas {
+      background-size: 44px 44px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    }
+    .telemetry-card {
+      background: rgba(9, 9, 9, 0.94);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.25s ease;
+    }
+    .telemetry-card:hover {
+      border-color: rgba(255, 255, 255, 0.35);
+    }
+  </style>
+
+  <!-- Synvio Global Header, Footer & Voiceflow Chat Bundle -->
+  <script src="../global.js" defer></script>
+</head>
+<body class="bg-pitch text-neutral-100 font-sans antialiased selection:bg-white selection:text-pitch min-h-screen flex flex-col justify-between">
+
+  <div class="fixed inset-0 pointer-events-none bg-grid-canvas z-0 opacity-80"></div>
+
+  <!-- Global Navigation Header injected dynamically via global.js -->
+
+  <main class="relative z-10 max-w-4xl mx-auto px-6 py-12 flex-grow w-full">
+    
+    <!-- TOP CALLOUT BANNER -->
+    <div class="mb-12 p-6 rounded-lg border border-white/30 bg-surface/90 flex items-start gap-4 shadow-[0_0_25px_rgba(255,255,255,0.05)]">
+      <div class="w-6 h-6 border border-white/80 flex-shrink-0 flex items-center justify-center mt-0.5">
+        <div class="w-2 h-2 bg-accentEmerald shadow-[0_0_6px_#10b981]"></div>
+      </div>
+      <div>
+        <div class="text-xs uppercase font-mono tracking-widest text-white font-bold">Interactive AI Assistant Available</div>
+        <p class="text-xs text-neutral-300 mt-1 leading-relaxed font-mono">
+          Have questions about legal compliance or technical setups? Our dedicated AI Assistant knows our terms by heart. Click the chat widget in the bottom-right corner to get instant answers without reading the document!
+        </p>
+      </div>
+    </div>
+
+    <div class="space-y-4 mb-12">
+      <div class="text-xs font-mono uppercase tracking-widest text-neutral-500">Knowledge Base // Architecture</div>
+      <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight">Frequently Asked Questions</h1>
+      <p class="text-sm text-neutral-400 font-light">Direct engineering disclosures on deterministic RAG safeguards, multilingual translation, and pipeline throughput.</p>
+    </div>
+
+    <!-- ACCORDION -->
+    <div class="space-y-4 font-mono">
+      
+      <!-- FAQ 1 -->
+      <div class="telemetry-card rounded-lg overflow-hidden">
+        <button onclick="toggleFaq(1)" class="w-full p-6 text-left flex items-center justify-between gap-4">
+          <span class="text-sm font-bold text-white">How does real-time multilingual AI language translation work?</span>
+          <svg id="chevron-1" class="w-4 h-4 text-white transform transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path>
+          </svg>
+        </button>
+        <div id="faq-body-1" class="hidden px-6 pb-6 text-xs text-neutral-400 leading-relaxed border-t border-white/10 pt-4">
+          Incoming messages in over 95 languages are automatically detected and tokenized into multilingual semantic vectors. The customer's message is translated into English for internal CRM indexing and staff review, while drafted responses are synthesized natively in the customer's dialect with zero mechanical translation artifacts.
+        </div>
+      </div>
+
+      <!-- FAQ 2 -->
+      <div class="telemetry-card rounded-lg overflow-hidden">
+        <button onclick="toggleFaq(2)" class="w-full p-6 text-left flex items-center justify-between gap-4">
+          <span class="text-sm font-bold text-white">How does Synvio AI eliminate hallucinations in customer emails?</span>
+          <svg id="chevron-2" class="w-4 h-4 text-white transform transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path>
+          </svg>
+        </button>
+        <div id="faq-body-2" class="hidden px-6 pb-6 text-xs text-neutral-400 leading-relaxed border-t border-white/10 pt-4">
+          All inference runs through deterministic retrieval-augmented generation (RAG). Responses are synthetically bound to approved corporate knowledge vectors. If a query falls outside verified threshold confidence, it is escalated immediately to human operators.
+        </div>
+      </div>
+
+      <!-- FAQ 3 -->
+      <div class="telemetry-card rounded-lg overflow-hidden">
+        <button onclick="toggleFaq(3)" class="w-full p-6 text-left flex items-center justify-between gap-4">
+          <span class="text-sm font-bold text-white">Can the system read and write to CRM and ticketing systems?</span>
+          <svg id="chevron-3" class="w-4 h-4 text-white transform transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path>
+          </svg>
+        </button>
+        <div id="faq-body-3" class="hidden px-6 pb-6 text-xs text-neutral-400 leading-relaxed border-t border-white/10 pt-4">
+          Yes. We maintain native microservice connectors for Salesforce, HubSpot, Zendesk, Jira, Slack, Discord, and raw SQL databases. Every modification runs through restricted API credentials with verifiable audit trails.
+        </div>
+      </div>
+
+      <!-- FAQ 4 -->
+      <div class="telemetry-card rounded-lg overflow-hidden">
+        <button onclick="toggleFaq(4)" class="w-full p-6 text-left flex items-center justify-between gap-4">
+          <span class="text-sm font-bold text-white">Is our corporate customer data fed into public LLMs?</span>
+          <svg id="chevron-4" class="w-4 h-4 text-white transform transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path>
+          </svg>
+        </button>
+        <div id="faq-body-4" class="hidden px-6 pb-6 text-xs text-neutral-400 leading-relaxed border-t border-white/10 pt-4">
+          Never. All enterprise inference pipelines are governed by zero-retention service agreements. Inbound emails, operational database dumps, and user queries remain strictly private and are never used to train public models.
+        </div>
+      </div>
+
+    </div>
+
+    <!-- BOTTOM CALLOUT BANNER -->
+    <div class="mt-12 p-6 rounded-lg border border-white/30 bg-surface/90 flex items-start gap-4 shadow-[0_0_25px_rgba(255,255,255,0.05)]">
+      <div class="w-6 h-6 border border-white/80 flex-shrink-0 flex items-center justify-center mt-0.5">
+        <div class="w-2 h-2 bg-accentEmerald shadow-[0_0_6px_#10b981]"></div>
+      </div>
+      <div>
+        <div class="text-xs uppercase font-mono tracking-widest text-white font-bold">Interactive AI Assistant Available</div>
+        <p class="text-xs text-neutral-300 mt-1 leading-relaxed font-mono">
+          Have questions about legal compliance or technical setups? Our dedicated AI Assistant knows our terms by heart. Click the chat widget in the bottom-right corner to get instant answers without reading the document!
+        </p>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Global Footer injected dynamically via global.js -->
+
+  <script>
+    function toggleFaq(id) {
+      const body = document.getElementById(`faq-body-${id}`);
+      const chevron = document.getElementById(`chevron-${id}`);
+      const isHidden = body.classList.contains('hidden');
+
+      if (isHidden) {
+        body.classList.remove('hidden');
+        chevron.classList.add('rotate-180');
+      } else {
+        body.classList.add('hidden');
+        chevron.classList.remove('rotate-180');
+      }
+    }
+  </script>
+
+</body>
+</html>
