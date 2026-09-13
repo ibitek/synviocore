@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frequently Asked Questions | Synvio AI</title>
+  <meta name="description" content="Synvio AI FAQ covering triage, translation, integrations, human review, deployment, data handling and pricing approach.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','sans-serif'],mono:['JetBrains Mono','monospace']},colors:{pitch:'#000000',obsidian:'#070707',surface:'#111111',accentCyan:'#00f0ff',accentEmerald:'#10b981'}}}}</script>
+  <style>
+    .bg-grid-canvas{background-size:44px 44px;background-image:linear-gradient(to right,rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,.04) 1px,transparent 1px)}
+    .telemetry-card{background:rgba(9,9,9,.94);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.1);transition:all .25s ease}.telemetry-card:hover{border-color:rgba(255,255,255,.35)}
+    @keyframes faqPulse{0%,100%{opacity:.35;transform:scale(.9)}50%{opacity:1;transform:scale(1.15)}}.faq-pulse{animation:faqPulse 2.6s ease-in-out infinite}@media(prefers-reduced-motion:reduce){.faq-pulse{animation:none}}
+  </style>
+  <script src="../global.js" defer></script>
+</head>
+<body class="bg-pitch text-neutral-100 font-sans antialiased selection:bg-white selection:text-pitch min-h-screen flex flex-col justify-between">
+  <div class="fixed inset-0 pointer-events-none bg-grid-canvas z-0 opacity-80"></div>
+  <main class="relative z-10 max-w-4xl mx-auto px-6 py-12 flex-grow w-full">
+    <div class="mb-12 p-5 rounded-lg border border-white/20 bg-surface/90 flex items-start gap-4">
+      <div class="w-6 h-6 border border-white/70 flex-shrink-0 flex items-center justify-center mt-0.5"><div class="w-2 h-2 bg-accentCyan shadow-[0_0_7px_#00f0ff] faq-pulse"></div></div>
+      <div><div class="text-xs uppercase font-mono tracking-widest text-white font-bold">Need a faster answer?</div><p class="text-xs text-neutral-400 mt-1 leading-relaxed font-mono">The Synvio AI Assistant can help you navigate product capabilities and terminology. For deployment-specific commitments, use the written proposal or service agreement.</p></div>
+    </div>
+
+    <div class="space-y-4 mb-12">
+      <div class="text-xs font-mono uppercase tracking-widest text-neutral-500">Knowledge Base // Product Architecture</div>
+      <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight">Frequently Asked Questions</h1>
+      <p class="text-sm text-neutral-400 font-light leading-relaxed">How Synvio approaches multilingual messaging, AI triage, human review, integrations and production deployment—without pretending every workflow behaves identically.</p>
+    </div>
+
+    <div class="space-y-4 font-mono">
+      <div class="telemetry-card rounded-lg overflow-hidden">
+        <button onclick="toggleFaq(1)" class="w-full p-6 text-left flex items-center justify-between gap-4"><span class="text-sm font-bold text-white">How does multilingual AI translation work?</span><svg id="chevron-1" class="w-4 h-4 text-white transform transition-transform duration-200 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path></svg></button>
+        <div id="faq-body-1" class="hidden px-6 pb-6 text-xs text-neutral-400 leading-relaxed border-t border-white/10 pt-4">A deployment can detect the incoming language, translate content for internal review, and prepare a reply in the customer’s language. The translation layer can be instructed to preserve names, order IDs, product terminology and structured fields. Supported languages and quality depend on the selected model provider and production configuration.</div>
+      </div>
+      <div class="telemetry-card rounded-lg overflow-hidden">
+        <button onclick="toggleFaq(2)" class="w-full p-6 text-left flex items-center justify-between gap-4"><span class="text-sm font-bold text-white">Can Synvio guarantee that AI never hallucinates?</span><svg id="chevron-2" class="w-4 h-4 text-white transform transition-transform duration-200 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path></svg></button>
+        <div id="faq-body-2" class="hidden px-6 pb-6 text-xs text-neutral-400 leading-relaxed border-t border-white/10 pt-4">No responsible AI system should promise that. Synvio is designed to reduce risk through approved knowledge sources, retrieval, constrained prompts, confidence thresholds, validation rules and human escalation. High-impact actions can be held for review instead of being dispatched automatically.</div>
+      </div>
+      <div class="telemetry-card rounded-lg overflow-hidden">
+        <button onclick="toggleFaq(3)" class="w-full p-6 text-left flex items-center justify-between gap-4"><span class="text-sm font-bold text-white">How does AI triage separate spam, irrelevant messages and real customer requests?</span><svg id="chevron-3" class="w-4 h-4 text-white transform transition-transform duration-200 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path></svg></button>
+        <div id="faq-body-3" class="hidden px-6 pb-6 text-xs text-neutral-400 leading-relaxed border-t border-white/10 pt-4">The triage layer can combine model-based classification with deterministic rules. A message may be labelled as support, billing, sales, irrelevant, likely spam or another client-defined category. Confidence thresholds determine whether it is routed automatically, quarantined or sent to a review queue.</div>
+      </div>
+      <div class="telemetry-card rounded-lg overflow-hidden">
+        <button onclick="toggleFaq(4)" class="w-full p-6 text-left flex items-center justify-between gap-4"><span class="text-sm font-bold text-white">Can the system read and write to CRM and ticketing tools?</span><svg id="chevron-4" class="w-4 h-4 text-white transform transition-transform duration-200 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path></svg></button>
+        <div id="faq-body-4" class="hidden px-6 pb-6 text-xs text-neutral-400 leading-relaxed border-t border-white/10 pt-4">Potentially, yes. Integrations are built around the APIs and permissions available in the client’s stack. Read-only access can be used for context, while write actions such as creating tickets or updating records can be restricted behind explicit rules and approval controls.</div>
+      </div>
+      <div class="telemetry-card rounded-lg overflow-hidden">
+        <button onclick="toggleFaq(5)" class="w-full p-6 text-left flex items-center justify-between gap-4"><span class="text-sm font-bold text-white">What happens when the AI is not confident?</span><svg id="chevron-5" class="w-4 h-4 text-white transform transition-transform duration-200 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path></svg></button>
+        <div id="faq-body-5" class="hidden px-6 pb-6 text-xs text-neutral-400 leading-relaxed border-t border-white/10 pt-4">The workflow can stop autonomous processing and route the case to a human. The escalation can include the original message, detected intent, relevant context and a suggested draft so the operator can resolve the case quickly without giving the model unrestricted control.</div>
+      </div>
+      <div class="telemetry-card rounded-lg overflow-hidden">
+        <button onclick="toggleFaq(6)" class="w-full p-6 text-left flex items-center justify-between gap-4"><span class="text-sm font-bold text-white">Is every message sent to an AI model?</span><svg id="chevron-6" class="w-4 h-4 text-white transform transition-transform duration-200 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path></svg></button>
+        <div id="faq-body-6" class="hidden px-6 pb-6 text-xs text-neutral-400 leading-relaxed border-t border-white/10 pt-4">Not necessarily. Simple routing, validation, formatting, allowlists, blocklists and other deterministic checks can run without an LLM. This can reduce cost and latency while reserving model calls for tasks that actually require language understanding or generation.</div>
+      </div>
+      <div class="telemetry-card rounded-lg overflow-hidden">
+        <button onclick="toggleFaq(7)" class="w-full p-6 text-left flex items-center justify-between gap-4"><span class="text-sm font-bold text-white">Can Synvio work with email and SMS at the same time?</span><svg id="chevron-7" class="w-4 h-4 text-white transform transition-transform duration-200 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path></svg></button>
+        <div id="faq-body-7" class="hidden px-6 pb-6 text-xs text-neutral-400 leading-relaxed border-t border-white/10 pt-4">Yes, the same orchestration layer can process multiple inbound channels while applying channel-specific rules. Email may include thread history and attachments, while SMS usually requires shorter response formats, telephony provider integration and different consent or delivery constraints.</div>
+      </div>
+      <div class="telemetry-card rounded-lg overflow-hidden">
+        <button onclick="toggleFaq(8)" class="w-full p-6 text-left flex items-center justify-between gap-4"><span class="text-sm font-bold text-white">How quickly can a deployment go live?</span><svg id="chevron-8" class="w-4 h-4 text-white transform transition-transform duration-200 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path></svg></button>
+        <div id="faq-body-8" class="hidden px-6 pb-6 text-xs text-neutral-400 leading-relaxed border-t border-white/10 pt-4">There is no universal 24-hour promise. A simple proof of concept may be quick, while a production workflow with CRM access, security review, custom knowledge, approvals and multiple channels can require substantially more testing. Scope is estimated after the current workflow and integrations are understood.</div>
+      </div>
+      <div class="telemetry-card rounded-lg overflow-hidden">
+        <button onclick="toggleFaq(9)" class="w-full p-6 text-left flex items-center justify-between gap-4"><span class="text-sm font-bold text-white">Do you offer fixed accuracy, uptime or response-time guarantees?</span><svg id="chevron-9" class="w-4 h-4 text-white transform transition-transform duration-200 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path></svg></button>
+        <div id="faq-body-9" class="hidden px-6 pb-6 text-xs text-neutral-400 leading-relaxed border-t border-white/10 pt-4">Not from the website alone. Any production SLA, uptime target, support response commitment or measurable acceptance criterion must be defined in the applicable written proposal or service agreement after the architecture and dependencies are known.</div>
+      </div>
+      <div class="telemetry-card rounded-lg overflow-hidden">
+        <button onclick="toggleFaq(10)" class="w-full p-6 text-left flex items-center justify-between gap-4"><span class="text-sm font-bold text-white">How is customer data handled?</span><svg id="chevron-10" class="w-4 h-4 text-white transform transition-transform duration-200 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path></svg></button>
+        <div id="faq-body-10" class="hidden px-6 pb-6 text-xs text-neutral-400 leading-relaxed border-t border-white/10 pt-4">The exact data flow depends on the services connected to the deployment. Before production use, the architecture should identify what data is transmitted, which providers process it, what credentials are required, and what retention or privacy controls are available. Third-party provider terms also apply.</div>
+      </div>
+      <div class="telemetry-card rounded-lg overflow-hidden">
+        <button onclick="toggleFaq(11)" class="w-full p-6 text-left flex items-center justify-between gap-4"><span class="text-sm font-bold text-white">Can we start with a small pilot?</span><svg id="chevron-11" class="w-4 h-4 text-white transform transition-transform duration-200 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path></svg></button>
+        <div id="faq-body-11" class="hidden px-6 pb-6 text-xs text-neutral-400 leading-relaxed border-t border-white/10 pt-4">Yes. A practical MVP can begin with one channel, one or two message categories, a limited knowledge source and human approval for every drafted response. Automation can then expand only after the workflow performs reliably on real traffic.</div>
+      </div>
+      <div class="telemetry-card rounded-lg overflow-hidden">
+        <button onclick="toggleFaq(12)" class="w-full p-6 text-left flex items-center justify-between gap-4"><span class="text-sm font-bold text-white">What does a typical first project include?</span><svg id="chevron-12" class="w-4 h-4 text-white transform transition-transform duration-200 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path></svg></button>
+        <div id="faq-body-12" class="hidden px-6 pb-6 text-xs text-neutral-400 leading-relaxed border-t border-white/10 pt-4">Usually: workflow mapping, sample-message analysis, triage categories, escalation rules, one or more integrations, a controlled knowledge source, a test environment and a defined production handoff. The exact scope depends on the client’s systems and risk tolerance.</div>
+      </div>
+    </div>
+  </main>
+  <script>
+    function toggleFaq(id){const body=document.getElementById(`faq-body-${id}`);const chevron=document.getElementById(`chevron-${id}`);const hidden=body.classList.contains('hidden');body.classList.toggle('hidden',!hidden);chevron.classList.toggle('rotate-180',hidden)}
+    window.addEventListener('DOMContentLoaded',()=>{const update=()=>{const f=document.getElementById('synvio-footer');if(!f)return false;const s=[...f.querySelectorAll('span')].find(e=>e.textContent.includes('All systems deploy built-in safety guardrails'));if(s)s.textContent='AI-assisted workflows can include configurable review, routing and escalation controls. Production behavior depends on connected models, data sources and client-defined policies.';return true};if(!update()){const o=new MutationObserver(()=>{if(update())o.disconnect()});o.observe(document.body,{childList:true,subtree:true})}})
+  </script>
+</body>
+</html>

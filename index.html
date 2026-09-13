@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Synvio AI | Autonomous Customer Support, Email & SMS Workflows</title>
+  <meta name="description" content="Autonomous AI systems for enterprise customer support, English-only email and SMS triage, language translation, and global currency localization.">
+
+  <!-- Inter & JetBrains Mono Fonts -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS via CDN -->
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            pitch: '#000000',
+            obsidian: '#070707',
+            surface: '#111111',
+            surfaceHover: '#161616',
+            accentCyan: '#00f0ff',
+            accentEmerald: '#10b981',
+            accentRed: '#ef4444'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom CSS Keyframe Animations -->
+
+  <style>
+    /* Animated Grid Canvas */
+    .bg-grid-canvas {
+      background-size: 44px 44px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    }
+
+    /* Ambient Subtle Glow */
+    .ambient-glow {
+      background: radial-gradient(circle at 50% 10%, rgba(0, 240, 255, 0.04) 0%, rgba(16, 185, 129, 0.02) 30%, transparent 70%);
+    }
+
+    /* 3D Wireframe Gyroscope */
+    @keyframes gyroRotate3D {
+      0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+      50% { transform: rotateX(180deg) rotateY(270deg) rotateZ(120deg); }
+      100% { transform: rotateX(360deg) rotateY(540deg) rotateZ(360deg); }
+    }
+    .gyro-wireframe {
+      transform-style: preserve-3d;
+      animation: gyroRotate3D 24s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+
+    /* Counter Orbit Ring */
+    @keyframes orbitRev {
+      0% { transform: rotate(360deg); }
+      100% { transform: rotate(0deg); }
+    }
+    .orbit-reverse {
+      animation: orbitRev 16s linear infinite;
+    }
+
+    /* Laser Scanner Beam */
+    @keyframes scanLaser {
+      0% { top: 0%; opacity: 0.2; }
+      50% { opacity: 0.9; }
+      100% { top: 100%; opacity: 0.2; }
+    }
+    .scanner-beam {
+      animation: scanLaser 2.2s ease-in-out infinite;
+    }
+
+    /* Shimmering Border */
+    @keyframes shimmerMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .shimmer-edge {
+      background: linear-gradient(90deg, rgba(255,255,255,0.05), rgba(0,240,255,0.35), rgba(16,185,129,0.3), rgba(255,255,255,0.05));
+      background-size: 250% 250%;
+      animation: shimmerMove 7s ease infinite;
+    }
+
+    /* Pulse Glow */
+    @keyframes subtlePulse {
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.04); opacity: 1; }
+    }
+    .pulse-subtle {
+      animation: subtlePulse 4s ease-in-out infinite;
+    }
+
+    /* Interactive Card Transitions */
+    .telemetry-card {
+      background: rgba(9, 9, 9, 0.94);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .telemetry-card:hover {
+      border-color: rgba(255, 255, 255, 0.45);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.8);
+    }
+
+
+    /* Live Orchestration Rail */
+    @keyframes flowPacket {
+      0% { left: 2%; opacity: 0; transform: translateY(-50%) scale(.7); }
+      8% { opacity: 1; }
+      92% { opacity: 1; }
+      100% { left: 98%; opacity: 0; transform: translateY(-50%) scale(1.05); }
+    }
+    @keyframes nodePulse {
+      0%, 100% { box-shadow: 0 0 0 rgba(0,240,255,0); border-color: rgba(255,255,255,.16); }
+      50% { box-shadow: 0 0 20px rgba(0,240,255,.12); border-color: rgba(0,240,255,.5); }
+    }
+    @keyframes signalSweep {
+      0% { transform: translateX(-120%); opacity: 0; }
+      20% { opacity: .65; }
+      80% { opacity: .65; }
+      100% { transform: translateX(220%); opacity: 0; }
+    }
+    @keyframes microBlink {
+      0%, 86%, 100% { opacity: .35; }
+      90%, 96% { opacity: 1; }
+    }
+    .orchestration-line { position: relative; overflow: hidden; }
+    .orchestration-line::after {
+      content: '';
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 36%;
+      background: linear-gradient(90deg, transparent, rgba(0,240,255,.2), transparent);
+      animation: signalSweep 5.5s linear infinite;
+      pointer-events: none;
+    }
+    .flow-packet {
+      position: absolute;
+      top: 50%;
+      left: 2%;
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #00f0ff;
+      box-shadow: 0 0 12px rgba(0,240,255,.95);
+      animation: flowPacket 4.8s linear infinite;
+      z-index: 5;
+    }
+    .flow-node { animation: nodePulse 4s ease-in-out infinite; }
+    .flow-node:nth-child(2) { animation-delay: .5s; }
+    .flow-node:nth-child(3) { animation-delay: 1s; }
+    .flow-node:nth-child(4) { animation-delay: 1.5s; }
+    .flow-node:nth-child(5) { animation-delay: 2s; }
+    .micro-blink { animation: microBlink 3.4s ease-in-out infinite; }
+
+    /* Secondary Signal Constellation */
+    @keyframes constellationSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes constellationSpinReverse {
+      from { transform: rotate(360deg); }
+      to { transform: rotate(0deg); }
+    }
+    @keyframes constellationPulse {
+      0%, 100% { transform: scale(.82); opacity: .38; }
+      50% { transform: scale(1.12); opacity: 1; }
+    }
+    @keyframes dataRay {
+      0% { transform: translateX(-140%) scaleX(.55); opacity: 0; }
+      18% { opacity: .75; }
+      82% { opacity: .75; }
+      100% { transform: translateX(240%) scaleX(1); opacity: 0; }
+    }
+    .constellation-spin { animation: constellationSpin 20s linear infinite; }
+    .constellation-spin-reverse { animation: constellationSpinReverse 13s linear infinite; }
+    .constellation-pulse { animation: constellationPulse 2.8s ease-in-out infinite; }
+    .data-ray { animation: dataRay 4.6s ease-in-out infinite; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .gyro-wireframe, .orbit-reverse, .scanner-beam, .shimmer-edge, .pulse-subtle,
+      .flow-packet, .flow-node, .orchestration-line::after, .micro-blink,
+      .constellation-spin, .constellation-spin-reverse, .constellation-pulse, .data-ray { animation: none !important; }
+    }
+
+  </style>
+
+  <!-- Shared header, footer, navigation, and chat bundle -->
+
+  <script src="global.js" defer></script>
+
+</head>
+<body class="bg-pitch text-neutral-100 font-sans antialiased selection:bg-white selection:text-pitch overflow-x-hidden">
+
+  <!-- BACKGROUND DECORATIONS -->
+
+  <div class="fixed inset-0 pointer-events-none bg-grid-canvas z-0 opacity-80"></div>
+  <div class="fixed inset-0 pointer-events-none ambient-glow z-0"></div>
+
+  <main class="relative z-10">
+
+<!-- 2. HERO SECTION -->
+<section class="relative pt-24 pb-28 px-6 max-w-7xl mx-auto">
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+    
+    <!-- Left Content -->
+    <div class="lg:col-span-8 space-y-8">
+      
+      <div class="inline-flex items-center gap-3 px-3.5 py-1.5 rounded bg-surface border border-white/10 text-xs font-mono text-neutral-300">
+        <span class="w-2 h-2 rounded-full bg-accentEmerald shadow-[0_0_8px_#10b981] animate-pulse"></span>
+        <span>AUTONOMOUS OPERATIONS ENGINE // EMAIL & SMS CHANNELS</span>
+      </div>
+
+      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight leading-[1.05]">
+        We Automate Customer Support, Email & SMS Workflows Using AI
+      </h1>
+
+      <p class="text-base sm:text-xl text-neutral-400 max-w-2xl font-light leading-relaxed">
+        Reduce repetitive support work with AI-assisted workflows for email and SMS. Synvio can classify inbound messages, draft context-aware replies, isolate likely spam, and route sensitive or uncertain cases to your team for review.
+      </p>
+
+      <div class="flex flex-wrap items-center gap-4 pt-2">
+        <a href="#demo" class="px-8 py-4 bg-white text-pitch text-xs font-mono uppercase tracking-widest font-black rounded hover:bg-neutral-200 hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] transition-all flex items-center gap-3">
+          <span>Test Live Demo</span>
+          <svg class="w-4 h-4 text-pitch" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"></path>
+          </svg>
+        </a>
+        <a href="#about" class="px-8 py-4 bg-pitch text-white text-xs font-mono uppercase tracking-widest font-semibold rounded border border-white/20 hover:border-white transition-all">
+          About Us
+        </a>
+      </div>
+
+      <!-- Strict Telemetry Proof Row with Status Dots -->
+      <div class="pt-8 border-t border-white/10 grid grid-cols-3 gap-6 max-w-xl font-mono">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-accentCyan"></span>
+            <span class="text-2xl font-black text-white tracking-tight">24/7</span>
+          </div>
+          <div class="text-[11px] text-neutral-500 uppercase mt-1">Workflow Coverage</div>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-accentEmerald"></span>
+            <span class="text-2xl font-black text-white tracking-tight">Human</span>
+          </div>
+          <div class="text-[11px] text-neutral-500 uppercase mt-1">Review Fallback</div>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-accentEmerald"></span>
+            <span class="text-2xl font-black text-white tracking-tight">Policy</span>
+          </div>
+          <div class="text-[11px] text-neutral-500 uppercase mt-1">Guardrail Layer</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Visual: Enlarged 3D Multi-Axis Gyroscopic Wireframe Animation -->
+    <div class="lg:col-span-4 flex items-center justify-center relative min-h-[500px] lg:min-h-[560px]">
+      <div class="w-[25rem] h-[25rem] sm:w-[29rem] sm:h-[29rem] lg:w-[31rem] lg:h-[31rem] relative flex items-center justify-center [perspective:1500px]">
+
+        <div class="absolute inset-0 rounded-full border border-white/10 pulse-subtle shadow-[0_0_80px_rgba(0,240,255,0.035)]"></div>
+        <div class="absolute inset-[8%] rounded-full border border-white/10 pulse-subtle [animation-delay:1.4s]"></div>
+        <div class="absolute inset-[17%] rounded-full border border-dashed border-white/15 orbit-reverse [animation-duration:27s]"></div>
+
+        <div class="absolute w-[76%] h-[76%] border border-white/30 rounded-2xl gyro-wireframe shadow-[0_0_30px_rgba(255,255,255,0.035)]"></div>
+        <div class="absolute w-[62%] h-[62%] border border-accentCyan/20 rounded-[2rem] gyro-wireframe [animation-duration:34s] [animation-direction:reverse]"></div>
+
+        <div class="absolute w-[67%] h-[67%] border border-dashed border-white/40 rounded-full orbit-reverse">
+          <div class="w-2.5 h-2.5 rounded-full bg-accentCyan shadow-[0_0_12px_#00f0ff] absolute -top-1.5 left-1/2 -translate-x-1/2"></div>
+          <div class="w-1 h-1 rounded-full bg-white shadow-[0_0_7px_#fff] absolute bottom-[14%] right-[5%]"></div>
+        </div>
+
+        <div class="absolute w-[49%] h-[49%] border border-white/25 rounded-full orbit-reverse [animation-duration:11s] [animation-direction:reverse]">
+          <div class="w-2 h-2 rounded-full bg-accentEmerald shadow-[0_0_9px_#10b981] absolute -bottom-1 left-1/2 -translate-x-1/2"></div>
+        </div>
+
+        <div class="absolute w-[86%] h-px bg-gradient-to-r from-transparent via-white/20 to-transparent rotate-[18deg]"></div>
+        <div class="absolute w-[86%] h-px bg-gradient-to-r from-transparent via-accentCyan/25 to-transparent -rotate-[18deg]"></div>
+        <div class="absolute h-[86%] w-px bg-gradient-to-b from-transparent via-white/15 to-transparent"></div>
+
+        <div class="absolute top-[12%] left-[9%] text-[8px] font-mono tracking-[0.18em] text-neutral-600">NODE_A7</div>
+        <div class="absolute right-[7%] top-[33%] text-[8px] font-mono tracking-[0.18em] text-accentCyan/60">SYNC</div>
+        <div class="absolute bottom-[12%] left-[18%] text-[8px] font-mono tracking-[0.18em] text-neutral-600">ROUTE_04</div>
+
+        <!-- Central Processor Node -->
+        <div class="w-40 h-40 sm:w-44 sm:h-44 lg:w-48 lg:h-48 bg-obsidian border border-white/45 rounded-2xl flex flex-col items-center justify-center p-5 text-center shadow-[0_0_50px_rgba(0,0,0,.85)] relative z-10">
+          <div class="w-8 h-8 border border-white/80 mb-4 flex items-center justify-center rotate-45">
+            <div class="w-2.5 h-2.5 bg-accentCyan shadow-[0_0_12px_#00f0ff]"></div>
+          </div>
+          <span class="text-xs sm:text-sm uppercase font-mono tracking-[0.18em] text-white font-bold">SYNVIO CORE</span>
+          <span class="text-[9px] sm:text-[10px] text-accentEmerald font-mono mt-2 tracking-wider">SYSTEM // READY</span>
+          <div class="mt-4 flex items-center gap-1.5">
+            <span class="w-1 h-1 rounded-full bg-accentEmerald constellation-pulse"></span>
+            <span class="w-1 h-1 rounded-full bg-white/30"></span>
+            <span class="w-1 h-1 rounded-full bg-accentCyan constellation-pulse [animation-delay:.7s]"></span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT US SECTION -->
+<section id="about" class="py-24 px-6 max-w-7xl mx-auto border-t border-white/10">
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+    
+    <div class="lg:col-span-5 space-y-6">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-white/5 border border-white/20 text-[11px] font-mono text-neutral-300 uppercase tracking-widest">
+        <span>About Synvio AI</span>
+      </div>
+      <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight leading-tight">
+        Universal Automated Communications: Email & SMS Unified
+      </h2>
+      <p class="text-sm text-neutral-400 font-light leading-relaxed">
+        We operate under a singular conviction: human staff should never waste hundreds of hours manually sorting repetitive tickets, deciphering cold sales pitches, or typing identical confirmations.
+      </p>
+      <p class="text-sm text-neutral-400 font-light leading-relaxed">
+        While enterprise workflows historically centered around email inboxes, urgent customer inquiries and mission-critical updates happen over <strong class="text-white font-medium">SMS text messaging</strong>. Synvio AI applies the exact same deterministic parsing, spam quarantine, context synthesis, and CRM synchronization directly to SMS channels—allowing your enterprise to manage phone-number-based communication pipelines completely on auto-pilot.
+      </p>
+    </div>
+
+    <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
+      
+      <!-- Unified Channel 1: Email Pipeline -->
+      <div class="telemetry-card p-6 rounded-xl space-y-4 border border-white/10">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-mono uppercase tracking-wider text-white font-bold flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-accentCyan"></span>
+            Inbound Email Engine
+          </span>
+          <span class="text-[10px] font-mono text-neutral-500">IMAP / WEBHOOK</span>
+        </div>
+        <p class="text-xs text-neutral-400 leading-relaxed font-light">
+          Continuous inbox ingestion can analyze message context, thread history, customer metadata, and connected knowledge sources to prepare replies or route cases for review.
+        </p>
+        <div class="pt-3 border-t border-white/5 text-[10px] font-mono text-neutral-400 flex justify-between">
+          <span>Event-driven processing</span>
+          <span class="text-accentEmerald">Review fallback</span>
+        </div>
+      </div>
+
+      <!-- Unified Channel 2: SMS Text Pipeline -->
+      <div class="telemetry-card p-6 rounded-xl space-y-4 border border-white/10">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-mono uppercase tracking-wider text-white font-bold flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-accentEmerald"></span>
+            Inbound SMS Engine
+          </span>
+          <span class="text-[10px] font-mono text-neutral-500">TWILIO / TELEPHONY</span>
+        </div>
+        <p class="text-xs text-neutral-400 leading-relaxed font-light">
+          Two-way SMS triage can classify intent, isolate likely automated spam, draft replies, and route urgent messages into connected team channels such as Slack.
+        </p>
+        <div class="pt-3 border-t border-white/5 text-[10px] font-mono text-neutral-400 flex justify-between">
+          <span>Webhook-driven</span>
+          <span class="text-accentCyan">Configurable routing</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- 3. CORE SYSTEM CAPABILITIES -->
+<section id="capabilities" class="py-24 px-6 max-w-7xl mx-auto border-t border-white/10">
+
+  <!-- Secondary moving signal constellation -->
+  <div class="mb-16 grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10 items-center">
+    <div>
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-white/5 border border-white/20 text-[10px] font-mono text-neutral-400 uppercase tracking-[0.2em]">
+        <span class="w-1.5 h-1.5 rounded-full bg-accentCyan shadow-[0_0_8px_#00f0ff] constellation-pulse"></span>
+        Signal Fabric
+      </div>
+      <h2 class="mt-5 text-3xl sm:text-5xl font-black text-white tracking-tight">
+        One system. Multiple decision layers.
+      </h2>
+      <p class="mt-4 max-w-2xl text-sm sm:text-base text-neutral-400 font-light leading-relaxed">
+        Rules, AI classification, context and human review can operate as separate layers instead of forcing every message through the same path.
+      </p>
+    </div>
+
+    <div class="relative h-64 sm:h-72 flex items-center justify-center overflow-hidden">
+      <div class="absolute w-60 h-60 rounded-full border border-white/10 constellation-spin"></div>
+      <div class="absolute w-44 h-44 rounded-full border border-dashed border-accentCyan/25 constellation-spin-reverse"></div>
+      <div class="absolute w-28 h-28 rounded-2xl border border-white/25 rotate-45 constellation-spin"></div>
+
+      <div class="absolute w-[90%] h-px bg-gradient-to-r from-transparent via-white/20 to-transparent overflow-hidden">
+        <div class="data-ray absolute top-0 left-0 w-1/3 h-px bg-gradient-to-r from-transparent via-accentCyan to-transparent"></div>
+      </div>
+
+      <div class="absolute h-[82%] w-px bg-gradient-to-b from-transparent via-white/15 to-transparent"></div>
+
+      <span class="absolute top-[15%] left-[25%] w-2 h-2 rounded-full bg-accentCyan shadow-[0_0_10px_#00f0ff] constellation-pulse"></span>
+      <span class="absolute bottom-[20%] right-[22%] w-2 h-2 rounded-full bg-accentEmerald shadow-[0_0_9px_#10b981] constellation-pulse [animation-delay:1s]"></span>
+      <span class="absolute top-[33%] right-[17%] w-1.5 h-1.5 rounded-full bg-white/70 constellation-pulse [animation-delay:.4s]"></span>
+
+      <div class="relative z-10 w-24 h-24 rounded-2xl bg-obsidian border border-white/40 shadow-[0_0_35px_rgba(0,240,255,.06)] flex flex-col items-center justify-center">
+        <div class="w-3 h-3 bg-accentCyan shadow-[0_0_10px_#00f0ff] rotate-45"></div>
+        <span class="mt-3 text-[8px] font-mono tracking-[0.18em] text-neutral-400">SIGNAL BUS</span>
+      </div>
+    </div>
+  </div>
+  <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+    <h2 class="text-xs font-mono font-bold uppercase tracking-widest text-neutral-400">System Capabilities</h2>
+    <h3 class="text-3xl sm:text-5xl font-black text-white tracking-tight">Engineered for Lower Operational Friction</h3>
+    <p class="text-neutral-400 text-sm sm:text-base font-light">Reduce manual routing with retrieval, multilingual translation, configurable triage, and human-escalation fallbacks across email and SMS.</p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+    
+    <div class="telemetry-card p-6 rounded-xl relative flex flex-col justify-between group">
+      <div class="space-y-5">
+        <div class="w-10 h-10 rounded bg-surface border border-white/20 flex items-center justify-center group-hover:border-white transition-colors">
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z"></path>
+          </svg>
+        </div>
+        <div>
+          <h4 class="text-base font-bold text-white mb-2">24/7 Contextual Chatbots</h4>
+          <p class="text-xs text-neutral-400 leading-relaxed font-light">
+            Context-aware conversational agents linked directly into CRMs and SQL databases with instant semantic catalog matching.
+          </p>
+        </div>
+      </div>
+      <div class="pt-4 mt-6 border-t border-white/10 text-[10px] text-neutral-500 font-mono">
+        STACK: VECTOR RAG / DB READ-WRITE
+      </div>
+    </div>
+
+    <div class="telemetry-card p-6 rounded-xl relative flex flex-col justify-between group">
+      <div class="space-y-5">
+        <div class="w-10 h-10 rounded bg-surface border border-white/20 flex items-center justify-center group-hover:border-white transition-colors">
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"></path>
+          </svg>
+        </div>
+        <div>
+          <h4 class="text-base font-bold text-white mb-2">Email & SMS Automation</h4>
+          <p class="text-xs text-neutral-400 leading-relaxed font-light">
+            Inbound workflows can process mail and text messages, look up connected account context, and prepare contextual replies or escalation actions.
+          </p>
+        </div>
+      </div>
+      <div class="pt-4 mt-6 border-t border-white/10 text-[10px] text-neutral-500 font-mono">
+        STACK: INBOX & TWILIO WEBHOOKS
+      </div>
+    </div>
+
+    <div class="telemetry-card p-6 rounded-xl relative flex flex-col justify-between group">
+      <div class="space-y-5">
+        <div class="w-10 h-10 rounded bg-surface border border-white/20 flex items-center justify-center group-hover:border-white transition-colors">
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 21l5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 016-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896 3.025 2.308 5.757 4.148 8.077"></path>
+          </svg>
+        </div>
+        <div>
+          <div class="flex items-center gap-2 mb-2">
+            <h4 class="text-base font-bold text-white">AI Language Translation</h4>
+            <span class="px-1.5 py-0.5 rounded text-[9px] font-mono bg-accentCyan/10 text-accentCyan border border-accentCyan/30">95+ LANGS</span>
+          </div>
+          <p class="text-xs text-neutral-400 leading-relaxed font-light">
+            Context-aware translation can convert inbound messages for staff review and prepare replies in the customer’s language while preserving names, identifiers, product terms, and structured data.
+          </p>
+        </div>
+      </div>
+      <div class="pt-4 mt-6 border-t border-white/10 text-[10px] text-neutral-500 font-mono">
+        STACK: MULTILINGUAL EMBEDDINGS / ENTITY PROTECTION
+      </div>
+    </div>
+
+
+    <div class="telemetry-card p-6 rounded-xl relative flex flex-col justify-between group">
+      <div class="space-y-5">
+        <div class="w-10 h-10 rounded bg-surface border border-white/20 flex items-center justify-center group-hover:border-white transition-colors">
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m3-9.75C15 7.007 13.657 6 12 6S9 7.007 9 8.25s1.343 2.25 3 2.25 3 1.007 3 2.25S13.657 15 12 15s-3-1.007-3-2.25M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+        </div>
+        <div>
+          <div class="flex flex-wrap items-center gap-2 mb-2">
+            <h4 class="text-base font-bold text-white">Currency Localization</h4>
+            <span class="px-1.5 py-0.5 rounded text-[9px] font-mono bg-accentEmerald/10 text-accentEmerald border border-accentEmerald/30">STANDALONE MODULE</span>
+          </div>
+          <p class="text-xs text-neutral-400 leading-relaxed font-light">Present prices in the customer’s selected or regional currency with precise formatting across USD, EUR, GBP, PLN, CHF, JPY, AUD, and other global currencies.</p>
+        </div>
+      </div>
+      <div class="pt-4 mt-6 border-t border-white/10 text-[10px] text-neutral-500 font-mono">STACK: FX LOCALIZATION / REGIONAL FORMATTING</div>
+    </div>
+
+    <div class="telemetry-card p-6 rounded-xl relative flex flex-col justify-between group">
+      <div class="space-y-5">
+        <div class="w-10 h-10 rounded bg-surface border border-white/20 flex items-center justify-center group-hover:border-white transition-colors">
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m0-10.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.75c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.75h-.002A11.959 11.959 0 0112 2.714zm0 13.036h.008v.008H12v-.008z"></path>
+          </svg>
+        </div>
+        <div>
+          <h4 class="text-base font-bold text-white mb-2">Smart Triage & Spam Isolation</h4>
+          <p class="text-xs text-neutral-400 leading-relaxed font-light">
+            AI-assisted triage scores likely spam, irrelevant outreach, and genuine customer requests. Confidence thresholds can quarantine suspicious messages or escalate uncertain cases to a human.
+          </p>
+        </div>
+      </div>
+      <div class="pt-4 mt-6 border-t border-white/10 text-[10px] text-neutral-500 font-mono">
+        STACK: AI CLASSIFICATION / RULES / HUMAN FALLBACK
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- LIVE ORCHESTRATION RAIL -->
+<section class="py-8 px-6 max-w-7xl mx-auto border-t border-white/10">
+  <div class="telemetry-card rounded-2xl p-5 sm:p-7 overflow-hidden relative">
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+      <div>
+        <div class="text-[10px] font-mono uppercase tracking-[0.22em] text-neutral-500">Live Orchestration Preview</div>
+        <div class="text-sm sm:text-base font-bold text-white mt-1">Signals move through policy, context and human-review layers.</div>
+      </div>
+      <div class="flex items-center gap-2 text-[10px] font-mono text-accentEmerald uppercase tracking-widest">
+        <span class="w-1.5 h-1.5 rounded-full bg-accentEmerald shadow-[0_0_8px_#10b981] micro-blink"></span>
+        Event Stream Active
+      </div>
+    </div>
+
+    <div class="relative orchestration-line">
+      <div class="absolute left-[3%] right-[3%] top-1/2 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent -translate-y-1/2"></div>
+      <div class="flow-packet"></div>
+      <div class="grid grid-cols-5 gap-2 relative z-10">
+        <div class="flow-node rounded-lg border border-white/15 bg-pitch/90 p-3 text-center"><div class="text-[9px] font-mono text-neutral-500">01</div><div class="text-[10px] sm:text-xs font-mono font-bold text-white mt-1">INBOUND</div></div>
+        <div class="flow-node rounded-lg border border-white/15 bg-pitch/90 p-3 text-center"><div class="text-[9px] font-mono text-neutral-500">02</div><div class="text-[10px] sm:text-xs font-mono font-bold text-white mt-1">TRIAGE</div></div>
+        <div class="flow-node rounded-lg border border-white/15 bg-pitch/90 p-3 text-center"><div class="text-[9px] font-mono text-neutral-500">03</div><div class="text-[10px] sm:text-xs font-mono font-bold text-white mt-1">CONTEXT</div></div>
+        <div class="flow-node rounded-lg border border-white/15 bg-pitch/90 p-3 text-center"><div class="text-[9px] font-mono text-neutral-500">04</div><div class="text-[10px] sm:text-xs font-mono font-bold text-white mt-1">POLICY</div></div>
+        <div class="flow-node rounded-lg border border-white/15 bg-pitch/90 p-3 text-center"><div class="text-[9px] font-mono text-neutral-500">05</div><div class="text-[10px] sm:text-xs font-mono font-bold text-white mt-1">DISPATCH</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. VISUAL MAIL & SMS SORTING PIPELINE -->
+<section id="demo" class="py-24 px-6 max-w-7xl mx-auto border-t border-white/10">
+  <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-white/5 border border-white/20 text-[11px] font-mono text-white uppercase tracking-widest">
+      Interactive Processing Demonstration
+      <span class="ml-1 px-1.5 py-0.5 rounded border border-accentCyan/30 bg-accentCyan/10 text-accentCyan text-[9px]">SIMULATED</span>
+    </div>
+    <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight">Stop Reading. Experience the Future Live.</h2>
+    <p class="text-neutral-400 text-sm sm:text-base font-light">Explore a simulated processing flow showing how messages can be classified, routed, translated, and prepared for response before production integrations are connected.</p>
+  </div>
+
+  <!-- Main Telemetry Terminal -->
+  <div class="bg-obsidian border border-white/20 rounded-2xl overflow-hidden shadow-2xl relative">
+    
+    <div class="h-[2px] w-full shimmer-edge"></div>
+
+    <!-- Terminal Status Bar -->
+    <div class="px-6 py-4 bg-surface border-b border-white/10 flex flex-wrap items-center justify-between gap-4 font-mono text-xs">
+      <div class="flex items-center gap-4">
+        <div class="flex gap-1.5">
+          <span class="w-2.5 h-2.5 rounded-full bg-accentRed/80 shadow-[0_0_6px_#ef4444]"></span>
+          <span class="w-2.5 h-2.5 rounded-full bg-white/30"></span>
+          <span class="w-2.5 h-2.5 rounded-full bg-accentEmerald/80 shadow-[0_0_6px_#10b981]"></span>
+        </div>
+        <span class="text-white font-bold tracking-wider">TRIAGE CONDUIT // v4.8</span>
+        <span class="text-neutral-500 hidden sm:inline">// EMAIL & SMS PARALLEL MATRIX</span>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <span class="w-2 h-2 rounded-full bg-accentEmerald animate-ping"></span>
+        <span class="text-neutral-300 font-bold">PIPELINE: ACTIVE</span>
+      </div>
+    </div>
+
+    <!-- 3-Pane System -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 min-h-[580px]">
+      
+      <!-- Pane 1: Live Inbound Feed -->
+      <div class="lg:col-span-4 border-b lg:border-b-0 lg:border-r border-white/10 p-5 space-y-3 bg-pitch/80">
+        <div class="text-[11px] font-mono uppercase tracking-widest text-neutral-400 flex items-center justify-between pb-2 border-b border-white/5">
+          <span>Inbound Message Stream</span>
+          <span class="text-accentCyan text-[10px]">Click Scenario</span>
+        </div>
+
+        <button onclick="selectTriageItem(1)" id="triage-btn-1" class="w-full text-left p-4 rounded border border-white bg-surface transition-all block group">
+          <div class="flex items-center justify-between text-xs font-mono mb-1">
+            <span class="font-bold text-white">Sarah J. (NexusOps)</span>
+            <span class="text-[10px] text-accentEmerald border border-accentEmerald/40 px-1.5 py-0.5 rounded font-bold">EMAIL // VIP</span>
+          </div>
+          <div class="text-xs font-medium text-neutral-200 truncate">Production Auth Failure on /v2/sync</div>
+          <div class="flex items-center gap-2 mt-2 text-[10px] font-mono text-neutral-400">
+            <span class="text-neutral-500">EN</span>
+            <span>•</span>
+            <span>429 Rate Limit Incident</span>
+          </div>
+        </button>
+
+        <button onclick="selectTriageItem(2)" id="triage-btn-2" class="w-full text-left p-4 rounded border border-white/10 bg-obsidian hover:border-white/30 transition-all block group">
+          <div class="flex items-center justify-between text-xs font-mono mb-1">
+            <span class="font-bold text-neutral-300 group-hover:text-white">Olivia Chen (Northstar Systems)</span>
+            <span class="text-[10px] text-accentCyan border border-accentCyan/40 px-1.5 py-0.5 rounded font-bold">EMAIL // ACCOUNT</span>
+          </div>
+          <div class="text-xs font-medium text-neutral-300 truncate">Add 20 enterprise licenses for Q4</div>
+          <div class="flex items-center gap-2 mt-2 text-[10px] font-mono text-neutral-400">
+            <span class="text-accentCyan font-bold">EN (Verified)</span>
+            <span>•</span>
+            <span>Contract Expansion</span>
+          </div>
+        </button>
+
+        <button onclick="selectTriageItem(3)" id="triage-btn-3" class="w-full text-left p-4 rounded border border-white/10 bg-obsidian hover:border-white/30 transition-all block group">
+          <div class="flex items-center justify-between text-xs font-mono mb-1">
+            <span class="font-bold text-neutral-300 group-hover:text-white">Outbound GrowthBot</span>
+            <span class="text-[10px] text-accentRed border border-accentRed/40 px-1.5 py-0.5 rounded font-bold">SMS SPAM</span>
+          </div>
+          <div class="text-xs font-medium text-neutral-300 truncate">+1 (800) 555-0199: Claim free marketing credits...</div>
+          <div class="flex items-center gap-2 mt-2 text-[10px] font-mono text-neutral-400">
+            <span class="text-accentRed">Cold SMS Blast</span>
+            <span>•</span>
+            <span>Isolated</span>
+          </div>
+        </button>
+      </div>
+
+      <!-- Pane 2: Telemetry & Synthesis -->
+      <div class="lg:col-span-8 p-6 sm:p-8 flex flex-col justify-between bg-obsidian relative">
+        
+        <div class="space-y-6">
+          
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="p-3 rounded border border-white/10 bg-surface">
+              <div class="text-[10px] font-mono text-neutral-500 uppercase">Classified Intent</div>
+              <div id="data-intent" class="text-xs font-bold text-white mt-1 font-mono">Critical API Failure</div>
+            </div>
+
+            <div class="p-3 rounded border border-white/10 bg-surface">
+              <div class="text-[10px] font-mono text-neutral-500 uppercase">Target Route</div>
+              <div id="data-route" class="text-xs font-bold text-accentCyan mt-1 font-mono">Slack #devops-alert</div>
+            </div>
+
+            <div class="p-3 rounded border border-white/10 bg-surface">
+              <div class="text-[10px] font-mono text-neutral-500 uppercase">Channel / Language</div>
+              <div id="data-lang" class="text-xs font-bold text-accentEmerald mt-1 font-mono">Email / Native EN (100%)</div>
+            </div>
+
+            <div class="p-3 rounded border border-white/10 bg-surface">
+              <div class="text-[10px] font-mono text-neutral-500 uppercase">Security Isolation</div>
+              <div id="data-safety" class="text-xs font-bold text-accentEmerald mt-1 font-mono">Verified Clean</div>
+            </div>
+          </div>
+
+          <!-- Neural Synthesis Output Box with Laser Beam -->
+          <div class="relative p-6 rounded-lg border border-white/20 bg-pitch overflow-hidden">
+            <div class="absolute left-0 right-0 h-[2px] bg-accentCyan shadow-[0_0_10px_#00f0ff] scanner-beam pointer-events-none"></div>
+
+            <div class="flex items-center justify-between pb-3 border-b border-white/10 text-xs font-mono">
+              <span class="text-neutral-300 flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-accentCyan"></span>
+                <span>AUTONOMOUS CONTEXTUAL DISPATCH</span>
+              </span>
+
+              <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-white text-pitch font-bold text-[10px] uppercase font-mono">
+                <svg class="w-3.5 h-3.5 text-pitch" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path>
+                </svg>
+                <span>AI-Assisted Draft</span>
+              </div>
+            </div>
+
+            <div id="triage-output-content" class="mt-4 font-mono text-xs text-neutral-200 leading-relaxed whitespace-pre-wrap min-h-[160px]">
+
+Hi Sarah,
+
+We verified your API credentials for organization 'NexusOps'. Our engineering telemetry indicates the 429 response was generated by rate limits on /v2/sync following your scheduled batch surge at 11:20 UTC.
+
+We have elevated your tier threshold instantly and routed this incident ticket to our Lead DevOps Engineer on Slack. You can resume requests immediately.
+</div>
+</div>
+
+        </div>
+
+        <div class="pt-6 border-t border-white/10 text-[11px] font-mono text-neutral-500">
+          [DEMONSTRATION OUTPUT // AI-assisted draft subject to configured review, approval and routing policies]
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- STANDALONE CURRENCY LOCALIZATION MODULE -->
+<section id="currency" class="py-24 px-6 max-w-7xl mx-auto border-t border-white/10">
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+    <div class="lg:col-span-5 space-y-5">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-accentEmerald/10 border border-accentEmerald/30 text-[11px] font-mono text-accentEmerald uppercase tracking-widest">
+        Live Currency Module
+      </div>
+
+      <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
+        One Offer. Every Market.
+      </h2>
+
+      <p class="text-sm sm:text-base text-neutral-400 font-light leading-relaxed">
+        Convert your source offer using current reference exchange rates and regional number formatting.
+        The module updates directly from an external FX data source instead of relying on hard-coded values.
+      </p>
+
+      <div class="flex flex-wrap gap-2 font-mono text-[10px] text-neutral-300">
+        <span class="rounded border border-white/15 bg-surface px-2 py-1">USD</span>
+        <span class="rounded border border-white/15 bg-surface px-2 py-1">EUR</span>
+        <span class="rounded border border-white/15 bg-surface px-2 py-1">GBP</span>
+        <span class="rounded border border-white/15 bg-surface px-2 py-1">PLN</span>
+        <span class="rounded border border-white/15 bg-surface px-2 py-1">CHF</span>
+        <span class="rounded border border-white/15 bg-surface px-2 py-1">JPY</span>
+        <span class="rounded border border-white/15 bg-surface px-2 py-1">AUD</span>
+        <span class="rounded border border-white/15 bg-surface px-2 py-1">CAD</span>
+        <span class="rounded border border-white/15 bg-surface px-2 py-1">SEK</span>
+        <span class="rounded border border-white/15 bg-surface px-2 py-1">NOK</span>
+      </div>
+    </div>
+
+    <div class="lg:col-span-7 bg-obsidian border border-white/20 rounded-2xl overflow-hidden shadow-2xl">
+      <div class="h-[2px] w-full shimmer-edge"></div>
+
+      <div class="p-6 sm:p-8 space-y-6">
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <div class="text-[10px] font-mono uppercase tracking-widest text-neutral-500">
+              Currency Localization Engine
+            </div>
+            <div class="mt-1 text-sm font-bold text-white">
+              Reference FX Converter
+            </div>
+          </div>
+
+          <span id="fx-status-badge"
+                class="self-start rounded border border-accentEmerald/30 bg-accentEmerald/10 px-2.5 py-1 text-[10px] font-mono font-bold text-accentEmerald">
+            CHECKING CURRENT RATE
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 gap-4">
+          <div>
+            <label for="currency-source-amount" class="block mb-2 text-[10px] font-mono uppercase tracking-widest text-neutral-500">
+              Source amount
+            </label>
+
+            <div class="rounded-xl border border-white/10 bg-surface p-3 sm:p-4 focus-within:border-white/35 transition-colors">
+              <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+                <input
+                  id="currency-source-amount"
+                  type="number"
+                  value="2000"
+                  min="0"
+                  step="0.01"
+                  inputmode="decimal"
+                  aria-label="Source amount"
+                  class="w-0 min-w-0 flex-1 bg-transparent text-xl sm:text-2xl font-bold text-white font-mono tabular-nums outline-none"
+                >
+
+                <select
+                  id="currency-source-code"
+                  aria-label="Source currency"
+                  class="w-[88px] shrink-0 bg-pitch border border-white/15 rounded-lg px-2.5 py-2 text-xs font-mono font-bold text-white outline-none hover:border-white/35 focus:border-accentCyan transition-colors cursor-pointer">
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex justify-center -my-1">
+            <button
+              id="currency-swap"
+              type="button"
+              aria-label="Swap currencies"
+              class="w-10 h-10 shrink-0 rounded-full border border-white/15 bg-surface text-white hover:border-accentCyan hover:text-accentCyan hover:shadow-[0_0_16px_rgba(0,240,255,.14)] transition-all flex items-center justify-center">
+              <svg class="w-4 h-4 rotate-90" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M7 7h11m0 0-3-3m3 3-3 3M17 17H6m0 0 3 3m-3-3 3-3"/>
+              </svg>
+            </button>
+          </div>
+
+          <div>
+            <label for="currency-target-code" class="block mb-2 text-[10px] font-mono uppercase tracking-widest text-neutral-500">
+              Customer currency
+            </label>
+
+            <div class="rounded-xl border border-accentEmerald/30 bg-accentEmerald/5 p-3 sm:p-4">
+              <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+                <div id="currency-amount"
+                     class="w-0 min-w-0 flex-1 text-xl sm:text-2xl font-bold text-accentEmerald font-mono tabular-nums truncate">
+                  —
+                </div>
+
+                <select
+                  id="currency-target-code"
+                  aria-label="Target currency"
+                  class="w-[88px] shrink-0 bg-pitch border border-accentEmerald/25 rounded-lg px-2.5 py-2 text-xs font-mono font-bold text-accentEmerald outline-none hover:border-accentEmerald/50 focus:border-accentEmerald transition-colors cursor-pointer">
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div class="rounded-lg border border-white/10 bg-pitch/70 p-3">
+            <div class="text-[9px] font-mono uppercase tracking-wider text-neutral-600">Current rate</div>
+            <div id="currency-rate" class="mt-1 text-xs font-mono font-bold text-white break-words">—</div>
+          </div>
+
+          <div class="rounded-lg border border-white/10 bg-pitch/70 p-3">
+            <div class="text-[9px] font-mono uppercase tracking-wider text-neutral-600">Rate status</div>
+            <div id="currency-rate-date" class="mt-1 text-xs font-mono font-bold text-white">CURRENT REFERENCE RATE</div>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-4 text-[10px] font-mono">
+          <span id="currency-market" class="text-accentEmerald font-bold">● CURRENT RATE ACTIVE</span>
+          <span id="currency-last-check" class="text-neutral-500">Waiting for current rate…</span>
+        </div>
+
+        <div id="currency-error"
+             class="hidden rounded border border-accentRed/30 bg-accentRed/5 px-3 py-2 text-[10px] font-mono text-accentRed">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. REDESIGNED ULTRA-SIMPLE CONTACT FORM -->
+<section id="contact" class="py-24 px-6 max-w-4xl mx-auto border-t border-white/10">
+  <div class="text-center space-y-4 mb-12">
+    <h2 class="text-xs font-mono font-bold uppercase tracking-widest text-neutral-400">Architecture Consultation</h2>
+    <h3 class="text-3xl sm:text-5xl font-black text-white tracking-tight">Initiate Your Automation Pipeline</h3>
+    <p class="text-sm text-neutral-400 font-light">Share your current workflow and message volume. We’ll review the use case and follow up with a practical automation scope, integration path, and next-step proposal.</p>
+  </div>
+
+  <form onsubmit="handleContactSubmission(event)" class="telemetry-card p-8 sm:p-10 rounded-xl space-y-5 max-w-2xl mx-auto">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+      <div class="space-y-1.5">
+        <label class="block text-xs uppercase font-mono text-neutral-300">Name</label>
+        <input type="text" required placeholder="Elena Vance" class="w-full px-4 py-3 bg-surface border border-white/15 rounded text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-white transition-all font-mono">
+      </div>
+      <div class="space-y-1.5">
+        <label class="block text-xs uppercase font-mono text-neutral-300">Work Email</label>
+        <input type="email" required placeholder="elena@company.com" class="w-full px-4 py-3 bg-surface border border-white/15 rounded text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-white transition-all font-mono">
+      </div>
+    </div>
+
+    <div class="space-y-1.5">
+      <label class="block text-xs uppercase font-mono text-neutral-300">Automation Scope</label>
+      <select class="w-full px-4 py-3 bg-surface border border-white/15 rounded text-sm text-white focus:outline-none focus:border-white transition-all font-mono cursor-pointer">
+        <option value="omnichannel">Full Autonomous Operations (Chatbot + Email &amp; SMS Triage)</option>
+        <option value="email-sms">Dual Email &amp; SMS Auto-Triage Pipeline</option>
+        <option value="chatbot">24/7 Contextual Chatbot (CRM &amp; Database Integration)</option>
+        <option value="spam-isolation">Enterprise AI Spam Vaporizer &amp; Alert Routing</option>
+      </select>
+    </div>
+
+    <div class="space-y-1.5">
+      <label class="block text-xs uppercase font-mono text-neutral-300">Monthly Message Volume</label>
+      <select class="w-full px-4 py-3 bg-surface border border-white/15 rounded text-sm text-white focus:outline-none focus:border-white transition-all font-mono cursor-pointer">
+        <option value="under-5k">&lt; 5,000 messages / mo</option>
+        <option value="5k-25k">5,000 – 25,000 messages / mo</option>
+        <option value="25k-100k">25,000 – 100,000 messages / mo</option>
+        <option value="100k+">100,000+ messages / mo (Enterprise Scale)</option>
+      </select>
+    </div>
+
+    <div id="contact-feedback-notice" class="hidden text-xs font-mono text-accentEmerald text-center py-2.5 border border-accentEmerald/30 bg-surface"></div>
+
+    <button type="submit" class="w-full py-3.5 bg-white text-pitch text-xs uppercase tracking-widest font-mono font-black rounded hover:bg-neutral-200 hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] transition-all">
+      Launch Free Process Analysis
+    </button>
+  </form>
+</section>
+
+  </main>
+
+  <!-- VANILLA JAVASCRIPT: TRIAGE CONTROLLER -->
+
+  <script>
+    const triageMatrix = {
+      1: {
+        intent: "Critical API Incident",
+        route: "Slack #devops-alert",
+        lang: "Email / Native EN (100%)",
+        safety: "Verified Clean",
+        output: `Hi Sarah,\n\nWe verified your API credentials for organization 'NexusOps'. Our engineering telemetry indicates the 429 response was generated by rate limits on /v2/sync following your scheduled batch surge at 11:20 UTC.\n\nWe have elevated your tier threshold instantly and routed this incident ticket to our Lead DevOps Engineer on Slack. You can resume requests immediately.`
+      },
+      2: {
+        intent: "Enterprise License Upgrade",
+        route: "Stripe Billing / CRM Sync",
+        lang: "Email / Native EN (100%)",
+        safety: "Commercial Terms Verified",
+        output: `Hi Olivia,\n\nThank you for contacting us on behalf of Northstar Systems. We prepared the quote for 20 additional enterprise licenses for the fourth quarter.\n\nSelect [Review license quote] to continue. Your Northstar Systems administrator account will update after approval.`
+      },
+      3: {
+        intent: "Cold Outbound SMS Blast",
+        route: "SMS Security Vault",
+        lang: "SMS / Marketing Scrape",
+        safety: "Isolated (Zero Alert)",
+        output: `[ISOLATED BY SYNVIO THREAT VAULT]\n\nReason: Origin telephone number +1 (800) 555-0199 flagged in global telephony spam registry. Intent classified as unsolicited bulk promotional text.\n\nAction: Silently quarantined in security silo. Zero human staff interrupted.`
+      }
+    };
+
+    function selectTriageItem(id) {
+      for (let i = 1; i <= 3; i++) {
+        const btn = document.getElementById(`triage-btn-${i}`);
+        if (i === id) {
+          btn.className = "w-full text-left p-4 rounded border border-white bg-surface transition-all block group";
+        } else {
+          btn.className = "w-full text-left p-4 rounded border border-white/10 bg-obsidian hover:border-white/30 transition-all block group";
+        }
+      }
+
+      const item = triageMatrix[id];
+      document.getElementById('data-intent').textContent = item.intent;
+      document.getElementById('data-route').textContent = item.route;
+      document.getElementById('data-lang').textContent = item.lang;
+      document.getElementById('data-safety').textContent = item.safety;
+      document.getElementById('triage-output-content').textContent = item.output;
+
+    }
+
+
+    // =========================================================
+    // LIVE CURRENCY CONVERTER — FRANKFURTER API
+    // =========================================================
+    const supportedCurrencies = [
+      "USD", "EUR", "GBP", "PLN", "CHF", "JPY", "AUD", "CAD",
+      "SEK", "NOK", "DKK", "CZK", "HUF", "RON", "BGN", "TRY",
+      "CNY", "HKD", "SGD", "NZD", "INR", "BRL", "MXN", "ZAR",
+      "ILS", "KRW", "IDR", "MYR", "PHP", "THB", "ISK"
+    ];
+
+    const currencyLocales = {
+      USD: "en-US",
+      EUR: "de-DE",
+      GBP: "en-GB",
+      PLN: "pl-PL",
+      CHF: "de-CH",
+      JPY: "ja-JP",
+      AUD: "en-AU",
+      CAD: "en-CA",
+      SEK: "sv-SE",
+      NOK: "nb-NO",
+      DKK: "da-DK",
+      CZK: "cs-CZ",
+      HUF: "hu-HU",
+      RON: "ro-RO",
+      BGN: "bg-BG",
+      TRY: "tr-TR",
+      CNY: "zh-CN",
+      HKD: "zh-HK",
+      SGD: "en-SG",
+      NZD: "en-NZ",
+      INR: "en-IN",
+      BRL: "pt-BR",
+      MXN: "es-MX",
+      ZAR: "en-ZA",
+      ILS: "he-IL",
+      KRW: "ko-KR",
+      IDR: "id-ID",
+      MYR: "ms-MY",
+      PHP: "en-PH",
+      THB: "th-TH",
+      ISK: "is-IS"
+    };
+
+    const fxCache = new Map();
+
+    const sourceAmountInput = document.getElementById("currency-source-amount");
+    const sourceCodeSelect = document.getElementById("currency-source-code");
+    const targetCodeSelect = document.getElementById("currency-target-code");
+    const swapButton = document.getElementById("currency-swap");
+    const amountOutput = document.getElementById("currency-amount");
+    const rateOutput = document.getElementById("currency-rate");
+    const rateDateOutput = document.getElementById("currency-rate-date");
+    const lastCheckOutput = document.getElementById("currency-last-check");
+    const statusBadge = document.getElementById("fx-status-badge");
+    const marketOutput = document.getElementById("currency-market");
+    const errorOutput = document.getElementById("currency-error");
+
+    function fillCurrencySelect(select, selected) {
+      supportedCurrencies.forEach((code) => {
+        const option = document.createElement("option");
+        option.value = code;
+        option.textContent = code;
+        if (code === selected) option.selected = true;
+        select.appendChild(option);
+      });
+    }
+
+    fillCurrencySelect(sourceCodeSelect, "USD");
+    fillCurrencySelect(targetCodeSelect, "PLN");
+
+    function formatCurrency(value, code) {
+      const locale = currencyLocales[code] || "en-US";
+      const noDecimals = ["JPY", "KRW"].includes(code);
+
+      return new Intl.NumberFormat(locale, {
+        style: "currency",
+        currency: code,
+        minimumFractionDigits: noDecimals ? 0 : 2,
+        maximumFractionDigits: noDecimals ? 0 : 2
+      }).format(value);
+    }
+
+    function setFxLoading(isLoading) {
+      if (isLoading) {
+        statusBadge.textContent = "UPDATING FX DATA";
+        statusBadge.className =
+          "self-start rounded border border-accentCyan/30 bg-accentCyan/10 px-2.5 py-1 text-[10px] font-mono font-bold text-accentCyan";
+      } else {
+        statusBadge.textContent = "CURRENT RATE ACTIVE";
+        statusBadge.className =
+          "self-start rounded border border-accentEmerald/30 bg-accentEmerald/10 px-2.5 py-1 text-[10px] font-mono font-bold text-accentEmerald";
+      }
+    }
+
+    function showFxError(message) {
+      errorOutput.textContent = message;
+      errorOutput.classList.remove("hidden");
+
+      statusBadge.textContent = "FX DATA ERROR";
+      statusBadge.className =
+        "self-start rounded border border-accentRed/30 bg-accentRed/10 px-2.5 py-1 text-[10px] font-mono font-bold text-accentRed";
+
+      marketOutput.textContent = "● RATE UNAVAILABLE";
+      marketOutput.className = "text-accentRed font-bold";
+    }
+
+    function clearFxError() {
+      errorOutput.classList.add("hidden");
+      errorOutput.textContent = "";
+      marketOutput.textContent = "● FX DATA ACTIVE";
+      marketOutput.className = "text-accentEmerald font-bold";
+    }
+
+    async function getFxRate(base, quote) {
+      if (base === quote) {
+        return {
+          rate: 1,
+          date: new Date().toISOString().slice(0, 10)
+        };
+      }
+
+      const cacheKey = `${base}-${quote}`;
+      const cached = fxCache.get(cacheKey);
+
+      // Cache browser-side for 10 minutes.
+      if (cached && Date.now() - cached.cachedAt < 10 * 60 * 1000) {
+        return cached;
+      }
+
+      const response = await fetch(
+        `https://api.frankfurter.dev/v2/rate/${encodeURIComponent(base)}/${encodeURIComponent(quote)}`,
+        {
+          headers: {
+            "Accept": "application/json"
+          }
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`FX request failed (${response.status})`);
+      }
+
+      const data = await response.json();
+
+      if (!data || typeof data.rate !== "number") {
+        throw new Error("Invalid FX response");
+      }
+
+      const result = {
+        rate: data.rate,
+        date: data.date,
+        cachedAt: Date.now()
+      };
+
+      fxCache.set(cacheKey, result);
+      return result;
+    }
+
+    let conversionRequestId = 0;
+    let conversionTimer = null;
+
+    async function updateCurrencyConversion() {
+      const requestId = ++conversionRequestId;
+      const amount = Number(sourceAmountInput.value);
+      const base = sourceCodeSelect.value;
+      const quote = targetCodeSelect.value;
+
+      clearFxError();
+
+      if (!Number.isFinite(amount) || amount < 0) {
+        amountOutput.textContent = "—";
+        rateOutput.textContent = "—";
+        rateDateOutput.textContent = "RATE UNAVAILABLE";
+        lastCheckOutput.textContent = "Enter a valid source amount";
+        return;
+      }
+
+      setFxLoading(true);
+
+      try {
+        const fx = await getFxRate(base, quote);
+
+        if (requestId !== conversionRequestId) return;
+
+        const converted = amount * fx.rate;
+
+        amountOutput.textContent = formatCurrency(converted, quote);
+        rateOutput.textContent = `1 ${base} = ${fx.rate.toLocaleString("en-US", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 6
+        })} ${quote}`;
+
+        rateDateOutput.textContent = fx.date
+          ? `CURRENT · ${fx.date}`
+          : "CURRENT REFERENCE RATE";
+
+        lastCheckOutput.textContent =
+          `Checked ${new Date().toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit"
+          })}`;
+
+        setFxLoading(false);
+      } catch (error) {
+        console.error("Currency conversion error:", error);
+
+        if (requestId !== conversionRequestId) return;
+
+        amountOutput.textContent = "—";
+        rateOutput.textContent = "—";
+        rateDateOutput.textContent = "—";
+        lastCheckOutput.textContent = "Could not refresh rate";
+
+        showFxError(
+          "Unable to load the current exchange rate. Please try again in a moment."
+        );
+      }
+    }
+
+    function scheduleCurrencyUpdate() {
+      clearTimeout(conversionTimer);
+      conversionTimer = setTimeout(updateCurrencyConversion, 180);
+    }
+
+    sourceAmountInput.addEventListener("input", scheduleCurrencyUpdate);
+    sourceCodeSelect.addEventListener("change", updateCurrencyConversion);
+    targetCodeSelect.addEventListener("change", updateCurrencyConversion);
+
+    swapButton.addEventListener("click", () => {
+      const previousSource = sourceCodeSelect.value;
+      sourceCodeSelect.value = targetCodeSelect.value;
+      targetCodeSelect.value = previousSource;
+      updateCurrencyConversion();
+    });
+
+    updateCurrencyConversion();
+
+    function handleContactSubmission(e) {
+      e.preventDefault();
+      const notice = document.getElementById('contact-feedback-notice');
+      notice.classList.remove('hidden');
+      notice.textContent = "INQUIRY LOGGED: Architectural blueprint and volume analysis queued for delivery.";
+      e.target.reset();
+    }
+
+
+    // Keep the shared footer credible without modifying the working chat bundle.
+    window.addEventListener('DOMContentLoaded', () => {
+      const updateFooterCopy = () => {
+        const footer = document.getElementById('synvio-footer');
+        if (!footer) return false;
+        const copy = [...footer.querySelectorAll('span')].find((el) =>
+          el.textContent.includes('All systems deploy built-in safety guardrails')
+        );
+        if (copy) {
+          copy.textContent = 'AI-assisted workflows can include configurable review, routing and escalation controls. Production behavior depends on connected models, data sources and client-defined policies.';
+        }
+        return true;
+      };
+      if (!updateFooterCopy()) {
+        const obs = new MutationObserver(() => { if (updateFooterCopy()) obs.disconnect(); });
+        obs.observe(document.body, { childList: true, subtree: true });
+      }
+    });
+
+  </script>
+
+</body>
+</html>
