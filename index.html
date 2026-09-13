@@ -860,21 +860,21 @@ We have elevated your tier threshold instantly and routed this incident ticket t
     <p class="text-sm text-neutral-400 font-light">Share your current workflow and message volume. We’ll review the use case and follow up with a practical automation scope, integration path, and next-step proposal.</p>
   </div>
 
-  <form onsubmit="handleContactSubmission(event)" class="telemetry-card p-8 sm:p-10 rounded-xl space-y-5 max-w-2xl mx-auto">
+  <form id="synvio-contact-form" class="telemetry-card p-8 sm:p-10 rounded-xl space-y-5 max-w-2xl mx-auto">
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
       <div class="space-y-1.5">
         <label class="block text-xs uppercase font-mono text-neutral-300">Name</label>
-        <input type="text" required placeholder="Elena Vance" class="w-full px-4 py-3 bg-surface border border-white/15 rounded text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-white transition-all font-mono">
+        <input type="text" name="name" required placeholder="Elena Vance" class="w-full px-4 py-3 bg-surface border border-white/15 rounded text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-white transition-all font-mono">
       </div>
       <div class="space-y-1.5">
         <label class="block text-xs uppercase font-mono text-neutral-300">Work Email</label>
-        <input type="email" required placeholder="elena@company.com" class="w-full px-4 py-3 bg-surface border border-white/15 rounded text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-white transition-all font-mono">
+        <input type="email" name="email" required placeholder="elena@company.com" class="w-full px-4 py-3 bg-surface border border-white/15 rounded text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-white transition-all font-mono">
       </div>
     </div>
 
     <div class="space-y-1.5">
       <label class="block text-xs uppercase font-mono text-neutral-300">Automation Scope</label>
-      <select class="w-full px-4 py-3 bg-surface border border-white/15 rounded text-sm text-white focus:outline-none focus:border-white transition-all font-mono cursor-pointer">
+      <select name="automation_scope" class="w-full px-4 py-3 bg-surface border border-white/15 rounded text-sm text-white focus:outline-none focus:border-white transition-all font-mono cursor-pointer">
         <option value="omnichannel">Full Autonomous Operations (Chatbot + Email &amp; SMS Triage)</option>
         <option value="email-sms">Dual Email &amp; SMS Auto-Triage Pipeline</option>
         <option value="chatbot">24/7 Contextual Chatbot (CRM &amp; Database Integration)</option>
@@ -884,13 +884,30 @@ We have elevated your tier threshold instantly and routed this incident ticket t
 
     <div class="space-y-1.5">
       <label class="block text-xs uppercase font-mono text-neutral-300">Monthly Message Volume</label>
-      <select class="w-full px-4 py-3 bg-surface border border-white/15 rounded text-sm text-white focus:outline-none focus:border-white transition-all font-mono cursor-pointer">
+      <select name="monthly_volume" class="w-full px-4 py-3 bg-surface border border-white/15 rounded text-sm text-white focus:outline-none focus:border-white transition-all font-mono cursor-pointer">
         <option value="under-5k">&lt; 5,000 messages / mo</option>
         <option value="5k-25k">5,000 – 25,000 messages / mo</option>
         <option value="25k-100k">25,000 – 100,000 messages / mo</option>
         <option value="100k+">100,000+ messages / mo (Enterprise Scale)</option>
       </select>
     </div>
+
+    <div class="space-y-1.5">
+      <label class="block text-xs uppercase font-mono text-neutral-300">Workflow / Message Example</label>
+      <textarea
+        name="message"
+        rows="5"
+        required
+        placeholder="Describe the workflow you want to automate, or paste an example message you want Synvio to process..."
+        class="w-full px-4 py-3 bg-surface border border-white/15 rounded text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-white transition-all font-mono resize-y"
+      ></textarea>
+      <p class="text-[10px] font-mono text-neutral-600">
+        You can also paste a sample support, sales or suspicious message for testing.
+      </p>
+    </div>
+
+    <!-- Formspree honeypot: real users never see this field -->
+    <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true">
 
     <div id="contact-feedback-notice" class="hidden text-xs font-mono text-accentEmerald text-center py-2.5 border border-accentEmerald/30 bg-surface"></div>
 
@@ -1187,12 +1204,66 @@ We have elevated your tier threshold instantly and routed this incident ticket t
 
     updateCurrencyConversion();
 
-    function handleContactSubmission(e) {
-      e.preventDefault();
-      const notice = document.getElementById('contact-feedback-notice');
-      notice.classList.remove('hidden');
-      notice.textContent = "INQUIRY LOGGED: Architectural blueprint and volume analysis queued for delivery.";
-      e.target.reset();
+    // =========================================================
+    // CONTACT FORM — FORMSPREE
+    // =========================================================
+    const contactForm = document.getElementById("synvio-contact-form");
+    const contactNotice = document.getElementById("contact-feedback-notice");
+    const contactSubmitButton = contactForm?.querySelector('button[type="submit"]');
+    const FORMSPREE_ENDPOINT = "https://formspree.io/f/xbgjvaaq";
+
+    if (contactForm) {
+      contactForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const originalButtonText = contactSubmitButton.textContent;
+
+        contactNotice.classList.remove("hidden", "text-accentRed", "border-accentRed/30");
+        contactNotice.classList.add("text-accentCyan", "border-accentCyan/30");
+        contactNotice.textContent = "TRANSMITTING INQUIRY...";
+
+        contactSubmitButton.disabled = true;
+        contactSubmitButton.textContent = "TRANSMITTING...";
+        contactSubmitButton.classList.add("opacity-60", "cursor-not-allowed");
+
+        try {
+          const formData = new FormData(contactForm);
+
+          const response = await fetch(FORMSPREE_ENDPOINT, {
+            method: "POST",
+            body: formData,
+            headers: {
+              "Accept": "application/json"
+            }
+          });
+
+          if (!response.ok) {
+            const data = await response.json().catch(() => null);
+            const message =
+              data?.errors?.map((error) => error.message).join(", ") ||
+              "Form submission failed.";
+            throw new Error(message);
+          }
+
+          contactNotice.classList.remove("text-accentCyan", "border-accentCyan/30");
+          contactNotice.classList.add("text-accentEmerald", "border-accentEmerald/30");
+          contactNotice.textContent =
+            "✓ INQUIRY SENT: Your workflow has been transmitted successfully.";
+
+          contactForm.reset();
+        } catch (error) {
+          console.error("Formspree submission error:", error);
+
+          contactNotice.classList.remove("text-accentCyan", "border-accentCyan/30");
+          contactNotice.classList.add("text-accentRed", "border-accentRed/30");
+          contactNotice.textContent =
+            "TRANSMISSION FAILED — please check the form and try again.";
+        } finally {
+          contactSubmitButton.disabled = false;
+          contactSubmitButton.textContent = originalButtonText;
+          contactSubmitButton.classList.remove("opacity-60", "cursor-not-allowed");
+        }
+      });
     }
 
 
