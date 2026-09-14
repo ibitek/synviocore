@@ -1,1292 +1,270 @@
 <!DOCTYPE html>
-
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Synvio AI | Autonomous Customer Support, Email & SMS Workflows</title>
-  <meta name="description" content="Autonomous AI systems for enterprise customer support, English-only email and SMS triage, language translation, and global currency localization.">
-
-  <!-- Inter & JetBrains Mono Fonts -->
-
+  <title>Synvio AI — Customer Support Workspace for Email & AI Chat</title>
+  <meta name="description" content="Synvio is a multi-tenant customer support workspace: real email tickets and replies today, with AI web chat and human handoff being integrated into the same operator platform.">
+  <meta name="theme-color" content="#000000">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-
-  <!-- Tailwind CSS via CDN -->
-
   <script src="https://cdn.tailwindcss.com"></script>
-
   <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-            mono: ['JetBrains Mono', 'monospace'],
-          },
-          colors: {
-            pitch: '#000000',
-            obsidian: '#070707',
-            surface: '#111111',
-            surfaceHover: '#161616',
-            accentCyan: '#00f0ff',
-            accentEmerald: '#10b981',
-            accentRed: '#ef4444'
-          }
-        }
-      }
-    }
+    tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','sans-serif'],mono:['JetBrains Mono','monospace']},colors:{pitch:'#000000',obsidian:'#070707',surface:'#111111',surfaceHover:'#161616',accentCyan:'#00f0ff',accentEmerald:'#10b981',accentRed:'#ef4444',accentAmber:'#f4b740'}}}}
   </script>
-
-  <!-- Custom CSS Keyframe Animations -->
-
   <style>
-    /* Animated Grid Canvas */
-    .bg-grid-canvas {
-      background-size: 44px 44px;
-      background-image: 
-        linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-    }
+    :root{color-scheme:dark;--cyan:#00e7f2;--green:#38d39f;--amber:#f4b740;--red:#ff5b67;--line:rgba(255,255,255,.085);--line2:rgba(255,255,255,.15)}
+    *{box-sizing:border-box} html{background:#000} body{margin:0;background:#000;color:#f3f4f6;overflow-x:hidden}
+    ::selection{background:#fff;color:#000}
+    .bg-grid-canvas{background-size:44px 44px;background-image:linear-gradient(to right,rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,.035) 1px,transparent 1px);animation:gridDrift 24s linear infinite}
+    @keyframes gridDrift{to{background-position:44px 44px}}
+    .ambient-glow{background:radial-gradient(circle at 50% 15%,rgba(0,240,255,.07),rgba(16,185,129,.025) 30%,transparent 68%)}
+    .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.8,.2,1),transform .7s cubic-bezier(.2,.8,.2,1)}.reveal.visible{opacity:1;transform:none}
+    .eyebrow{display:inline-flex;align-items:center;gap:.55rem;font-family:'JetBrains Mono',monospace;font-size:.68rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#9ca3aa}.eyebrow:before{content:'';width:6px;height:6px;border-radius:50%;background:#00f0ff;box-shadow:0 0 12px #00f0ff}
+    .panel-glass{background:linear-gradient(180deg,rgba(14,14,14,.94),rgba(5,5,5,.98));border:1px solid rgba(255,255,255,.1);box-shadow:0 28px 90px rgba(0,0,0,.5)}
+    .soft-card{background:rgba(10,10,10,.78);border:1px solid rgba(255,255,255,.085);backdrop-filter:blur(14px)}
+    .shine{position:relative;overflow:hidden}.shine:after{content:'';position:absolute;inset:-200% -70%;background:linear-gradient(110deg,transparent 44%,rgba(255,255,255,.055) 50%,transparent 56%);transform:translateX(-50%);animation:shine 8s ease-in-out infinite;pointer-events:none}@keyframes shine{0%,35%{transform:translateX(-50%)}65%,100%{transform:translateX(50%)}}
+    .scanner{position:absolute;left:0;right:0;height:1px;background:#00f0ff;box-shadow:0 0 16px #00f0ff;opacity:.65;animation:scan 4.8s ease-in-out infinite}@keyframes scan{0%{top:5%;opacity:0}10%,90%{opacity:.65}100%{top:95%;opacity:0}}
+    .mouse-glow{position:fixed;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(0,240,255,.055),transparent 68%);pointer-events:none;z-index:0;transform:translate(-50%,-50%);transition:opacity .2s ease}
+    .orb-wrap{perspective:900px;transform-style:preserve-3d}.orb-ring{position:absolute;inset:50%;width:340px;height:340px;margin:-170px;border:1px solid rgba(255,255,255,.12);border-radius:50%;transform-style:preserve-3d}.orb-ring.r1{transform:rotateX(66deg) rotateZ(15deg);animation:spin1 15s linear infinite}.orb-ring.r2{transform:rotateY(68deg) rotateZ(32deg);animation:spin2 21s linear infinite reverse}.orb-ring.r3{width:250px;height:250px;margin:-125px;border-color:rgba(0,240,255,.23);transform:rotateX(25deg) rotateY(62deg);animation:spin1 10s linear infinite reverse}@keyframes spin1{to{transform:rotateX(66deg) rotateZ(375deg)}}@keyframes spin2{to{transform:rotateY(68deg) rotateZ(392deg)}}
+    .orb-dot{position:absolute;width:8px;height:8px;border-radius:50%;background:#00f0ff;box-shadow:0 0 18px #00f0ff;animation:orbitDot 5s ease-in-out infinite}@keyframes orbitDot{0%,100%{transform:translate3d(-145px,-40px,0);opacity:.35}50%{transform:translate3d(145px,65px,0);opacity:1}}
+    .signal-line{height:1px;background:linear-gradient(90deg,transparent,rgba(0,240,255,.8),transparent);background-size:220% 100%;animation:signal 2.8s linear infinite}@keyframes signal{to{background-position:-220% 0}}
+    .status-pulse{animation:statusPulse 2s ease-in-out infinite}@keyframes statusPulse{50%{box-shadow:0 0 18px rgba(56,211,159,.85)}}
 
-    /* Ambient Subtle Glow */
-    .ambient-glow {
-      background: radial-gradient(circle at 50% 10%, rgba(0, 240, 255, 0.04) 0%, rgba(16, 185, 129, 0.02) 30%, transparent 70%);
-    }
+    /* Demo: deliberately mirrors the current Synvio app.css layout */
+    .demo-frame{border:1px solid rgba(255,255,255,.14);border-radius:15px;background:#050505;overflow:hidden;box-shadow:0 36px 110px rgba(0,0,0,.62)}
+    .demo-app{height:700px;display:grid;grid-template-rows:64px minmax(0,1fr);background:radial-gradient(circle at 50% -15%,rgba(0,231,242,.06),transparent 35%),#050505;font-family:Inter,sans-serif}
+    .demo-topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:0 18px;border-bottom:1px solid var(--line);background:rgba(5,5,5,.94)}
+    .demo-brand{display:flex;align-items:center;gap:11px}.demo-brand-mark{width:30px;height:30px;border:1px solid rgba(255,255,255,.22);border-radius:9px;display:grid;place-items:center;transform:rotate(45deg)}.demo-brand-mark:after{content:'';width:7px;height:7px;background:var(--cyan);box-shadow:0 0 12px rgba(0,231,242,.8)}
+    .demo-brand-name{font-size:14px;line-height:1;font-weight:800;letter-spacing:.11em}.demo-brand-sub{margin-top:5px;font-family:'JetBrains Mono';font-size:8px;color:#555b63;text-transform:uppercase}
+    .demo-topnav{display:flex;gap:4px}.demo-nav{height:34px;padding:0 12px;border:1px solid transparent;border-radius:8px;background:transparent;color:#7c8188;font-size:10px;font-weight:600}.demo-nav.active{color:#fff;border-color:var(--line2);background:#101010}
+    .demo-org{display:flex;align-items:center;gap:8px;min-height:34px;padding:0 11px;border:1px solid var(--line);border-radius:8px;background:rgba(255,255,255,.018)}.demo-green{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px rgba(56,211,159,.75)}
+    .demo-workspace{min-height:0;display:grid;grid-template-columns:190px minmax(0,1fr)}.demo-sidebar{min-height:0;border-right:1px solid var(--line);background:#070707;padding:16px 12px;display:flex;flex-direction:column;gap:20px}.demo-side-label{margin:0 8px 8px;color:#555b63;font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}.demo-side-button{display:grid;grid-template-columns:18px 1fr auto;align-items:center;gap:7px;width:100%;padding:9px 10px;border:1px solid transparent;border-radius:8px;background:transparent;color:#6f757c;font-size:10px;text-align:left}.demo-side-button.active{background:#101010;border-color:var(--line);color:#fff}.demo-side-count{font-family:'JetBrains Mono';font-size:8px;color:#00e7f2}
+    .demo-main{min-width:0;min-height:0;padding:12px;background:#050505}.demo-grid{height:100%;display:grid;grid-template-columns:minmax(245px,.82fr) minmax(310px,1.12fr) minmax(285px,.95fr);gap:10px}.demo-panel{min-width:0;min-height:0;border:1px solid var(--line);border-radius:10px;background:#080808;display:flex;flex-direction:column;overflow:hidden}.demo-panel-head{height:68px;flex:0 0 auto;padding:13px 14px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}.demo-eyebrow{font-family:'JetBrains Mono';font-size:8px;color:#555b63;text-transform:uppercase;letter-spacing:.08em}.demo-panel-title{margin-top:4px;font-size:14px;font-weight:720;color:#f3f4f6}.demo-search{margin:12px 14px;height:38px;display:flex;align-items:center;gap:8px;padding:0 11px;border:1px solid var(--line);border-radius:9px;background:#0b0b0b;color:#484d53;font-size:10px}.demo-ticket-list{padding:0 8px 8px;overflow:auto}.demo-ticket{width:100%;padding:13px 12px;margin-bottom:5px;border:1px solid transparent;border-radius:9px;background:transparent;text-align:left;color:#8e949a;transition:.16s ease}.demo-ticket:hover{background:#0c0c0c;border-color:rgba(255,255,255,.06)}.demo-ticket.active{background:#111;border-color:var(--line2);box-shadow:inset 2px 0 0 var(--cyan)}.demo-ticket-top{display:flex;align-items:center;gap:7px}.demo-priority{width:6px;height:6px;border-radius:50%;flex:0 0 auto}.demo-customer{min-width:0;flex:1;color:#d8dade;font-size:10px;font-weight:650;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.demo-age{font-size:8px;color:#555b63}.demo-subject{margin-top:6px;font-size:9px;color:#858a91;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.demo-meta{margin-top:7px;font-size:7px;color:#4e545b;text-transform:uppercase;letter-spacing:.05em}
+    .demo-detail{padding:18px;overflow:auto}.demo-customer-head{display:flex;align-items:center;gap:10px}.demo-avatar{width:38px;height:38px;display:grid;place-items:center;border:1px solid var(--line);border-radius:10px;background:#101010;color:#a6abb1;font-size:9px;font-weight:700}.demo-name{font-size:12px;font-weight:700}.demo-email{margin-top:3px;color:#656b72;font-size:8px;font-family:'JetBrains Mono'}.demo-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}.demo-tag{padding:5px 7px;border:1px solid var(--line);border-radius:6px;color:#777d84;font:500 8px 'JetBrains Mono'}.demo-message{margin-top:16px;padding:18px;border:1px solid var(--line);border-radius:10px;background:#0b0b0b;color:#aeb2b7;font-size:10px;line-height:1.7;white-space:pre-line}.demo-message.out{margin-left:9%;border-color:rgba(0,231,242,.15);background:rgba(0,231,242,.025)}
+    .demo-copilot{padding:16px;overflow:auto;display:flex;flex-direction:column;gap:12px}.demo-state{padding:12px;border:1px solid rgba(0,231,242,.13);border-radius:9px;background:rgba(0,231,242,.025)}.demo-state strong{font-size:9px;color:#00e7f2}.demo-state p{margin-top:5px;color:#646a71;font-size:9px;line-height:1.6}.demo-label{font-size:8px;color:#555b63;text-transform:uppercase;letter-spacing:.08em}.demo-draft{min-height:190px;padding:13px;border:1px solid var(--line);border-radius:9px;background:#0a0a0a;color:#d7dade;font-size:10px;line-height:1.7;white-space:pre-wrap}.demo-actions{margin-top:auto;padding:12px 14px;border-top:1px solid var(--line);display:flex;gap:8px}.demo-action{height:36px;border-radius:8px;font-size:9px;font-weight:700;padding:0 12px}.demo-action.secondary{border:1px solid var(--line);background:#0b0b0b;color:#858b92}.demo-action.primary{flex:1;border:1px solid #fff;background:#fff;color:#000}.demo-action.ai{width:100%;border:1px solid rgba(0,231,242,.25);background:rgba(0,231,242,.04);color:#00e7f2}
+    .demo-toast{position:absolute;right:18px;bottom:18px;padding:10px 12px;border-radius:8px;border:1px solid rgba(56,211,159,.25);background:#080909;color:#38d39f;font:600 9px 'JetBrains Mono';opacity:0;transform:translateY(8px);transition:.25s}.demo-toast.show{opacity:1;transform:none}
 
-    /* 3D Wireframe Gyroscope */
-    @keyframes gyroRotate3D {
-      0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
-      50% { transform: rotateX(180deg) rotateY(270deg) rotateZ(120deg); }
-      100% { transform: rotateX(360deg) rotateY(540deg) rotateZ(360deg); }
-    }
-    .gyro-wireframe {
-      transform-style: preserve-3d;
-      animation: gyroRotate3D 24s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-    }
-
-    /* Counter Orbit Ring */
-    @keyframes orbitRev {
-      0% { transform: rotate(360deg); }
-      100% { transform: rotate(0deg); }
-    }
-    .orbit-reverse {
-      animation: orbitRev 16s linear infinite;
-    }
-
-    /* Laser Scanner Beam */
-    @keyframes scanLaser {
-      0% { top: 0%; opacity: 0.2; }
-      50% { opacity: 0.9; }
-      100% { top: 100%; opacity: 0.2; }
-    }
-    .scanner-beam {
-      animation: scanLaser 2.2s ease-in-out infinite;
-    }
-
-    /* Shimmering Border */
-    @keyframes shimmerMove {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    .shimmer-edge {
-      background: linear-gradient(90deg, rgba(255,255,255,0.05), rgba(0,240,255,0.35), rgba(16,185,129,0.3), rgba(255,255,255,0.05));
-      background-size: 250% 250%;
-      animation: shimmerMove 7s ease infinite;
-    }
-
-    /* Pulse Glow */
-    @keyframes subtlePulse {
-      0%, 100% { transform: scale(1); opacity: 0.8; }
-      50% { transform: scale(1.04); opacity: 1; }
-    }
-    .pulse-subtle {
-      animation: subtlePulse 4s ease-in-out infinite;
-    }
-
-    /* Interactive Card Transitions */
-    .telemetry-card {
-      background: rgba(9, 9, 9, 0.94);
-      backdrop-filter: blur(14px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .telemetry-card:hover {
-      border-color: rgba(255, 255, 255, 0.45);
-      transform: translateY(-3px);
-      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.8);
-    }
-
-
-    /* Live Orchestration Rail */
-    @keyframes flowPacket {
-      0% { left: 2%; opacity: 0; transform: translateY(-50%) scale(.7); }
-      8% { opacity: 1; }
-      92% { opacity: 1; }
-      100% { left: 98%; opacity: 0; transform: translateY(-50%) scale(1.05); }
-    }
-    @keyframes nodePulse {
-      0%, 100% { box-shadow: 0 0 0 rgba(0,240,255,0); border-color: rgba(255,255,255,.16); }
-      50% { box-shadow: 0 0 20px rgba(0,240,255,.12); border-color: rgba(0,240,255,.5); }
-    }
-    @keyframes signalSweep {
-      0% { transform: translateX(-120%); opacity: 0; }
-      20% { opacity: .65; }
-      80% { opacity: .65; }
-      100% { transform: translateX(220%); opacity: 0; }
-    }
-    @keyframes microBlink {
-      0%, 86%, 100% { opacity: .35; }
-      90%, 96% { opacity: 1; }
-    }
-    .orchestration-line { position: relative; overflow: hidden; }
-    .orchestration-line::after {
-      content: '';
-      position: absolute;
-      inset: 0 auto 0 0;
-      width: 36%;
-      background: linear-gradient(90deg, transparent, rgba(0,240,255,.2), transparent);
-      animation: signalSweep 5.5s linear infinite;
-      pointer-events: none;
-    }
-    .flow-packet {
-      position: absolute;
-      top: 50%;
-      left: 2%;
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: #00f0ff;
-      box-shadow: 0 0 12px rgba(0,240,255,.95);
-      animation: flowPacket 4.8s linear infinite;
-      z-index: 5;
-    }
-    .flow-node { animation: nodePulse 4s ease-in-out infinite; }
-    .flow-node:nth-child(2) { animation-delay: .5s; }
-    .flow-node:nth-child(3) { animation-delay: 1s; }
-    .flow-node:nth-child(4) { animation-delay: 1.5s; }
-    .flow-node:nth-child(5) { animation-delay: 2s; }
-    .micro-blink { animation: microBlink 3.4s ease-in-out infinite; }
-
-    /* Secondary Signal Constellation */
-    @keyframes constellationSpin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-    @keyframes constellationSpinReverse {
-      from { transform: rotate(360deg); }
-      to { transform: rotate(0deg); }
-    }
-    @keyframes constellationPulse {
-      0%, 100% { transform: scale(.82); opacity: .38; }
-      50% { transform: scale(1.12); opacity: 1; }
-    }
-    @keyframes dataRay {
-      0% { transform: translateX(-140%) scaleX(.55); opacity: 0; }
-      18% { opacity: .75; }
-      82% { opacity: .75; }
-      100% { transform: translateX(240%) scaleX(1); opacity: 0; }
-    }
-    .constellation-spin { animation: constellationSpin 20s linear infinite; }
-    .constellation-spin-reverse { animation: constellationSpinReverse 13s linear infinite; }
-    .constellation-pulse { animation: constellationPulse 2.8s ease-in-out infinite; }
-    .data-ray { animation: dataRay 4.6s ease-in-out infinite; }
-
-    @media (prefers-reduced-motion: reduce) {
-      .gyro-wireframe, .orbit-reverse, .scanner-beam, .shimmer-edge, .pulse-subtle,
-      .flow-packet, .flow-node, .orchestration-line::after, .micro-blink,
-      .constellation-spin, .constellation-spin-reverse, .constellation-pulse, .data-ray { animation: none !important; }
-    }
-
+    .chat-demo-shell{background:#070707;border:1px solid rgba(255,255,255,.11);border-radius:16px;overflow:hidden;box-shadow:0 30px 90px rgba(0,0,0,.5)}.chat-window{background:#000;border-right:1px solid rgba(255,255,255,.09);min-height:480px}.chat-msg{max-width:82%;padding:11px 13px;border-radius:12px;font-size:11px;line-height:1.65}.chat-msg.ai{background:#fff;color:#000;border-bottom-left-radius:4px}.chat-msg.user{margin-left:auto;background:#0b0b0b;color:#fff;border:1px solid rgba(255,255,255,.28);border-bottom-right-radius:4px}.handoff-card{border:1px solid rgba(0,240,255,.18);background:rgba(0,240,255,.025);border-radius:12px}.handoff-pulse{width:8px;height:8px;border-radius:50%;background:#00f0ff;box-shadow:0 0 10px #00f0ff;animation:handoffPulse 1.6s ease-in-out infinite}@keyframes handoffPulse{50%{transform:scale(1.6);opacity:.45}}
+    .channel-flow-line{position:relative;height:1px;background:rgba(255,255,255,.08);overflow:hidden}.channel-flow-line:after{content:'';position:absolute;top:0;bottom:0;width:80px;background:linear-gradient(90deg,transparent,#00f0ff,transparent);animation:flow 2.2s linear infinite}@keyframes flow{from{left:-80px}to{left:100%}}
+    .pricing-range{accent-color:#fff;width:100%}
+    @media(max-width:1100px){.demo-frame{overflow-x:auto}.demo-app{min-width:1050px}}@media(max-width:760px){.orb-ring{transform:scale(.75)}.mouse-glow{display:none}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
   </style>
-
-  <!-- Shared header, footer, navigation, and chat bundle -->
-
-  <script src="global.js" defer></script>
-
 </head>
-<body class="bg-pitch text-neutral-100 font-sans antialiased selection:bg-white selection:text-pitch overflow-x-hidden">
+<body class="font-sans antialiased min-h-screen flex flex-col">
 
-  <!-- BACKGROUND DECORATIONS -->
-
-  <div class="fixed inset-0 pointer-events-none bg-grid-canvas z-0 opacity-80"></div>
-  <div class="fixed inset-0 pointer-events-none ambient-glow z-0"></div>
-
-  <main class="relative z-10">
-
-<!-- 2. HERO SECTION -->
-<section class="relative pt-24 pb-28 px-6 max-w-7xl mx-auto">
-  <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-    
-    <!-- Left Content -->
-    <div class="lg:col-span-8 space-y-8">
-      
-      <div class="inline-flex items-center gap-3 px-3.5 py-1.5 rounded bg-surface border border-white/10 text-xs font-mono text-neutral-300">
-        <span class="w-2 h-2 rounded-full bg-accentEmerald shadow-[0_0_8px_#10b981] animate-pulse"></span>
-        <span>AUTONOMOUS OPERATIONS ENGINE // EMAIL & SMS CHANNELS</span>
+<header id="synvio-header" class="sticky top-0 z-50 bg-black/90 backdrop-blur-xl border-b border-white/10">
+  <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between gap-6">
+    <a href="./index.html" class="flex items-center gap-3 text-lg font-black tracking-[.14em] text-white group shrink-0">
+      <div class="w-6 h-6 border border-white/70 rounded-[3px] flex items-center justify-center transition-transform group-hover:rotate-90 duration-500">
+        <div class="w-2 h-2 rounded-full bg-accentCyan shadow-[0_0_9px_#00f0ff]"></div>
       </div>
+      <span>SYNVIO<span class="text-neutral-600 font-normal">/</span>AI</span>
+    </a>
 
-      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight leading-[1.05]">
-        We Automate Customer Support, Email & SMS Workflows Using AI
-      </h1>
+    <nav class="hidden lg:flex items-center gap-7 text-[10px] font-mono uppercase tracking-[.12em] text-neutral-500">
+      <a href="#about" class="hover:text-white transition-colors">Product</a>
+      <a href="#channels" class="hover:text-white transition-colors">AI Chat + Handoff</a>
+      <a href="#demo" class="hover:text-white transition-colors">Demo</a>
+      <a href="#capabilities" class="hover:text-white transition-colors">Architecture</a>
+      <a href="#pricing" class="hover:text-white transition-colors">Pricing</a>
+      <a href="subpages/faq.html" class="hover:text-white transition-colors">FAQ</a>
+      <a href="subpages/legal.html" class="hover:text-white transition-colors">Legal</a>
+    </nav>
 
-      <p class="text-base sm:text-xl text-neutral-400 max-w-2xl font-light leading-relaxed">
-        Reduce repetitive support work with AI-assisted workflows for email and SMS. Synvio can classify inbound messages, draft context-aware replies, isolate likely spam, and route sensitive or uncertain cases to your team for review.
-      </p>
-
-      <div class="flex flex-wrap items-center gap-4 pt-2">
-        <a href="#demo" class="px-8 py-4 bg-white text-pitch text-xs font-mono uppercase tracking-widest font-black rounded hover:bg-neutral-200 hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] transition-all flex items-center gap-3">
-          <span>Test Live Demo</span>
-          <svg class="w-4 h-4 text-pitch" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"></path>
-          </svg>
-        </a>
-        <a href="#about" class="px-8 py-4 bg-pitch text-white text-xs font-mono uppercase tracking-widest font-semibold rounded border border-white/20 hover:border-white transition-all">
-          About Us
-        </a>
-      </div>
-
-      <!-- Strict Telemetry Proof Row with Status Dots -->
-      <div class="pt-8 border-t border-white/10 grid grid-cols-3 gap-6 max-w-xl font-mono">
-        <div>
-          <div class="flex items-center gap-2">
-            <span class="w-1.5 h-1.5 rounded-full bg-accentCyan"></span>
-            <span class="text-2xl font-black text-white tracking-tight">24/7</span>
-          </div>
-          <div class="text-[11px] text-neutral-500 uppercase mt-1">Workflow Coverage</div>
-        </div>
-        <div>
-          <div class="flex items-center gap-2">
-            <span class="w-1.5 h-1.5 rounded-full bg-accentEmerald"></span>
-            <span class="text-2xl font-black text-white tracking-tight">Human</span>
-          </div>
-          <div class="text-[11px] text-neutral-500 uppercase mt-1">Review Fallback</div>
-        </div>
-        <div>
-          <div class="flex items-center gap-2">
-            <span class="w-1.5 h-1.5 rounded-full bg-accentEmerald"></span>
-            <span class="text-2xl font-black text-white tracking-tight">Policy</span>
-          </div>
-          <div class="text-[11px] text-neutral-500 uppercase mt-1">Guardrail Layer</div>
-        </div>
-      </div>
+    <div class="flex items-center gap-2 sm:gap-3">
+      <a href="https://app.synviocore.xyz/login.html"
+         class="hidden sm:inline-flex items-center justify-center px-3.5 py-2.5 text-[10px] uppercase font-mono tracking-[.12em] text-neutral-300 hover:text-white transition-colors">
+        Sign in
+      </a>
+      <a href="#contact"
+         class="inline-flex items-center justify-center px-4 sm:px-5 py-2.5 text-[10px] uppercase font-mono tracking-[.12em] font-black text-black bg-white rounded-lg hover:bg-neutral-200 transition-all">
+        Start pilot
+      </a>
     </div>
-
-    <!-- Right Visual: Enlarged 3D Multi-Axis Gyroscopic Wireframe Animation -->
-    <div class="lg:col-span-4 flex items-center justify-center relative min-h-[500px] lg:min-h-[560px]">
-      <div class="w-[25rem] h-[25rem] sm:w-[29rem] sm:h-[29rem] lg:w-[31rem] lg:h-[31rem] relative flex items-center justify-center [perspective:1500px]">
-
-        <div class="absolute inset-0 rounded-full border border-white/10 pulse-subtle shadow-[0_0_80px_rgba(0,240,255,0.035)]"></div>
-        <div class="absolute inset-[8%] rounded-full border border-white/10 pulse-subtle [animation-delay:1.4s]"></div>
-        <div class="absolute inset-[17%] rounded-full border border-dashed border-white/15 orbit-reverse [animation-duration:27s]"></div>
-
-        <div class="absolute w-[76%] h-[76%] border border-white/30 rounded-2xl gyro-wireframe shadow-[0_0_30px_rgba(255,255,255,0.035)]"></div>
-        <div class="absolute w-[62%] h-[62%] border border-accentCyan/20 rounded-[2rem] gyro-wireframe [animation-duration:34s] [animation-direction:reverse]"></div>
-
-        <div class="absolute w-[67%] h-[67%] border border-dashed border-white/40 rounded-full orbit-reverse">
-          <div class="w-2.5 h-2.5 rounded-full bg-accentCyan shadow-[0_0_12px_#00f0ff] absolute -top-1.5 left-1/2 -translate-x-1/2"></div>
-          <div class="w-1 h-1 rounded-full bg-white shadow-[0_0_7px_#fff] absolute bottom-[14%] right-[5%]"></div>
-        </div>
-
-        <div class="absolute w-[49%] h-[49%] border border-white/25 rounded-full orbit-reverse [animation-duration:11s] [animation-direction:reverse]">
-          <div class="w-2 h-2 rounded-full bg-accentEmerald shadow-[0_0_9px_#10b981] absolute -bottom-1 left-1/2 -translate-x-1/2"></div>
-        </div>
-
-        <div class="absolute w-[86%] h-px bg-gradient-to-r from-transparent via-white/20 to-transparent rotate-[18deg]"></div>
-        <div class="absolute w-[86%] h-px bg-gradient-to-r from-transparent via-accentCyan/25 to-transparent -rotate-[18deg]"></div>
-        <div class="absolute h-[86%] w-px bg-gradient-to-b from-transparent via-white/15 to-transparent"></div>
-
-        <div class="absolute top-[12%] left-[9%] text-[8px] font-mono tracking-[0.18em] text-neutral-600">NODE_A7</div>
-        <div class="absolute right-[7%] top-[33%] text-[8px] font-mono tracking-[0.18em] text-accentCyan/60">SYNC</div>
-        <div class="absolute bottom-[12%] left-[18%] text-[8px] font-mono tracking-[0.18em] text-neutral-600">ROUTE_04</div>
-
-        <!-- Central Processor Node -->
-        <div class="w-40 h-40 sm:w-44 sm:h-44 lg:w-48 lg:h-48 bg-obsidian border border-white/45 rounded-2xl flex flex-col items-center justify-center p-5 text-center shadow-[0_0_50px_rgba(0,0,0,.85)] relative z-10">
-          <div class="w-8 h-8 border border-white/80 mb-4 flex items-center justify-center rotate-45">
-            <div class="w-2.5 h-2.5 bg-accentCyan shadow-[0_0_12px_#00f0ff]"></div>
-          </div>
-          <span class="text-xs sm:text-sm uppercase font-mono tracking-[0.18em] text-white font-bold">SYNVIO CORE</span>
-          <span class="text-[9px] sm:text-[10px] text-accentEmerald font-mono mt-2 tracking-wider">SYSTEM // READY</span>
-          <div class="mt-4 flex items-center gap-1.5">
-            <span class="w-1 h-1 rounded-full bg-accentEmerald constellation-pulse"></span>
-            <span class="w-1 h-1 rounded-full bg-white/30"></span>
-            <span class="w-1 h-1 rounded-full bg-accentCyan constellation-pulse [animation-delay:.7s]"></span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
   </div>
-</section>
+</header>
 
-<!-- ABOUT US SECTION -->
-<section id="about" class="py-24 px-6 max-w-7xl mx-auto border-t border-white/10">
-  <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-    
-    <div class="lg:col-span-5 space-y-6">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-white/5 border border-white/20 text-[11px] font-mono text-neutral-300 uppercase tracking-widest">
-        <span>About Synvio AI</span>
-      </div>
-      <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight leading-tight">
-        Universal Automated Communications: Email & SMS Unified
-      </h2>
-      <p class="text-sm text-neutral-400 font-light leading-relaxed">
-        We operate under a singular conviction: human staff should never waste hundreds of hours manually sorting repetitive tickets, deciphering cold sales pitches, or typing identical confirmations.
-      </p>
-      <p class="text-sm text-neutral-400 font-light leading-relaxed">
-        While enterprise workflows historically centered around email inboxes, urgent customer inquiries and mission-critical updates happen over <strong class="text-white font-medium">SMS text messaging</strong>. Synvio AI applies the exact same deterministic parsing, spam quarantine, context synthesis, and CRM synchronization directly to SMS channels—allowing your enterprise to manage phone-number-based communication pipelines completely on auto-pilot.
-      </p>
-    </div>
 
-    <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
-      
-      <!-- Unified Channel 1: Email Pipeline -->
-      <div class="telemetry-card p-6 rounded-xl space-y-4 border border-white/10">
-        <div class="flex items-center justify-between">
-          <span class="text-xs font-mono uppercase tracking-wider text-white font-bold flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-accentCyan"></span>
-            Inbound Email Engine
-          </span>
-          <span class="text-[10px] font-mono text-neutral-500">IMAP / WEBHOOK</span>
+<div id="mouse-glow" class="mouse-glow opacity-0"></div>
+<main class="flex-1 relative z-10">
+  <section class="relative overflow-hidden min-h-[calc(100vh-80px)] flex items-center border-b border-white/10">
+    <div class="absolute inset-0 bg-grid-canvas opacity-70"></div><div class="absolute inset-0 ambient-glow"></div>
+    <div class="max-w-7xl mx-auto px-6 py-20 lg:py-24 w-full relative">
+      <div class="grid lg:grid-cols-[1.03fr_.97fr] gap-12 lg:gap-16 items-center">
+        <div class="reveal">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-white/5 border border-white/15 text-[10px] font-mono text-neutral-300 uppercase tracking-[.14em]"><span class="w-1.5 h-1.5 rounded-full bg-accentEmerald shadow-[0_0_8px_#10b981]"></span>REAL EMAIL ENGINE LIVE // AI CHAT NEXT</div>
+          <h1 class="mt-7 text-[3.1rem] sm:text-6xl lg:text-[4.75rem] font-black leading-[.94] tracking-[-.055em] text-white">One workspace.<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-accentCyan to-accentEmerald">Every support conversation.</span></h1>
+          <p class="mt-7 max-w-2xl text-base sm:text-lg leading-8 text-neutral-400 font-light">Synvio turns customer email into real tickets your team can answer from one operator workstation. Next, the same queue will receive AI web-chat conversations — with instant handoff to a human when the visitor asks for one or the AI should escalate.</p>
+          <div class="mt-9 flex flex-col sm:flex-row gap-3">
+            <a href="#demo" class="px-7 py-3.5 bg-white text-black text-[11px] font-mono uppercase tracking-widest font-black rounded hover:bg-neutral-200 hover:shadow-[0_0_28px_rgba(255,255,255,.25)] transition-all text-center">Try the workstation demo</a>
+            <a href="https://app.synviocore.xyz/login.html" class="px-7 py-3.5 border border-white/20 text-white text-[11px] font-mono uppercase tracking-widest font-bold rounded hover:border-accentCyan hover:shadow-[0_0_24px_rgba(0,240,255,.1)] transition-all text-center">Open real app ↗</a>
+          </div>
+          <div class="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl">
+            <div class="soft-card rounded-lg p-3"><div class="text-[8px] font-mono text-neutral-600 uppercase">Inbound</div><div class="mt-1 text-xs font-bold text-white">Email live</div></div>
+            <div class="soft-card rounded-lg p-3"><div class="text-[8px] font-mono text-neutral-600 uppercase">Outbound</div><div class="mt-1 text-xs font-bold text-white">Replies live</div></div>
+            <div class="soft-card rounded-lg p-3"><div class="text-[8px] font-mono text-neutral-600 uppercase">Tenants</div><div class="mt-1 text-xs font-bold text-white">Isolated</div></div>
+            <div class="soft-card rounded-lg p-3"><div class="text-[8px] font-mono text-neutral-600 uppercase">Web chat</div><div class="mt-1 text-xs font-bold text-accentCyan">Implementing</div></div>
+          </div>
         </div>
-        <p class="text-xs text-neutral-400 leading-relaxed font-light">
-          Continuous inbox ingestion can analyze message context, thread history, customer metadata, and connected knowledge sources to prepare replies or route cases for review.
+        <div class="relative h-[520px] hidden md:block reveal orb-wrap" id="hero-visual">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="orb-ring r1"></div><div class="orb-ring r2"></div><div class="orb-ring r3"></div><div class="orb-dot"></div>
+            <div class="relative w-36 h-36 rounded-full border border-white/15 bg-black/80 shadow-[0_0_80px_rgba(0,240,255,.12)] flex flex-col items-center justify-center">
+              <div class="w-8 h-8 border border-white/50 flex items-center justify-center rotate-45"><div class="w-2.5 h-2.5 bg-accentCyan shadow-[0_0_14px_#00f0ff]"></div></div>
+              <div class="mt-5 font-mono text-[10px] tracking-[.18em] text-white">SYNVIO CORE</div><div class="mt-1 font-mono text-[8px] text-neutral-600">ROUTING SIGNALS</div>
+            </div>
+            <div class="absolute top-16 left-8 soft-card rounded-lg px-4 py-3 animate-[pulse_4s_ease-in-out_infinite]"><div class="text-[8px] font-mono text-neutral-600">EMAIL</div><div class="mt-1 text-xs font-bold">customer@brand.com</div></div>
+            <div class="absolute bottom-20 right-0 soft-card rounded-lg px-4 py-3"><div class="text-[8px] font-mono text-neutral-600">HUMAN HANDOFF</div><div class="mt-1 text-xs font-bold text-accentCyan">Same operator queue</div></div>
+            <div class="absolute top-40 right-2 soft-card rounded-lg px-4 py-3"><div class="text-[8px] font-mono text-neutral-600">TENANT</div><div class="mt-1 text-xs font-bold text-accentEmerald">Correct org matched</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="py-24 px-6 max-w-7xl mx-auto">
+    <div class="grid lg:grid-cols-[.82fr_1.18fr] gap-14 lg:gap-20 items-start">
+      <div class="reveal lg:sticky lg:top-28"><div class="eyebrow">What Synvio actually is</div><h2 class="mt-5 text-3xl sm:text-5xl font-black tracking-[-.045em] text-white">A support workstation.<br>Not another disconnected bot.</h2><p class="mt-6 text-neutral-400 leading-7">The real app already receives email, stores the customer conversation under the correct company, and lets an operator send a real reply. The next channel is web chat: AI handles the first line, then hands the conversation to the same human workspace when needed.</p></div>
+      <div class="grid sm:grid-cols-2 gap-4 reveal">
+        <article class="soft-card shine rounded-xl p-6 min-h-[210px]"><div class="text-[10px] font-mono text-accentEmerald uppercase tracking-widest">LIVE / 01</div><h3 class="mt-4 text-lg font-bold">Email → ticket</h3><p class="mt-3 text-sm text-neutral-500 leading-7">A provider webhook is mapped to the correct connected inbox and organization. The message appears as a real ticket — not a browser mock.</p></article>
+        <article class="soft-card shine rounded-xl p-6 min-h-[210px]"><div class="text-[10px] font-mono text-accentEmerald uppercase tracking-widest">LIVE / 02</div><h3 class="mt-4 text-lg font-bold">Human reply → customer</h3><p class="mt-3 text-sm text-neutral-500 leading-7">The operator writes inside Synvio. The backend verifies access and sends from the sender identity configured for that company inbox.</p></article>
+        <article class="soft-card shine rounded-xl p-6 min-h-[210px]"><div class="text-[10px] font-mono text-accentCyan uppercase tracking-widest">NEXT / 03</div><h3 class="mt-4 text-lg font-bold">AI web chat</h3><p class="mt-3 text-sm text-neutral-500 leading-7">A customer-facing chat widget answers routine questions using the company knowledge layer and creates a support conversation when context should move to the team.</p></article>
+        <article class="soft-card shine rounded-xl p-6 min-h-[210px]"><div class="text-[10px] font-mono text-accentCyan uppercase tracking-widest">NEXT / 04</div><h3 class="mt-4 text-lg font-bold">Human handoff in-place</h3><p class="mt-3 text-sm text-neutral-500 leading-7">“Talk to a person” should not send the visitor somewhere else. The conversation enters the same Synvio queue and a worker continues it from the workstation.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="channels" class="py-24 px-6 border-y border-white/10 bg-white/[.012]">
+    <div class="max-w-7xl mx-auto">
+      <div class="max-w-3xl reveal"><div class="eyebrow">Email + AI chat, one queue</div><h2 class="mt-5 text-3xl sm:text-5xl font-black tracking-[-.045em]">AI answers first. A human can take over without changing platforms.</h2><p class="mt-5 text-neutral-400 leading-7">This is the channel model we are implementing: web chat is a new adapter into the same tickets/messages backend, not a separate product beside the email desk.</p></div>
+      <div class="mt-12 chat-demo-shell grid lg:grid-cols-[.86fr_1.14fr] reveal">
+        <div class="chat-window p-5 sm:p-6">
+          <div class="flex items-center justify-between pb-4 border-b border-white/10"><div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-accentCyan shadow-[0_0_9px_#00f0ff]"></span><span class="font-mono text-[10px] uppercase tracking-widest">Brand AI Chat</span></div><span class="font-mono text-[8px] text-neutral-600">SIMULATED DEMO</span></div>
+          <div id="chat-demo-messages" class="mt-5 space-y-3 min-h-[310px]"></div>
+          <div class="mt-4 flex gap-2"><button id="chat-normal" class="flex-1 border border-white/15 rounded-lg px-3 py-2.5 text-[9px] font-mono uppercase tracking-wider hover:border-white/35 transition">Ask routine question</button><button id="chat-human" class="flex-1 bg-white text-black rounded-lg px-3 py-2.5 text-[9px] font-mono uppercase tracking-wider font-black hover:bg-neutral-200 transition">Ask for a human</button></div>
+        </div>
+        <div class="p-6 sm:p-8 bg-[#080808] relative overflow-hidden">
+          <div class="scanner"></div><div class="flex items-center justify-between"><div><div class="text-[9px] font-mono text-neutral-600 uppercase tracking-widest">Same Synvio platform</div><div class="mt-2 text-lg font-bold">Handoff event</div></div><div id="handoff-status" class="text-[9px] font-mono uppercase tracking-wider text-neutral-500 border border-white/10 rounded px-2.5 py-1">AI ACTIVE</div></div>
+          <div class="mt-6 channel-flow-line"></div>
+          <div class="mt-6 handoff-card p-5"><div class="flex items-start gap-3"><div class="handoff-pulse mt-1"></div><div><div class="font-mono text-[9px] uppercase tracking-wider text-accentCyan">Web chat conversation</div><div id="handoff-title" class="mt-2 text-sm font-bold">AI handling routine question</div><div id="handoff-copy" class="mt-2 text-xs text-neutral-500 leading-6">The conversation stays with the automated layer until a handoff condition is met.</div></div></div></div>
+          <div class="mt-4 grid grid-cols-2 gap-3"><div class="soft-card rounded-lg p-4"><div class="text-[8px] font-mono text-neutral-600">CHANNEL</div><div class="mt-1 text-xs font-bold">web_chat</div></div><div class="soft-card rounded-lg p-4"><div class="text-[8px] font-mono text-neutral-600">QUEUE</div><div id="handoff-queue" class="mt-1 text-xs font-bold">AI session</div></div></div>
+          <div id="agent-card" class="mt-4 soft-card rounded-xl p-5 opacity-40 transition-all duration-500"><div class="flex items-center justify-between"><div><div class="font-mono text-[8px] text-neutral-600">OPERATOR WORKSPACE</div><div class="mt-1 text-sm font-bold">Support Agent</div></div><span id="agent-badge" class="font-mono text-[8px] border border-white/10 rounded px-2 py-1 text-neutral-600">WAITING</span></div><div class="mt-4 text-xs text-neutral-500 leading-6">When handoff fires, this same conversation becomes a queue item beside email tickets. The employee sees the history and continues the chat.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="demo" class="py-24 px-6 max-w-[1450px] mx-auto">
+    <div class="max-w-3xl reveal"><div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-white/5 border border-white/20 text-[10px] font-mono uppercase tracking-widest">Interactive workstation demo <span class="px-1.5 py-0.5 rounded border border-accentCyan/30 bg-accentCyan/10 text-accentCyan text-[8px]">SIMULATED DATA</span></div><h2 class="mt-5 text-3xl sm:text-5xl font-black tracking-[-.045em]">This time, the demo looks like the actual app.</h2><p class="mt-5 text-neutral-400 leading-7">Same top bar, left workspace rail, live inbox, customer conversation and Synvio Copilot panel. Click tickets, generate a draft and simulate a send. The production app uses live Supabase data; this section uses demo data only.</p></div>
+    <div class="mt-10 demo-frame reveal relative">
+      <div class="h-[2px] w-full bg-gradient-to-r from-transparent via-accentCyan to-transparent animate-pulse"></div>
+      <div class="demo-app">
+        <div class="demo-topbar"><div class="demo-brand"><div class="demo-brand-mark"></div><div><div class="demo-brand-name">SYNVIO AI</div><div class="demo-brand-sub">Support workstation</div></div></div><div class="demo-topnav"><button class="demo-nav active">Inbox</button><button class="demo-nav">Knowledge</button><button class="demo-nav">Analytics</button><button class="demo-nav">Inbox setup</button></div><div class="demo-org"><span class="demo-green status-pulse"></span><div><strong class="block text-[9px]">Northstar Commerce</strong><span class="block mt-0.5 text-[7px] font-mono text-neutral-600">AGENT</span></div></div></div>
+        <div class="demo-workspace"><aside class="demo-sidebar"><div><div class="demo-side-label">Workspace</div><button class="demo-side-button active"><span>◌</span><span>Inbox</span><span class="demo-side-count">3</span></button></div><div><div class="demo-side-label">Coming next</div><button class="demo-side-button"><span>◇</span><span>Knowledge</span></button><button class="demo-side-button"><span>↗</span><span>Analytics</span></button><button class="demo-side-button"><span>⚙</span><span>Inbox setup</span></button></div><div class="mt-auto"><div class="demo-side-label">Backend status</div><div class="p-2.5 border border-white/10 rounded-lg bg-[#0a0a0a] text-[8px] leading-5 text-neutral-600 font-mono">SUPABASE<br><span class="text-accentEmerald">CONNECTED</span><br>DEMO UI / SIMULATED DATA</div></div></aside>
+          <div class="demo-main"><div class="demo-grid">
+            <section class="demo-panel"><div class="demo-panel-head"><div><div class="demo-eyebrow">Live database</div><div class="demo-panel-title">Inbox</div></div><button class="w-8 h-8 border border-white/10 rounded-lg text-neutral-500">↻</button></div><div class="demo-search">⌕ <span>Search live tickets</span></div><div class="demo-ticket-list" id="demo-ticket-list"></div></section>
+            <section class="demo-panel"><div class="demo-panel-head"><div><div class="demo-eyebrow">Customer conversation</div><div id="demo-detail-subject" class="demo-panel-title truncate max-w-[350px]">—</div></div></div><div class="demo-detail"><div class="demo-customer-head"><div class="demo-avatar" id="demo-avatar">CU</div><div><div class="demo-name" id="demo-name">—</div><div class="demo-email" id="demo-email">—</div></div></div><div class="demo-tags" id="demo-tags"></div><div id="demo-thread"></div></div></section>
+            <section class="demo-panel"><div class="demo-panel-head"><div><div class="demo-eyebrow" style="color:#00e7f2">Synvio Copilot</div><div class="demo-panel-title">Reply</div></div><div id="demo-confidence" class="demo-eyebrow">MANUAL REPLY</div></div><div class="demo-copilot"><div class="demo-state"><strong id="demo-state-label">REAL APP PATTERN</strong><p id="demo-state-copy">The production app only shows stored data. This marketing demo simulates the upcoming draft flow.</p></div><div class="demo-label">Reply message</div><div id="demo-draft" class="demo-draft" contenteditable="true"></div><button id="demo-generate" class="demo-action ai">Generate demo draft</button></div><div class="demo-actions"><button class="demo-action secondary">Escalate</button><button id="demo-send" class="demo-action primary">Send Reply</button></div></section>
+          </div></div>
+        </div>
+      </div>
+      <div id="demo-toast" class="demo-toast">DEMO: reply submitted</div>
+    </div>
+  </section>
+
+  <section id="capabilities" class="py-24 px-6 border-y border-white/10 bg-white/[.012]">
+    <div class="max-w-7xl mx-auto"><div class="max-w-3xl reveal"><div class="eyebrow">Platform architecture</div><h2 class="mt-5 text-3xl sm:text-5xl font-black tracking-[-.045em]">One backend. Separate companies. Multiple channels.</h2></div><div class="mt-12 grid md:grid-cols-3 gap-4 reveal"><div class="soft-card rounded-xl p-6"><div class="text-[9px] font-mono text-accentCyan uppercase tracking-widest">01 / Multi-tenant</div><h3 class="mt-4 text-lg font-bold">Each company gets its own workspace.</h3><p class="mt-3 text-sm text-neutral-500 leading-7">Organizations, memberships, inboxes, tickets and messages are scoped per tenant. You do not deploy a new Vercel or Supabase for every client.</p></div><div class="soft-card rounded-xl p-6"><div class="text-[9px] font-mono text-accentCyan uppercase tracking-widest">02 / Channel adapters</div><h3 class="mt-4 text-lg font-bold">Email now. Web chat next.</h3><p class="mt-3 text-sm text-neutral-500 leading-7">The conversation model stays common while adapters handle Resend/custom email, later Gmail/Microsoft, web chat and additional channels.</p></div><div class="soft-card rounded-xl p-6"><div class="text-[9px] font-mono text-accentCyan uppercase tracking-widest">03 / Human control</div><h3 class="mt-4 text-lg font-bold">AI assists; the team owns the final answer.</h3><p class="mt-3 text-sm text-neutral-500 leading-7">Drafting and triage can reduce repetitive work without silently turning every customer message into an autonomous send.</p></div></div></div>
+  </section>
+
+  <section id="pricing" class="py-24 px-6 max-w-7xl mx-auto">
+    <div class="grid lg:grid-cols-[.88fr_1.12fr] gap-12 lg:gap-16 items-start"><div class="reveal"><div class="eyebrow">Commercial model</div><h2 class="mt-5 text-3xl sm:text-5xl font-black tracking-[-.045em]">Platform fee + measurable AI usage.</h2><p class="mt-6 text-neutral-400 leading-7">No fake “one price fits all” table yet. Pilot pricing is agreed before activation. Longer-term pricing is intended to combine the support platform itself with variable AI processing, instead of burying model usage inside an oversized flat fee.</p><div class="mt-7 space-y-3"><div class="soft-card rounded-xl p-5"><div class="font-mono text-[9px] text-accentCyan uppercase">Platform layer</div><div class="mt-2 text-sm font-bold">Workspace, inboxes, routing, operators, storage and support infrastructure.</div></div><div class="soft-card rounded-xl p-5"><div class="font-mono text-[9px] text-accentCyan uppercase">AI layer</div><div class="mt-2 text-sm font-bold">Triage, retrieval, summarization and draft-generation usage when enabled.</div></div></div></div>
+      <div class="panel-glass rounded-2xl p-7 reveal"><div class="flex items-start justify-between"><div><div class="font-mono text-[9px] text-neutral-600 uppercase tracking-widest">Usage estimator</div><h3 class="mt-2 text-xl font-bold">How much language processing might the workload need?</h3></div><span class="font-mono text-[8px] text-neutral-600 border border-white/10 rounded px-2 py-1">NOT A QUOTE</span></div><div class="mt-7 space-y-6"><div><div class="flex justify-between text-[9px] font-mono text-neutral-500 mb-2"><span>SUPPORT MESSAGES / MONTH</span><output id="mail-out" class="text-white">1,000</output></div><input id="mail-range" class="pricing-range" type="range" min="100" max="20000" step="100" value="1000"></div><div><div class="flex justify-between text-[9px] font-mono text-neutral-500 mb-2"><span>AI-ASSISTED SHARE</span><output id="ai-out" class="text-white">70%</output></div><input id="ai-range" class="pricing-range" type="range" min="0" max="100" step="5" value="70"></div><div><label class="block text-[9px] font-mono text-neutral-500 mb-2">AVERAGE CONTEXT</label><select id="context-range" class="w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-xs"><option value="short">Short</option><option value="standard" selected>Standard</option><option value="long">Long / knowledge-heavy</option></select></div></div><div class="mt-7 grid sm:grid-cols-3 gap-3"><div class="soft-card rounded-lg p-4"><div class="text-[8px] font-mono text-neutral-600">BAND</div><div id="price-band" class="mt-1 text-sm font-bold">Launch</div></div><div class="soft-card rounded-lg p-4"><div class="text-[8px] font-mono text-neutral-600">AI-ASSISTED</div><div id="assisted-out" class="mt-1 text-sm font-bold">700</div></div><div class="soft-card rounded-lg p-4"><div class="text-[8px] font-mono text-neutral-600">PROCESSING RANGE</div><div id="tokens-out" class="mt-1 text-sm font-bold">0.8–2.0M</div></div></div><p class="mt-5 text-[9px] font-mono text-neutral-600 leading-5">Planning estimate only. Real token consumption changes with model, thread length, retrieval context, language and generated output.</p></div>
+    </div>
+  </section>
+
+  <section id="contact" class="py-24 px-6 border-t border-white/10">
+    <div class="max-w-5xl mx-auto grid lg:grid-cols-[.9fr_1.1fr] gap-10 items-start"><div class="reveal"><div class="eyebrow">Founding pilot</div><h2 class="mt-5 text-3xl sm:text-5xl font-black tracking-[-.045em]">Put real support traffic through Synvio.</h2><p class="mt-6 text-neutral-400 leading-7">We are keeping the first commercial deployments deliberately hands-on. One real inbox, real employees, real customer messages, measured results. Introductory scope and price are agreed before activation.</p><div class="mt-7 font-mono text-[9px] text-neutral-600 leading-6">BEST EARLY FIT<br><span class="text-neutral-300">E-COMMERCE / SAAS / SERVICE TEAMS / NON-REGULATED SUPPORT</span></div></div>
+      <form id="pilot-form" action="https://formspree.io/f/xbgjvaaq" method="POST" class="panel-glass rounded-2xl p-7 space-y-4 reveal"><input type="hidden" name="_subject" value="Synvio Founding Pilot Request"><div><label class="block text-[9px] font-mono text-neutral-500 uppercase tracking-widest mb-2">Company</label><input name="company" required class="w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm outline-none focus:border-accentCyan" placeholder="Company name"></div><div><label class="block text-[9px] font-mono text-neutral-500 uppercase tracking-widest mb-2">Work email</label><input name="email" type="email" required class="w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm outline-none focus:border-accentCyan" placeholder="you@company.com"></div><div><label class="block text-[9px] font-mono text-neutral-500 uppercase tracking-widest mb-2">Support volume</label><select name="volume" class="w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm"><option>Under 500 / month</option><option>500–2,000 / month</option><option>2,000–10,000 / month</option><option>10,000+ / month</option></select></div><div><label class="block text-[9px] font-mono text-neutral-500 uppercase tracking-widest mb-2">What should Synvio solve?</label><textarea name="message" rows="4" class="w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm outline-none focus:border-accentCyan resize-none" placeholder="Slow replies, repetitive tickets, no shared inbox view..."></textarea></div><button id="pilot-submit" class="w-full bg-white text-black rounded-lg px-5 py-3.5 text-[10px] font-mono uppercase tracking-widest font-black hover:bg-neutral-200 transition">Request private pilot</button><div id="pilot-status" class="hidden text-xs rounded-lg border px-4 py-3"></div></form>
+    </div>
+  </section>
+</main>
+
+<footer id="synvio-footer" class="bg-black border-t border-white/10 py-12 px-6 mt-auto">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-9">
+      <div class="max-w-2xl">
+        <div class="flex items-center gap-3">
+          <div class="w-5 h-5 border border-white/50 rounded-[3px] flex items-center justify-center">
+            <div class="w-1.5 h-1.5 rounded-full bg-accentCyan shadow-[0_0_7px_#00f0ff]"></div>
+          </div>
+          <span class="text-sm font-black tracking-[.14em] text-white">SYNVIO<span class="text-neutral-600 font-normal">/</span>AI</span>
+        </div>
+        <p class="mt-4 text-xs leading-6 text-neutral-500 max-w-xl">
+          Customer support workspace for email and AI web chat — with human handoff,
+          separate company workspaces and operator control in the same platform.
         </p>
-        <div class="pt-3 border-t border-white/5 text-[10px] font-mono text-neutral-400 flex justify-between">
-          <span>Event-driven processing</span>
-          <span class="text-accentEmerald">Review fallback</span>
-        </div>
       </div>
 
-      <!-- Unified Channel 2: SMS Text Pipeline -->
-      <div class="telemetry-card p-6 rounded-xl space-y-4 border border-white/10">
-        <div class="flex items-center justify-between">
-          <span class="text-xs font-mono uppercase tracking-wider text-white font-bold flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-accentEmerald"></span>
-            Inbound SMS Engine
-          </span>
-          <span class="text-[10px] font-mono text-neutral-500">TWILIO / TELEPHONY</span>
-        </div>
-        <p class="text-xs text-neutral-400 leading-relaxed font-light">
-          Two-way SMS triage can classify intent, isolate likely automated spam, draft replies, and route urgent messages into connected team channels such as Slack.
-        </p>
-        <div class="pt-3 border-t border-white/5 text-[10px] font-mono text-neutral-400 flex justify-between">
-          <span>Webhook-driven</span>
-          <span class="text-accentCyan">Configurable routing</span>
-        </div>
+      <div class="flex flex-wrap items-center gap-x-6 gap-y-3 text-[10px] font-mono uppercase tracking-[.12em] text-neutral-500">
+        <a href="#about" class="hover:text-white transition-colors">Product</a>
+        <a href="#channels" class="hover:text-white transition-colors">AI Chat</a>
+        <a href="#demo" class="hover:text-white transition-colors">Demo</a>
+        <a href="#pricing" class="hover:text-white transition-colors">Pricing</a>
+        <a href="subpages/faq.html" class="hover:text-white transition-colors">FAQ</a>
+        <a href="subpages/legal.html" class="hover:text-white transition-colors">Legal</a>
+        <a href="https://app.synviocore.xyz/login.html" class="hover:text-white transition-colors">Sign in</a>
       </div>
-
     </div>
 
-  </div>
-</section>
-
-<!-- 3. CORE SYSTEM CAPABILITIES -->
-<section id="capabilities" class="py-24 px-6 max-w-7xl mx-auto border-t border-white/10">
-
-  <!-- Secondary moving signal constellation -->
-  <div class="mb-16 grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10 items-center">
-    <div>
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-white/5 border border-white/20 text-[10px] font-mono text-neutral-400 uppercase tracking-[0.2em]">
-        <span class="w-1.5 h-1.5 rounded-full bg-accentCyan shadow-[0_0_8px_#00f0ff] constellation-pulse"></span>
-        Signal Fabric
-      </div>
-      <h2 class="mt-5 text-3xl sm:text-5xl font-black text-white tracking-tight">
-        One system. Multiple decision layers.
-      </h2>
-      <p class="mt-4 max-w-2xl text-sm sm:text-base text-neutral-400 font-light leading-relaxed">
-        Rules, AI classification, context and human review can operate as separate layers instead of forcing every message through the same path.
-      </p>
-    </div>
-
-    <div class="relative h-64 sm:h-72 flex items-center justify-center overflow-hidden">
-      <div class="absolute w-60 h-60 rounded-full border border-white/10 constellation-spin"></div>
-      <div class="absolute w-44 h-44 rounded-full border border-dashed border-accentCyan/25 constellation-spin-reverse"></div>
-      <div class="absolute w-28 h-28 rounded-2xl border border-white/25 rotate-45 constellation-spin"></div>
-
-      <div class="absolute w-[90%] h-px bg-gradient-to-r from-transparent via-white/20 to-transparent overflow-hidden">
-        <div class="data-ray absolute top-0 left-0 w-1/3 h-px bg-gradient-to-r from-transparent via-accentCyan to-transparent"></div>
-      </div>
-
-      <div class="absolute h-[82%] w-px bg-gradient-to-b from-transparent via-white/15 to-transparent"></div>
-
-      <span class="absolute top-[15%] left-[25%] w-2 h-2 rounded-full bg-accentCyan shadow-[0_0_10px_#00f0ff] constellation-pulse"></span>
-      <span class="absolute bottom-[20%] right-[22%] w-2 h-2 rounded-full bg-accentEmerald shadow-[0_0_9px_#10b981] constellation-pulse [animation-delay:1s]"></span>
-      <span class="absolute top-[33%] right-[17%] w-1.5 h-1.5 rounded-full bg-white/70 constellation-pulse [animation-delay:.4s]"></span>
-
-      <div class="relative z-10 w-24 h-24 rounded-2xl bg-obsidian border border-white/40 shadow-[0_0_35px_rgba(0,240,255,.06)] flex flex-col items-center justify-center">
-        <div class="w-3 h-3 bg-accentCyan shadow-[0_0_10px_#00f0ff] rotate-45"></div>
-        <span class="mt-3 text-[8px] font-mono tracking-[0.18em] text-neutral-400">SIGNAL BUS</span>
-      </div>
+    <div class="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row justify-between gap-3 text-[9px] font-mono uppercase tracking-[.1em] text-neutral-700">
+      <span>© 2026 Synvio AI</span>
+      <span>Private pilot • Human-reviewed support workflows</span>
     </div>
   </div>
-  <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
-    <h2 class="text-xs font-mono font-bold uppercase tracking-widest text-neutral-400">System Capabilities</h2>
-    <h3 class="text-3xl sm:text-5xl font-black text-white tracking-tight">Engineered for Lower Operational Friction</h3>
-    <p class="text-neutral-400 text-sm sm:text-base font-light">Reduce manual routing with retrieval, multilingual translation, configurable triage, and human-escalation fallbacks across email and SMS.</p>
-  </div>
-
-  <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-    
-    <div class="telemetry-card p-6 rounded-xl relative flex flex-col justify-between group">
-      <div class="space-y-5">
-        <div class="w-10 h-10 rounded bg-surface border border-white/20 flex items-center justify-center group-hover:border-white transition-colors">
-          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z"></path>
-          </svg>
-        </div>
-        <div>
-          <h4 class="text-base font-bold text-white mb-2">24/7 Contextual Chatbots</h4>
-          <p class="text-xs text-neutral-400 leading-relaxed font-light">
-            Context-aware conversational agents linked directly into CRMs and SQL databases with instant semantic catalog matching.
-          </p>
-        </div>
-      </div>
-      <div class="pt-4 mt-6 border-t border-white/10 text-[10px] text-neutral-500 font-mono">
-        STACK: VECTOR RAG / DB READ-WRITE
-      </div>
-    </div>
-
-    <div class="telemetry-card p-6 rounded-xl relative flex flex-col justify-between group">
-      <div class="space-y-5">
-        <div class="w-10 h-10 rounded bg-surface border border-white/20 flex items-center justify-center group-hover:border-white transition-colors">
-          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"></path>
-          </svg>
-        </div>
-        <div>
-          <h4 class="text-base font-bold text-white mb-2">Email & SMS Automation</h4>
-          <p class="text-xs text-neutral-400 leading-relaxed font-light">
-            Inbound workflows can process mail and text messages, look up connected account context, and prepare contextual replies or escalation actions.
-          </p>
-        </div>
-      </div>
-      <div class="pt-4 mt-6 border-t border-white/10 text-[10px] text-neutral-500 font-mono">
-        STACK: INBOX & TWILIO WEBHOOKS
-      </div>
-    </div>
-
-    <div class="telemetry-card p-6 rounded-xl relative flex flex-col justify-between group">
-      <div class="space-y-5">
-        <div class="w-10 h-10 rounded bg-surface border border-white/20 flex items-center justify-center group-hover:border-white transition-colors">
-          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 21l5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 016-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896 3.025 2.308 5.757 4.148 8.077"></path>
-          </svg>
-        </div>
-        <div>
-          <div class="flex items-center gap-2 mb-2">
-            <h4 class="text-base font-bold text-white">AI Language Translation</h4>
-            <span class="px-1.5 py-0.5 rounded text-[9px] font-mono bg-accentCyan/10 text-accentCyan border border-accentCyan/30">95+ LANGS</span>
-          </div>
-          <p class="text-xs text-neutral-400 leading-relaxed font-light">
-            Context-aware translation can convert inbound messages for staff review and prepare replies in the customer’s language while preserving names, identifiers, product terms, and structured data.
-          </p>
-        </div>
-      </div>
-      <div class="pt-4 mt-6 border-t border-white/10 text-[10px] text-neutral-500 font-mono">
-        STACK: MULTILINGUAL EMBEDDINGS / ENTITY PROTECTION
-      </div>
-    </div>
-
-
-    <div class="telemetry-card p-6 rounded-xl relative flex flex-col justify-between group">
-      <div class="space-y-5">
-        <div class="w-10 h-10 rounded bg-surface border border-white/20 flex items-center justify-center group-hover:border-white transition-colors">
-          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m3-9.75C15 7.007 13.657 6 12 6S9 7.007 9 8.25s1.343 2.25 3 2.25 3 1.007 3 2.25S13.657 15 12 15s-3-1.007-3-2.25M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-          </svg>
-        </div>
-        <div>
-          <div class="flex flex-wrap items-center gap-2 mb-2">
-            <h4 class="text-base font-bold text-white">Currency Localization</h4>
-            <span class="px-1.5 py-0.5 rounded text-[9px] font-mono bg-accentEmerald/10 text-accentEmerald border border-accentEmerald/30">STANDALONE MODULE</span>
-          </div>
-          <p class="text-xs text-neutral-400 leading-relaxed font-light">Present prices in the customer’s selected or regional currency with precise formatting across USD, EUR, GBP, PLN, CHF, JPY, AUD, and other global currencies.</p>
-        </div>
-      </div>
-      <div class="pt-4 mt-6 border-t border-white/10 text-[10px] text-neutral-500 font-mono">STACK: FX LOCALIZATION / REGIONAL FORMATTING</div>
-    </div>
-
-    <div class="telemetry-card p-6 rounded-xl relative flex flex-col justify-between group">
-      <div class="space-y-5">
-        <div class="w-10 h-10 rounded bg-surface border border-white/20 flex items-center justify-center group-hover:border-white transition-colors">
-          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m0-10.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.75c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.75h-.002A11.959 11.959 0 0112 2.714zm0 13.036h.008v.008H12v-.008z"></path>
-          </svg>
-        </div>
-        <div>
-          <h4 class="text-base font-bold text-white mb-2">Smart Triage & Spam Isolation</h4>
-          <p class="text-xs text-neutral-400 leading-relaxed font-light">
-            AI-assisted triage scores likely spam, irrelevant outreach, and genuine customer requests. Confidence thresholds can quarantine suspicious messages or escalate uncertain cases to a human.
-          </p>
-        </div>
-      </div>
-      <div class="pt-4 mt-6 border-t border-white/10 text-[10px] text-neutral-500 font-mono">
-        STACK: AI CLASSIFICATION / RULES / HUMAN FALLBACK
-      </div>
-    </div>
-
-  </div>
-</section>
-
-
-<!-- LIVE ORCHESTRATION RAIL -->
-<section class="py-8 px-6 max-w-7xl mx-auto border-t border-white/10">
-  <div class="telemetry-card rounded-2xl p-5 sm:p-7 overflow-hidden relative">
-    <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
-      <div>
-        <div class="text-[10px] font-mono uppercase tracking-[0.22em] text-neutral-500">Live Orchestration Preview</div>
-        <div class="text-sm sm:text-base font-bold text-white mt-1">Signals move through policy, context and human-review layers.</div>
-      </div>
-      <div class="flex items-center gap-2 text-[10px] font-mono text-accentEmerald uppercase tracking-widest">
-        <span class="w-1.5 h-1.5 rounded-full bg-accentEmerald shadow-[0_0_8px_#10b981] micro-blink"></span>
-        Event Stream Active
-      </div>
-    </div>
-
-    <div class="relative orchestration-line">
-      <div class="absolute left-[3%] right-[3%] top-1/2 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent -translate-y-1/2"></div>
-      <div class="flow-packet"></div>
-      <div class="grid grid-cols-5 gap-2 relative z-10">
-        <div class="flow-node rounded-lg border border-white/15 bg-pitch/90 p-3 text-center"><div class="text-[9px] font-mono text-neutral-500">01</div><div class="text-[10px] sm:text-xs font-mono font-bold text-white mt-1">INBOUND</div></div>
-        <div class="flow-node rounded-lg border border-white/15 bg-pitch/90 p-3 text-center"><div class="text-[9px] font-mono text-neutral-500">02</div><div class="text-[10px] sm:text-xs font-mono font-bold text-white mt-1">TRIAGE</div></div>
-        <div class="flow-node rounded-lg border border-white/15 bg-pitch/90 p-3 text-center"><div class="text-[9px] font-mono text-neutral-500">03</div><div class="text-[10px] sm:text-xs font-mono font-bold text-white mt-1">CONTEXT</div></div>
-        <div class="flow-node rounded-lg border border-white/15 bg-pitch/90 p-3 text-center"><div class="text-[9px] font-mono text-neutral-500">04</div><div class="text-[10px] sm:text-xs font-mono font-bold text-white mt-1">POLICY</div></div>
-        <div class="flow-node rounded-lg border border-white/15 bg-pitch/90 p-3 text-center"><div class="text-[9px] font-mono text-neutral-500">05</div><div class="text-[10px] sm:text-xs font-mono font-bold text-white mt-1">DISPATCH</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 4. VISUAL MAIL & SMS SORTING PIPELINE -->
-<section id="demo" class="py-24 px-6 max-w-7xl mx-auto border-t border-white/10">
-  <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
-    <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-white/5 border border-white/20 text-[11px] font-mono text-white uppercase tracking-widest">
-      Interactive Processing Demonstration
-      <span class="ml-1 px-1.5 py-0.5 rounded border border-accentCyan/30 bg-accentCyan/10 text-accentCyan text-[9px]">SIMULATED</span>
-    </div>
-    <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight">Stop Reading. Experience the Future Live.</h2>
-    <p class="text-neutral-400 text-sm sm:text-base font-light">Explore a simulated processing flow showing how messages can be classified, routed, translated, and prepared for response before production integrations are connected.</p>
-  </div>
-
-  <!-- Main Telemetry Terminal -->
-  <div class="bg-obsidian border border-white/20 rounded-2xl overflow-hidden shadow-2xl relative">
-    
-    <div class="h-[2px] w-full shimmer-edge"></div>
-
-    <!-- Terminal Status Bar -->
-    <div class="px-6 py-4 bg-surface border-b border-white/10 flex flex-wrap items-center justify-between gap-4 font-mono text-xs">
-      <div class="flex items-center gap-4">
-        <div class="flex gap-1.5">
-          <span class="w-2.5 h-2.5 rounded-full bg-accentRed/80 shadow-[0_0_6px_#ef4444]"></span>
-          <span class="w-2.5 h-2.5 rounded-full bg-white/30"></span>
-          <span class="w-2.5 h-2.5 rounded-full bg-accentEmerald/80 shadow-[0_0_6px_#10b981]"></span>
-        </div>
-        <span class="text-white font-bold tracking-wider">TRIAGE CONDUIT // v4.8</span>
-        <span class="text-neutral-500 hidden sm:inline">// EMAIL & SMS PARALLEL MATRIX</span>
-      </div>
-
-      <div class="flex items-center gap-3">
-        <span class="w-2 h-2 rounded-full bg-accentEmerald animate-ping"></span>
-        <span class="text-neutral-300 font-bold">PIPELINE: ACTIVE</span>
-      </div>
-    </div>
-
-    <!-- 3-Pane System -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 min-h-[580px]">
-      
-      <!-- Pane 1: Live Inbound Feed -->
-      <div class="lg:col-span-4 border-b lg:border-b-0 lg:border-r border-white/10 p-5 space-y-3 bg-pitch/80">
-        <div class="text-[11px] font-mono uppercase tracking-widest text-neutral-400 flex items-center justify-between pb-2 border-b border-white/5">
-          <span>Inbound Message Stream</span>
-          <span class="text-accentCyan text-[10px]">Click Scenario</span>
-        </div>
-
-        <button onclick="selectTriageItem(1)" id="triage-btn-1" class="w-full text-left p-4 rounded border border-white bg-surface transition-all block group">
-          <div class="flex items-center justify-between text-xs font-mono mb-1">
-            <span class="font-bold text-white">Sarah J. (NexusOps)</span>
-            <span class="text-[10px] text-accentEmerald border border-accentEmerald/40 px-1.5 py-0.5 rounded font-bold">EMAIL // VIP</span>
-          </div>
-          <div class="text-xs font-medium text-neutral-200 truncate">Production Auth Failure on /v2/sync</div>
-          <div class="flex items-center gap-2 mt-2 text-[10px] font-mono text-neutral-400">
-            <span class="text-neutral-500">EN</span>
-            <span>•</span>
-            <span>429 Rate Limit Incident</span>
-          </div>
-        </button>
-
-        <button onclick="selectTriageItem(2)" id="triage-btn-2" class="w-full text-left p-4 rounded border border-white/10 bg-obsidian hover:border-white/30 transition-all block group">
-          <div class="flex items-center justify-between text-xs font-mono mb-1">
-            <span class="font-bold text-neutral-300 group-hover:text-white">Olivia Chen (Northstar Systems)</span>
-            <span class="text-[10px] text-accentCyan border border-accentCyan/40 px-1.5 py-0.5 rounded font-bold">EMAIL // ACCOUNT</span>
-          </div>
-          <div class="text-xs font-medium text-neutral-300 truncate">Add 20 enterprise licenses for Q4</div>
-          <div class="flex items-center gap-2 mt-2 text-[10px] font-mono text-neutral-400">
-            <span class="text-accentCyan font-bold">EN (Verified)</span>
-            <span>•</span>
-            <span>Contract Expansion</span>
-          </div>
-        </button>
-
-        <button onclick="selectTriageItem(3)" id="triage-btn-3" class="w-full text-left p-4 rounded border border-white/10 bg-obsidian hover:border-white/30 transition-all block group">
-          <div class="flex items-center justify-between text-xs font-mono mb-1">
-            <span class="font-bold text-neutral-300 group-hover:text-white">Outbound GrowthBot</span>
-            <span class="text-[10px] text-accentRed border border-accentRed/40 px-1.5 py-0.5 rounded font-bold">SMS SPAM</span>
-          </div>
-          <div class="text-xs font-medium text-neutral-300 truncate">+1 (800) 555-0199: Claim free marketing credits...</div>
-          <div class="flex items-center gap-2 mt-2 text-[10px] font-mono text-neutral-400">
-            <span class="text-accentRed">Cold SMS Blast</span>
-            <span>•</span>
-            <span>Isolated</span>
-          </div>
-        </button>
-      </div>
-
-      <!-- Pane 2: Telemetry & Synthesis -->
-      <div class="lg:col-span-8 p-6 sm:p-8 flex flex-col justify-between bg-obsidian relative">
-        
-        <div class="space-y-6">
-          
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <div class="p-3 rounded border border-white/10 bg-surface">
-              <div class="text-[10px] font-mono text-neutral-500 uppercase">Classified Intent</div>
-              <div id="data-intent" class="text-xs font-bold text-white mt-1 font-mono">Critical API Failure</div>
-            </div>
-
-            <div class="p-3 rounded border border-white/10 bg-surface">
-              <div class="text-[10px] font-mono text-neutral-500 uppercase">Target Route</div>
-              <div id="data-route" class="text-xs font-bold text-accentCyan mt-1 font-mono">Slack #devops-alert</div>
-            </div>
-
-            <div class="p-3 rounded border border-white/10 bg-surface">
-              <div class="text-[10px] font-mono text-neutral-500 uppercase">Channel / Language</div>
-              <div id="data-lang" class="text-xs font-bold text-accentEmerald mt-1 font-mono">Email / Native EN (100%)</div>
-            </div>
-
-            <div class="p-3 rounded border border-white/10 bg-surface">
-              <div class="text-[10px] font-mono text-neutral-500 uppercase">Security Isolation</div>
-              <div id="data-safety" class="text-xs font-bold text-accentEmerald mt-1 font-mono">Verified Clean</div>
-            </div>
-          </div>
-
-          <!-- Neural Synthesis Output Box with Laser Beam -->
-          <div class="relative p-6 rounded-lg border border-white/20 bg-pitch overflow-hidden">
-            <div class="absolute left-0 right-0 h-[2px] bg-accentCyan shadow-[0_0_10px_#00f0ff] scanner-beam pointer-events-none"></div>
-
-            <div class="flex items-center justify-between pb-3 border-b border-white/10 text-xs font-mono">
-              <span class="text-neutral-300 flex items-center gap-2">
-                <span class="w-1.5 h-1.5 rounded-full bg-accentCyan"></span>
-                <span>AUTONOMOUS CONTEXTUAL DISPATCH</span>
-              </span>
-
-              <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-white text-pitch font-bold text-[10px] uppercase font-mono">
-                <svg class="w-3.5 h-3.5 text-pitch" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path>
-                </svg>
-                <span>AI-Assisted Draft</span>
-              </div>
-            </div>
-
-            <div id="triage-output-content" class="mt-4 font-mono text-xs text-neutral-200 leading-relaxed whitespace-pre-wrap min-h-[160px]">
-
-Hi Sarah,
-
-We verified your API credentials for organization 'NexusOps'. Our engineering telemetry indicates the 429 response was generated by rate limits on /v2/sync following your scheduled batch surge at 11:20 UTC.
-
-We have elevated your tier threshold instantly and routed this incident ticket to our Lead DevOps Engineer on Slack. You can resume requests immediately.
-</div>
-</div>
-
-        </div>
-
-        <div class="pt-6 border-t border-white/10 text-[11px] font-mono text-neutral-500">
-          [DEMONSTRATION OUTPUT // AI-assisted draft subject to configured review, approval and routing policies]
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-</section>
-
-
-<!-- STANDALONE CURRENCY LOCALIZATION MODULE -->
-<section id="currency" class="py-24 px-6 max-w-7xl mx-auto border-t border-white/10">
-  <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-    <div class="lg:col-span-5 space-y-5">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-accentEmerald/10 border border-accentEmerald/30 text-[11px] font-mono text-accentEmerald uppercase tracking-widest">
-        Live Currency Module
-      </div>
-
-      <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
-        One Offer. Every Market.
-      </h2>
-
-      <p class="text-sm sm:text-base text-neutral-400 font-light leading-relaxed">
-        Convert your source offer using current reference exchange rates and regional number formatting.
-        The module updates directly from an external FX data source instead of relying on hard-coded values.
-      </p>
-
-      <div class="flex flex-wrap gap-2 font-mono text-[10px] text-neutral-300">
-        <span class="rounded border border-white/15 bg-surface px-2 py-1">USD</span>
-        <span class="rounded border border-white/15 bg-surface px-2 py-1">EUR</span>
-        <span class="rounded border border-white/15 bg-surface px-2 py-1">GBP</span>
-        <span class="rounded border border-white/15 bg-surface px-2 py-1">PLN</span>
-        <span class="rounded border border-white/15 bg-surface px-2 py-1">CHF</span>
-        <span class="rounded border border-white/15 bg-surface px-2 py-1">JPY</span>
-        <span class="rounded border border-white/15 bg-surface px-2 py-1">AUD</span>
-        <span class="rounded border border-white/15 bg-surface px-2 py-1">CAD</span>
-        <span class="rounded border border-white/15 bg-surface px-2 py-1">SEK</span>
-        <span class="rounded border border-white/15 bg-surface px-2 py-1">NOK</span>
-      </div>
-    </div>
-
-    <div class="lg:col-span-7 bg-obsidian border border-white/20 rounded-2xl overflow-hidden shadow-2xl">
-      <div class="h-[2px] w-full shimmer-edge"></div>
-
-      <div class="p-6 sm:p-8 space-y-6">
-        <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <div class="text-[10px] font-mono uppercase tracking-widest text-neutral-500">
-              Currency Localization Engine
-            </div>
-            <div class="mt-1 text-sm font-bold text-white">
-              Reference FX Converter
-            </div>
-          </div>
-
-          <span id="fx-status-badge"
-                class="self-start rounded border border-accentEmerald/30 bg-accentEmerald/10 px-2.5 py-1 text-[10px] font-mono font-bold text-accentEmerald">
-            CHECKING CURRENT RATE
-          </span>
-        </div>
-
-        <div class="grid grid-cols-1 gap-4">
-          <div>
-            <label for="currency-source-amount" class="block mb-2 text-[10px] font-mono uppercase tracking-widest text-neutral-500">
-              Source amount
-            </label>
-
-            <div class="rounded-xl border border-white/10 bg-surface p-3 sm:p-4 focus-within:border-white/35 transition-colors">
-              <div class="flex items-center gap-2 sm:gap-3 min-w-0">
-                <input
-                  id="currency-source-amount"
-                  type="number"
-                  value="2000"
-                  min="0"
-                  step="0.01"
-                  inputmode="decimal"
-                  aria-label="Source amount"
-                  class="w-0 min-w-0 flex-1 bg-transparent text-xl sm:text-2xl font-bold text-white font-mono tabular-nums outline-none"
-                >
-
-                <select
-                  id="currency-source-code"
-                  aria-label="Source currency"
-                  class="w-[88px] shrink-0 bg-pitch border border-white/15 rounded-lg px-2.5 py-2 text-xs font-mono font-bold text-white outline-none hover:border-white/35 focus:border-accentCyan transition-colors cursor-pointer">
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <div class="flex justify-center -my-1">
-            <button
-              id="currency-swap"
-              type="button"
-              aria-label="Swap currencies"
-              class="w-10 h-10 shrink-0 rounded-full border border-white/15 bg-surface text-white hover:border-accentCyan hover:text-accentCyan hover:shadow-[0_0_16px_rgba(0,240,255,.14)] transition-all flex items-center justify-center">
-              <svg class="w-4 h-4 rotate-90" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M7 7h11m0 0-3-3m3 3-3 3M17 17H6m0 0 3 3m-3-3 3-3"/>
-              </svg>
-            </button>
-          </div>
-
-          <div>
-            <label for="currency-target-code" class="block mb-2 text-[10px] font-mono uppercase tracking-widest text-neutral-500">
-              Customer currency
-            </label>
-
-            <div class="rounded-xl border border-accentEmerald/30 bg-accentEmerald/5 p-3 sm:p-4">
-              <div class="flex items-center gap-2 sm:gap-3 min-w-0">
-                <div id="currency-amount"
-                     class="w-0 min-w-0 flex-1 text-xl sm:text-2xl font-bold text-accentEmerald font-mono tabular-nums truncate">
-                  —
-                </div>
-
-                <select
-                  id="currency-target-code"
-                  aria-label="Target currency"
-                  class="w-[88px] shrink-0 bg-pitch border border-accentEmerald/25 rounded-lg px-2.5 py-2 text-xs font-mono font-bold text-accentEmerald outline-none hover:border-accentEmerald/50 focus:border-accentEmerald transition-colors cursor-pointer">
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div class="rounded-lg border border-white/10 bg-pitch/70 p-3">
-            <div class="text-[9px] font-mono uppercase tracking-wider text-neutral-600">Current rate</div>
-            <div id="currency-rate" class="mt-1 text-xs font-mono font-bold text-white break-words">—</div>
-          </div>
-
-          <div class="rounded-lg border border-white/10 bg-pitch/70 p-3">
-            <div class="text-[9px] font-mono uppercase tracking-wider text-neutral-600">Rate status</div>
-            <div id="currency-rate-date" class="mt-1 text-xs font-mono font-bold text-white">CURRENT REFERENCE RATE</div>
-          </div>
-        </div>
-
-        <div class="flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-4 text-[10px] font-mono">
-          <span id="currency-market" class="text-accentEmerald font-bold">● CURRENT RATE ACTIVE</span>
-          <span id="currency-last-check" class="text-neutral-500">Waiting for current rate…</span>
-        </div>
-
-        <div id="currency-error"
-             class="hidden rounded border border-accentRed/30 bg-accentRed/5 px-3 py-2 text-[10px] font-mono text-accentRed">
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 6. REDESIGNED ULTRA-SIMPLE CONTACT FORM -->
-<section id="contact" class="py-24 px-6 max-w-4xl mx-auto border-t border-white/10">
-  <div class="text-center space-y-4 mb-12">
-    <h2 class="text-xs font-mono font-bold uppercase tracking-widest text-neutral-400">Architecture Consultation</h2>
-    <h3 class="text-3xl sm:text-5xl font-black text-white tracking-tight">Initiate Your Automation Pipeline</h3>
-    <p class="text-sm text-neutral-400 font-light">Share your current workflow and message volume. We’ll review the use case and follow up with a practical automation scope, integration path, and next-step proposal.</p>
-  </div>
-
-  <form id="synvio-contact-form" class="telemetry-card p-8 sm:p-10 rounded-xl space-y-5 max-w-2xl mx-auto">
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-      <div class="space-y-1.5">
-        <label class="block text-xs uppercase font-mono text-neutral-300">Name</label>
-        <input type="text" name="name" required placeholder="Elena Vance" class="w-full px-4 py-3 bg-surface border border-white/15 rounded text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-white transition-all font-mono">
-      </div>
-      <div class="space-y-1.5">
-        <label class="block text-xs uppercase font-mono text-neutral-300">Work Email</label>
-        <input type="email" name="email" required placeholder="elena@company.com" class="w-full px-4 py-3 bg-surface border border-white/15 rounded text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-white transition-all font-mono">
-      </div>
-    </div>
-
-    <div class="space-y-1.5">
-      <label class="block text-xs uppercase font-mono text-neutral-300">Automation Scope</label>
-      <select name="automation_scope" class="w-full px-4 py-3 bg-surface border border-white/15 rounded text-sm text-white focus:outline-none focus:border-white transition-all font-mono cursor-pointer">
-        <option value="omnichannel">Full Autonomous Operations (Chatbot + Email &amp; SMS Triage)</option>
-        <option value="email-sms">Dual Email &amp; SMS Auto-Triage Pipeline</option>
-        <option value="chatbot">24/7 Contextual Chatbot (CRM &amp; Database Integration)</option>
-        <option value="spam-isolation">Enterprise AI Spam Vaporizer &amp; Alert Routing</option>
-      </select>
-    </div>
-
-    <div class="space-y-1.5">
-      <label class="block text-xs uppercase font-mono text-neutral-300">Monthly Message Volume</label>
-      <select name="monthly_volume" class="w-full px-4 py-3 bg-surface border border-white/15 rounded text-sm text-white focus:outline-none focus:border-white transition-all font-mono cursor-pointer">
-        <option value="under-5k">&lt; 5,000 messages / mo</option>
-        <option value="5k-25k">5,000 – 25,000 messages / mo</option>
-        <option value="25k-100k">25,000 – 100,000 messages / mo</option>
-        <option value="100k+">100,000+ messages / mo (Enterprise Scale)</option>
-      </select>
-    </div>
-
-    <div class="space-y-1.5">
-      <label class="block text-xs uppercase font-mono text-neutral-300">Workflow / Message Example</label>
-      <textarea
-        name="message"
-        rows="5"
-        required
-        placeholder="Describe the workflow you want to automate, or paste an example message you want Synvio to process..."
-        class="w-full px-4 py-3 bg-surface border border-white/15 rounded text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-white transition-all font-mono resize-y"
-      ></textarea>
-      <p class="text-[10px] font-mono text-neutral-600">
-        You can also paste a sample support, sales or suspicious message for testing.
-      </p>
-    </div>
-
-    <!-- Formspree honeypot: real users never see this field -->
-    <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true">
-
-    <div id="contact-feedback-notice" class="hidden text-xs font-mono text-accentEmerald text-center py-2.5 border border-accentEmerald/30 bg-surface"></div>
-
-    <button type="submit" class="w-full py-3.5 bg-white text-pitch text-xs uppercase tracking-widest font-mono font-black rounded hover:bg-neutral-200 hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] transition-all">
-      Launch Free Process Analysis
-    </button>
-  </form>
-</section>
-
-  </main>
-
-  <!-- VANILLA JAVASCRIPT: TRIAGE CONTROLLER -->
-
-  <script>
-    const triageMatrix = {
-      1: {
-        intent: "Critical API Incident",
-        route: "Slack #devops-alert",
-        lang: "Email / Native EN (100%)",
-        safety: "Verified Clean",
-        output: `Hi Sarah,\n\nWe verified your API credentials for organization 'NexusOps'. Our engineering telemetry indicates the 429 response was generated by rate limits on /v2/sync following your scheduled batch surge at 11:20 UTC.\n\nWe have elevated your tier threshold instantly and routed this incident ticket to our Lead DevOps Engineer on Slack. You can resume requests immediately.`
-      },
-      2: {
-        intent: "Enterprise License Upgrade",
-        route: "Stripe Billing / CRM Sync",
-        lang: "Email / Native EN (100%)",
-        safety: "Commercial Terms Verified",
-        output: `Hi Olivia,\n\nThank you for contacting us on behalf of Northstar Systems. We prepared the quote for 20 additional enterprise licenses for the fourth quarter.\n\nSelect [Review license quote] to continue. Your Northstar Systems administrator account will update after approval.`
-      },
-      3: {
-        intent: "Cold Outbound SMS Blast",
-        route: "SMS Security Vault",
-        lang: "SMS / Marketing Scrape",
-        safety: "Isolated (Zero Alert)",
-        output: `[ISOLATED BY SYNVIO THREAT VAULT]\n\nReason: Origin telephone number +1 (800) 555-0199 flagged in global telephony spam registry. Intent classified as unsolicited bulk promotional text.\n\nAction: Silently quarantined in security silo. Zero human staff interrupted.`
-      }
-    };
-
-    function selectTriageItem(id) {
-      for (let i = 1; i <= 3; i++) {
-        const btn = document.getElementById(`triage-btn-${i}`);
-        if (i === id) {
-          btn.className = "w-full text-left p-4 rounded border border-white bg-surface transition-all block group";
-        } else {
-          btn.className = "w-full text-left p-4 rounded border border-white/10 bg-obsidian hover:border-white/30 transition-all block group";
-        }
-      }
-
-      const item = triageMatrix[id];
-      document.getElementById('data-intent').textContent = item.intent;
-      document.getElementById('data-route').textContent = item.route;
-      document.getElementById('data-lang').textContent = item.lang;
-      document.getElementById('data-safety').textContent = item.safety;
-      document.getElementById('triage-output-content').textContent = item.output;
-
-    }
-
-
-    // =========================================================
-    // LIVE CURRENCY CONVERTER — FRANKFURTER API
-    // =========================================================
-    const supportedCurrencies = [
-      "USD", "EUR", "GBP", "PLN", "CHF", "JPY", "AUD", "CAD",
-      "SEK", "NOK", "DKK", "CZK", "HUF", "RON", "BGN", "TRY",
-      "CNY", "HKD", "SGD", "NZD", "INR", "BRL", "MXN", "ZAR",
-      "ILS", "KRW", "IDR", "MYR", "PHP", "THB", "ISK"
-    ];
-
-    const currencyLocales = {
-      USD: "en-US",
-      EUR: "de-DE",
-      GBP: "en-GB",
-      PLN: "pl-PL",
-      CHF: "de-CH",
-      JPY: "ja-JP",
-      AUD: "en-AU",
-      CAD: "en-CA",
-      SEK: "sv-SE",
-      NOK: "nb-NO",
-      DKK: "da-DK",
-      CZK: "cs-CZ",
-      HUF: "hu-HU",
-      RON: "ro-RO",
-      BGN: "bg-BG",
-      TRY: "tr-TR",
-      CNY: "zh-CN",
-      HKD: "zh-HK",
-      SGD: "en-SG",
-      NZD: "en-NZ",
-      INR: "en-IN",
-      BRL: "pt-BR",
-      MXN: "es-MX",
-      ZAR: "en-ZA",
-      ILS: "he-IL",
-      KRW: "ko-KR",
-      IDR: "id-ID",
-      MYR: "ms-MY",
-      PHP: "en-PH",
-      THB: "th-TH",
-      ISK: "is-IS"
-    };
-
-    const fxCache = new Map();
-
-    const sourceAmountInput = document.getElementById("currency-source-amount");
-    const sourceCodeSelect = document.getElementById("currency-source-code");
-    const targetCodeSelect = document.getElementById("currency-target-code");
-    const swapButton = document.getElementById("currency-swap");
-    const amountOutput = document.getElementById("currency-amount");
-    const rateOutput = document.getElementById("currency-rate");
-    const rateDateOutput = document.getElementById("currency-rate-date");
-    const lastCheckOutput = document.getElementById("currency-last-check");
-    const statusBadge = document.getElementById("fx-status-badge");
-    const marketOutput = document.getElementById("currency-market");
-    const errorOutput = document.getElementById("currency-error");
-
-    function fillCurrencySelect(select, selected) {
-      supportedCurrencies.forEach((code) => {
-        const option = document.createElement("option");
-        option.value = code;
-        option.textContent = code;
-        if (code === selected) option.selected = true;
-        select.appendChild(option);
-      });
-    }
-
-    fillCurrencySelect(sourceCodeSelect, "USD");
-    fillCurrencySelect(targetCodeSelect, "PLN");
-
-    function formatCurrency(value, code) {
-      const locale = currencyLocales[code] || "en-US";
-      const noDecimals = ["JPY", "KRW"].includes(code);
-
-      return new Intl.NumberFormat(locale, {
-        style: "currency",
-        currency: code,
-        minimumFractionDigits: noDecimals ? 0 : 2,
-        maximumFractionDigits: noDecimals ? 0 : 2
-      }).format(value);
-    }
-
-    function setFxLoading(isLoading) {
-      if (isLoading) {
-        statusBadge.textContent = "UPDATING FX DATA";
-        statusBadge.className =
-          "self-start rounded border border-accentCyan/30 bg-accentCyan/10 px-2.5 py-1 text-[10px] font-mono font-bold text-accentCyan";
-      } else {
-        statusBadge.textContent = "CURRENT RATE ACTIVE";
-        statusBadge.className =
-          "self-start rounded border border-accentEmerald/30 bg-accentEmerald/10 px-2.5 py-1 text-[10px] font-mono font-bold text-accentEmerald";
-      }
-    }
-
-    function showFxError(message) {
-      errorOutput.textContent = message;
-      errorOutput.classList.remove("hidden");
-
-      statusBadge.textContent = "FX DATA ERROR";
-      statusBadge.className =
-        "self-start rounded border border-accentRed/30 bg-accentRed/10 px-2.5 py-1 text-[10px] font-mono font-bold text-accentRed";
-
-      marketOutput.textContent = "● RATE UNAVAILABLE";
-      marketOutput.className = "text-accentRed font-bold";
-    }
-
-    function clearFxError() {
-      errorOutput.classList.add("hidden");
-      errorOutput.textContent = "";
-      marketOutput.textContent = "● FX DATA ACTIVE";
-      marketOutput.className = "text-accentEmerald font-bold";
-    }
-
-    async function getFxRate(base, quote) {
-      if (base === quote) {
-        return {
-          rate: 1,
-          date: new Date().toISOString().slice(0, 10)
-        };
-      }
-
-      const cacheKey = `${base}-${quote}`;
-      const cached = fxCache.get(cacheKey);
-
-      // Cache browser-side for 10 minutes.
-      if (cached && Date.now() - cached.cachedAt < 10 * 60 * 1000) {
-        return cached;
-      }
-
-      const response = await fetch(
-        `https://api.frankfurter.dev/v2/rate/${encodeURIComponent(base)}/${encodeURIComponent(quote)}`,
-        {
-          headers: {
-            "Accept": "application/json"
-          }
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error(`FX request failed (${response.status})`);
-      }
-
-      const data = await response.json();
-
-      if (!data || typeof data.rate !== "number") {
-        throw new Error("Invalid FX response");
-      }
-
-      const result = {
-        rate: data.rate,
-        date: data.date,
-        cachedAt: Date.now()
-      };
-
-      fxCache.set(cacheKey, result);
-      return result;
-    }
-
-    let conversionRequestId = 0;
-    let conversionTimer = null;
-
-    async function updateCurrencyConversion() {
-      const requestId = ++conversionRequestId;
-      const amount = Number(sourceAmountInput.value);
-      const base = sourceCodeSelect.value;
-      const quote = targetCodeSelect.value;
-
-      clearFxError();
-
-      if (!Number.isFinite(amount) || amount < 0) {
-        amountOutput.textContent = "—";
-        rateOutput.textContent = "—";
-        rateDateOutput.textContent = "RATE UNAVAILABLE";
-        lastCheckOutput.textContent = "Enter a valid source amount";
-        return;
-      }
-
-      setFxLoading(true);
-
-      try {
-        const fx = await getFxRate(base, quote);
-
-        if (requestId !== conversionRequestId) return;
-
-        const converted = amount * fx.rate;
-
-        amountOutput.textContent = formatCurrency(converted, quote);
-        rateOutput.textContent = `1 ${base} = ${fx.rate.toLocaleString("en-US", {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 6
-        })} ${quote}`;
-
-        rateDateOutput.textContent = fx.date
-          ? `CURRENT · ${fx.date}`
-          : "CURRENT REFERENCE RATE";
-
-        lastCheckOutput.textContent =
-          `Checked ${new Date().toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit"
-          })}`;
-
-        setFxLoading(false);
-      } catch (error) {
-        console.error("Currency conversion error:", error);
-
-        if (requestId !== conversionRequestId) return;
-
-        amountOutput.textContent = "—";
-        rateOutput.textContent = "—";
-        rateDateOutput.textContent = "—";
-        lastCheckOutput.textContent = "Could not refresh rate";
-
-        showFxError(
-          "Unable to load the current exchange rate. Please try again in a moment."
-        );
-      }
-    }
-
-    function scheduleCurrencyUpdate() {
-      clearTimeout(conversionTimer);
-      conversionTimer = setTimeout(updateCurrencyConversion, 180);
-    }
-
-    sourceAmountInput.addEventListener("input", scheduleCurrencyUpdate);
-    sourceCodeSelect.addEventListener("change", updateCurrencyConversion);
-    targetCodeSelect.addEventListener("change", updateCurrencyConversion);
-
-    swapButton.addEventListener("click", () => {
-      const previousSource = sourceCodeSelect.value;
-      sourceCodeSelect.value = targetCodeSelect.value;
-      targetCodeSelect.value = previousSource;
-      updateCurrencyConversion();
-    });
-
-    updateCurrencyConversion();
-
-    // =========================================================
-    // CONTACT FORM — FORMSPREE
-    // =========================================================
-    const contactForm = document.getElementById("synvio-contact-form");
-    const contactNotice = document.getElementById("contact-feedback-notice");
-    const contactSubmitButton = contactForm?.querySelector('button[type="submit"]');
-    const FORMSPREE_ENDPOINT = "https://formspree.io/f/xbgjvaaq";
-
-    if (contactForm) {
-      contactForm.addEventListener("submit", async (event) => {
-        event.preventDefault();
-
-        const originalButtonText = contactSubmitButton.textContent;
-
-        contactNotice.classList.remove("hidden", "text-accentRed", "border-accentRed/30");
-        contactNotice.classList.add("text-accentCyan", "border-accentCyan/30");
-        contactNotice.textContent = "TRANSMITTING INQUIRY...";
-
-        contactSubmitButton.disabled = true;
-        contactSubmitButton.textContent = "TRANSMITTING...";
-        contactSubmitButton.classList.add("opacity-60", "cursor-not-allowed");
-
-        try {
-          const formData = new FormData(contactForm);
-
-          const response = await fetch(FORMSPREE_ENDPOINT, {
-            method: "POST",
-            body: formData,
-            headers: {
-              "Accept": "application/json"
-            }
-          });
-
-          if (!response.ok) {
-            const data = await response.json().catch(() => null);
-            const message =
-              data?.errors?.map((error) => error.message).join(", ") ||
-              "Form submission failed.";
-            throw new Error(message);
-          }
-
-          contactNotice.classList.remove("text-accentCyan", "border-accentCyan/30");
-          contactNotice.classList.add("text-accentEmerald", "border-accentEmerald/30");
-          contactNotice.textContent =
-            "✓ INQUIRY SENT: Your workflow has been transmitted successfully.";
-
-          contactForm.reset();
-        } catch (error) {
-          console.error("Formspree submission error:", error);
-
-          contactNotice.classList.remove("text-accentCyan", "border-accentCyan/30");
-          contactNotice.classList.add("text-accentRed", "border-accentRed/30");
-          contactNotice.textContent =
-            "TRANSMISSION FAILED — please check the form and try again.";
-        } finally {
-          contactSubmitButton.disabled = false;
-          contactSubmitButton.textContent = originalButtonText;
-          contactSubmitButton.classList.remove("opacity-60", "cursor-not-allowed");
-        }
-      });
-    }
-
-
-    // Keep the shared footer credible without modifying the working chat bundle.
-    window.addEventListener('DOMContentLoaded', () => {
-      const updateFooterCopy = () => {
-        const footer = document.getElementById('synvio-footer');
-        if (!footer) return false;
-        const copy = [...footer.querySelectorAll('span')].find((el) =>
-          el.textContent.includes('All systems deploy built-in safety guardrails')
-        );
-        if (copy) {
-          copy.textContent = 'AI-assisted workflows can include configurable review, routing and escalation controls. Production behavior depends on connected models, data sources and client-defined policies.';
-        }
-        return true;
-      };
-      if (!updateFooterCopy()) {
-        const obs = new MutationObserver(() => { if (updateFooterCopy()) obs.disconnect(); });
-        obs.observe(document.body, { childList: true, subtree: true });
-      }
-    });
-
-  </script>
-
-</body>
-</html>
+</footer>
+
+
+<script>
+(function(){
+  // Section reveals
+  const io=('IntersectionObserver'in window)?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}}),{threshold:.12}):null;
+  document.querySelectorAll('.reveal').forEach(x=>io?io.observe(x):x.classList.add('visible'));
+  // Cursor glow
+  const glow=document.getElementById('mouse-glow');
+  window.addEventListener('pointermove',e=>{if(!glow)return;glow.style.left=e.clientX+'px';glow.style.top=e.clientY+'px';glow.style.opacity='1'});window.addEventListener('pointerleave',()=>{if(glow)glow.style.opacity='0'});
+  // Hero tilt
+  const hero=document.getElementById('hero-visual');hero?.addEventListener('pointermove',e=>{const r=hero.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5;const y=(e.clientY-r.top)/r.height-.5;hero.style.transform=`rotateY(${x*4}deg) rotateX(${-y*4}deg)`});hero?.addEventListener('pointerleave',()=>hero.style.transform='');
+
+  // Product demo: mirrors the real app layout but keeps marketing data simulated.
+  const tickets=[
+    {name:'Maya Chen',email:'maya@northlane.co',subject:'Address change before dispatch',priority:'priority',color:'#f4b740',status:'open',age:'2m',avatar:'MC',message:'Hi — I just noticed the shipping address on order #4831 is my old office. Can you change it before the package goes out?',draft:'Hi Maya,\n\nThanks for flagging this. Please send the new shipping address and we’ll confirm whether the order can still be updated before dispatch.\n\nBest,\nNorthstar Support'},
+    {name:'Oliver Grant',email:'oliver@gmail.com',subject:'Return status for order #4762',priority:'normal',color:'#858b92',status:'waiting',age:'11m',avatar:'OG',message:'Hello, I returned the package last week. Could you check whether the refund has already been processed?',draft:'Hi Oliver,\n\nThanks for checking in. I can look into the return status for order #4762. We’ll verify the warehouse receipt and update you on the refund status.\n\nBest,\nNorthstar Support'},
+    {name:'Alicia Park',email:'accounts@studio-seven.com',subject:'Invoice copy needed',priority:'normal',color:'#858b92',status:'open',age:'18m',avatar:'AP',message:'Could you resend the VAT invoice for order #4698 to this address? Our accounting team cannot locate the original.',draft:'Hi Alicia,\n\nAbsolutely — we’ll resend the invoice for order #4698 to this email address.\n\nBest,\nNorthstar Support'}
+  ];
+  let selected=0, cycling=true;
+  const list=document.getElementById('demo-ticket-list');
+  function renderList(){list.innerHTML='';tickets.forEach((t,i)=>{const b=document.createElement('button');b.className='demo-ticket'+(i===selected?' active':'');b.innerHTML=`<div class="demo-ticket-top"><span class="demo-priority" style="background:${t.color}"></span><span class="demo-customer">${t.name}</span><span class="demo-age">${t.age}</span></div><div class="demo-subject">${t.subject}</div><div class="demo-meta">email · ${t.status}</div>`;b.onclick=()=>{cycling=false;selectTicket(i)};list.appendChild(b)})}
+  function selectTicket(i){selected=i;renderList();const t=tickets[i];document.getElementById('demo-detail-subject').textContent=t.subject;document.getElementById('demo-avatar').textContent=t.avatar;document.getElementById('demo-name').textContent=t.name;document.getElementById('demo-email').textContent=t.email;document.getElementById('demo-tags').innerHTML=`<span class="demo-tag">${t.priority.toUpperCase()}</span><span class="demo-tag">${t.status.toUpperCase()}</span><span class="demo-tag">EMAIL</span>`;document.getElementById('demo-thread').innerHTML=`<div class="demo-message"><div class="font-mono text-[7px] text-neutral-600 mb-2">CUSTOMER → SUPPORT</div>${t.message}</div>`;document.getElementById('demo-draft').textContent='';document.getElementById('demo-confidence').textContent='MANUAL REPLY';document.getElementById('demo-state-label').textContent='REAL APP PATTERN';}
+  function typeText(el,text,done){el.textContent='';let i=0;const timer=setInterval(()=>{el.textContent+=text.slice(i,i+3);i+=3;if(i>=text.length){clearInterval(timer);done?.()}},14)}
+  document.getElementById('demo-generate')?.addEventListener('click',()=>{const b=document.getElementById('demo-generate');b.disabled=true;b.textContent='Analyzing context…';document.getElementById('demo-confidence').textContent='PROCESSING';document.getElementById('demo-state-label').textContent='DEMO AI DRAFT';setTimeout(()=>typeText(document.getElementById('demo-draft'),tickets[selected].draft,()=>{document.getElementById('demo-confidence').textContent='DRAFT READY';b.textContent='Generate demo draft';b.disabled=false}),650)});
+  document.getElementById('demo-send')?.addEventListener('click',()=>{const toast=document.getElementById('demo-toast');toast.classList.add('show');toast.textContent='DEMO ONLY: reply submitted';setTimeout(()=>toast.classList.remove('show'),2300)});
+  selectTicket(0);setInterval(()=>{if(cycling)selectTicket((selected+1)%tickets.length)},5200);
+
+  // AI web-chat + human-handoff simulation.
+  const msgBox=document.getElementById('chat-demo-messages');
+  function setMsgs(mode){if(!msgBox)return;if(mode==='human'){msgBox.innerHTML='<div class="chat-msg ai">Hi — I can help with orders, returns and product questions.</div><div class="chat-msg user">I need to speak to a person about a damaged delivery.</div><div class="chat-msg ai">Of course. I’m transferring this conversation to the support team with the context attached.</div>';document.getElementById('handoff-status').textContent='HANDOFF REQUESTED';document.getElementById('handoff-status').className='text-[9px] font-mono uppercase tracking-wider text-accentCyan border border-accentCyan/30 rounded px-2.5 py-1';document.getElementById('handoff-title').textContent='Human requested — ticket enters operator queue';document.getElementById('handoff-copy').textContent='The same chat history becomes a support conversation. The employee receives the context instead of asking the visitor to repeat everything.';document.getElementById('handoff-queue').textContent='Priority / Web Chat';document.getElementById('agent-card').style.opacity='1';document.getElementById('agent-badge').textContent='CONNECTED';document.getElementById('agent-badge').className='font-mono text-[8px] border border-accentEmerald/30 rounded px-2 py-1 text-accentEmerald'}else{msgBox.innerHTML='<div class="chat-msg ai">Hi — I can help with orders, returns and product questions.</div><div class="chat-msg user">Where is order #4831?</div><div class="chat-msg ai">I found the order context. It is currently marked for dispatch. Would you like the tracking details?</div>';document.getElementById('handoff-status').textContent='AI ACTIVE';document.getElementById('handoff-status').className='text-[9px] font-mono uppercase tracking-wider text-neutral-500 border border-white/10 rounded px-2.5 py-1';document.getElementById('handoff-title').textContent='AI handling routine question';document.getElementById('handoff-copy').textContent='The conversation stays with the automated layer until a handoff condition is met.';document.getElementById('handoff-queue').textContent='AI session';document.getElementById('agent-card').style.opacity='.4';document.getElementById('agent-badge').textContent='WAITING';document.getElementById('agent-badge').className='font-mono text-[8px] border border-white/10 rounded px-2 py-1 text-neutral-600'}}
+  document.getElementById('chat-normal')?.addEventListener('click',()=>setMsgs('normal'));document.getElementById('chat-human')?.addEventListener('click',()=>setMsgs('human'));setMsgs('normal');
+
+  // Usage estimator.
+  const mails=document.getElementById('mail-range'), ai=document.getElementById('ai-range'), ctx=document.getElementById('context-range');
+  function compact(n){return n>=1e6?(n/1e6).toFixed(n>=1e7?0:1)+'M':Math.round(n/1e3)+'k'}
+  function priceCalc(){const m=+mails.value,r=+ai.value/100,a=Math.round(m*r),p={short:[450,1100],standard:[900,2400],long:[1800,5000]}[ctx.value],lo=m*120+a*p[0],hi=m*260+a*p[1];document.getElementById('mail-out').textContent=m.toLocaleString('en-US');document.getElementById('ai-out').textContent=Math.round(r*100)+'%';document.getElementById('assisted-out').textContent=a.toLocaleString('en-US');document.getElementById('price-band').textContent=m<=1000?'Launch':m<=5000?'Growth':'Scale';document.getElementById('tokens-out').textContent=compact(lo)+'–'+compact(hi)}[mails,ai,ctx].forEach(x=>{x?.addEventListener('input',priceCalc);x?.addEventListener('change',priceCalc)});priceCalc();
+
+  // Formspree without leaving the page.
+  const form=document.getElementById('pilot-form'),submit=document.getElementById('pilot-submit'),status=document.getElementById('pilot-status');form?.addEventListener('submit',async e=>{e.preventDefault();submit.disabled=true;submit.textContent='Sending…';status.classList.add('hidden');try{const res=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{Accept:'application/json'}});if(!res.ok)throw new Error();form.reset();status.textContent='Request received. We’ll get back to you with the next step.';status.className='text-xs rounded-lg border px-4 py-3 border-accentEmerald/30 bg-accentEmerald/5 text-accentEmerald'}catch(err){status.textContent='Could not send the request. Please try again.';status.className='text-xs rounded-lg border px-4 py-3 border-accentRed/30 bg-accentRed/5 text-accentRed'}finally{submit.disabled=false;submit.textContent='Request private pilot'}});
+})();
+</script>
+</body></html>
