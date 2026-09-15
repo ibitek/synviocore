@@ -1,60 +1,42 @@
-<!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Terms of Service & Responsible AI | Synvio AI</title>
-  <meta name="description" content="Synvio AI service terms, responsible AI principles, data handling, acceptable use, and deployment conditions.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Legal & Privacy — Synvio AI</title>
+  <meta name="description" content="Synvio AI terms, privacy, AI output notice and private pilot information.">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','sans-serif'],mono:['JetBrains Mono','monospace']},colors:{pitch:'#000000',obsidian:'#070707',surface:'#111111',accentCyan:'#00f0ff',accentEmerald:'#10b981'}}}}
-  </script>
-  <style>
-    .bg-grid-canvas{background-size:44px 44px;background-image:linear-gradient(to right,rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,.04) 1px,transparent 1px)}
-    .telemetry-card{background:rgba(9,9,9,.94);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.1)}
-    @keyframes legalScan{0%{transform:translateX(-120%);opacity:0}20%{opacity:.45}80%{opacity:.45}100%{transform:translateX(220%);opacity:0}}
-    .legal-scan{position:relative;overflow:hidden}.legal-scan:after{content:'';position:absolute;inset:0 auto 0 0;width:36%;background:linear-gradient(90deg,transparent,rgba(0,240,255,.12),transparent);animation:legalScan 6s linear infinite;pointer-events:none}
-    @media(prefers-reduced-motion:reduce){.legal-scan:after{animation:none}}
-  </style>
-  <script src="../global.js" defer></script>
+  <script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','sans-serif'],mono:['JetBrains Mono','monospace']},colors:{cyan:'#00e7f2'}}}}</script>
+  <style>*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% -12%,rgba(0,231,242,.06),transparent 30rem),#050505;color:#e7e9eb}.legal{background:rgba(11,12,13,.78);border:1px solid rgba(255,255,255,.09)}.legal p,.legal li{color:#9ca3aa;line-height:1.8}.legal h2{color:#fff;font-weight:800;font-size:1rem}</style>
+<script src="../global.js" defer></script>
+<link rel="stylesheet" href="../effects.css">
 </head>
-<body class="bg-pitch text-neutral-100 font-sans antialiased selection:bg-white selection:text-pitch min-h-screen flex flex-col justify-between">
-  <div class="fixed inset-0 pointer-events-none bg-grid-canvas z-0 opacity-80"></div>
-  <main class="relative z-10 max-w-4xl mx-auto px-6 py-12 flex-grow w-full">
-    <div class="mb-12 p-5 rounded-lg border border-white/20 bg-surface/90 flex items-start gap-4 legal-scan">
-      <div class="w-6 h-6 border border-white/70 flex-shrink-0 flex items-center justify-center mt-0.5"><div class="w-2 h-2 bg-accentEmerald shadow-[0_0_6px_#10b981]"></div></div>
-      <div>
-        <div class="text-xs uppercase font-mono tracking-widest text-white font-bold">AI Assistant // Terms Navigation</div>
-        <p class="text-xs text-neutral-400 mt-1 leading-relaxed font-mono">Use the chat assistant to locate sections or understand product terminology. For contractual or legal interpretation, rely on the written agreement and qualified professional advice.</p>
-      </div>
-    </div>
+<body class="font-sans antialiased min-h-screen">
 
-    <div class="space-y-4 mb-12">
-      <div class="text-xs font-mono uppercase tracking-widest text-neutral-500">Service Terms // Preview Framework</div>
-      <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight">Terms of Service & Responsible AI</h1>
-      <p class="text-sm text-neutral-400 font-light leading-relaxed">A practical framework describing how Synvio AI services may be configured, tested and deployed. Final production commitments, service levels and data-processing terms are defined in the applicable written agreement with each client.</p>
-    </div>
+  <div id="site-header-mount"></div>
+<main class="max-w-5xl mx-auto px-6 py-20">
+  <div class="max-w-3xl">
+    <div class="font-mono text-[10px] uppercase tracking-[.14em] text-neutral-500">Legal & privacy</div>
+    <h1 class="mt-5 text-4xl sm:text-6xl font-black tracking-[-.05em] leading-[.98] text-white">Terms for using Synvio.</h1>
+    <p class="mt-6 text-base leading-8 text-neutral-400">These terms cover the website and private-pilot use of the Synvio customer-support platform. A signed customer agreement can add or replace terms for a specific deployment.</p>
+  </div>
 
-    <div class="telemetry-card p-8 sm:p-12 rounded-xl space-y-10 text-xs font-mono leading-relaxed text-neutral-300">
-      <section class="space-y-3"><h2 class="text-sm font-bold text-white uppercase tracking-wider">1. Scope of Services</h2><p class="text-neutral-400">Synvio AI designs and configures AI-assisted communication workflows that may include message classification, routing, translation, response drafting, knowledge retrieval, CRM or database actions, and human escalation. Available capabilities depend on the integrations, providers and configuration selected for a particular deployment.</p></section>
-      <section class="space-y-3"><h2 class="text-sm font-bold text-white uppercase tracking-wider">2. AI-Assisted Outputs & Human Oversight</h2><p class="text-neutral-400">AI-generated classifications, translations and drafts are probabilistic outputs and should not be treated as guaranteed facts. Production workflows can be configured with confidence thresholds, approved knowledge sources, restricted actions, review queues and human approval steps. Clients remain responsible for deciding which actions may be automated and which require review.</p></section>
-      <section class="space-y-3"><h2 class="text-sm font-bold text-white uppercase tracking-wider">3. Demonstrations & Performance Claims</h2><p class="text-neutral-400">Interactive examples, sample messages and processing visualizations on this website are demonstrations of intended workflow behavior. They are not benchmarks, service-level guarantees or representations that identical results will occur in every environment. Production performance depends on message complexity, connected systems, model providers, rate limits, network conditions and client policies.</p></section>
-      <section class="space-y-3"><h2 class="text-sm font-bold text-white uppercase tracking-wider">4. Data Handling & Third-Party Providers</h2><p class="text-neutral-400">Data handling is determined by the production architecture and the third-party services selected for a deployment. Where external AI, messaging, hosting, CRM or database providers are used, their respective terms and data-processing practices also apply. Synvio AI will document the intended data flow for a client deployment before production activation.</p></section>
-      <section class="space-y-3"><h2 class="text-sm font-bold text-white uppercase tracking-wider">5. Security & Access Controls</h2><p class="text-neutral-400">Production integrations should use least-privilege credentials, environment-managed secrets, access restrictions and audit logging where supported. No website statement should be interpreted as a guarantee that a particular encryption standard, retention policy or security certification applies unless it is expressly stated in the client’s written agreement or the relevant provider documentation.</p></section>
-      <section class="space-y-3"><h2 class="text-sm font-bold text-white uppercase tracking-wider">6. Client Configuration & Responsibilities</h2><p class="text-neutral-400">Clients are responsible for supplying lawful access to connected systems, accurate business rules, approved knowledge sources and instructions concerning escalation, retention and permitted automated actions. Clients must review high-impact workflows before enabling autonomous dispatch or data modification.</p></section>
-      <section class="space-y-3"><h2 class="text-sm font-bold text-white uppercase tracking-wider">7. Acceptable Use</h2><p class="text-neutral-400">Services may not be used to facilitate unlawful activity, deceptive impersonation, unauthorized access, malicious messaging, prohibited surveillance or other activity that violates applicable law or third-party platform rules. Synvio AI may decline or suspend configurations that create material security, abuse or compliance risks.</p></section>
-      <section class="space-y-3"><h2 class="text-sm font-bold text-white uppercase tracking-wider">8. Availability, Maintenance & Dependencies</h2><p class="text-neutral-400">Unless a separate service-level agreement states otherwise, availability is provided on a commercially reasonable basis. Maintenance windows, upstream provider incidents, API changes, rate limits and failures in client-controlled systems may affect functionality. Any guaranteed uptime, response time or service credits must be stated in a separate written agreement.</p></section>
-      <section class="space-y-3"><h2 class="text-sm font-bold text-white uppercase tracking-wider">9. Intellectual Property & Client Materials</h2><p class="text-neutral-400">Clients retain rights to their own data, content, credentials and business materials. Ownership and licensing of custom workflow code, templates, connectors or deployment-specific assets will be defined in the applicable proposal or service agreement.</p></section>
-      <section class="space-y-3"><h2 class="text-sm font-bold text-white uppercase tracking-wider">10. Changes, Testing & Production Activation</h2><p class="text-neutral-400">New workflows should be validated in a test environment before production use. Material changes to prompts, routing rules, connected data sources or autonomous actions may require re-testing. Synvio AI may update website descriptions and demonstration features as the product evolves.</p></section>
-      <section class="space-y-3"><h2 class="text-sm font-bold text-white uppercase tracking-wider">11. Limitation of Website Information</h2><p class="text-neutral-400">Information on this website is provided for product evaluation and does not by itself create a service-level commitment, legal guarantee or data-processing agreement. Specific obligations arise from the written commercial agreement accepted by the relevant parties.</p></section>
-      <section class="space-y-3"><h2 class="text-sm font-bold text-white uppercase tracking-wider">12. Contact & Agreement Priority</h2><p class="text-neutral-400">Questions about a proposed deployment should be raised before production activation. If these website terms conflict with a signed proposal, order form, data-processing agreement or other negotiated contract, the signed agreement controls to the extent of the conflict.</p></section>
-    </div>
-  </main>
-  <script>
-    window.addEventListener('DOMContentLoaded',()=>{const update=()=>{const f=document.getElementById('synvio-footer');if(!f)return false;const s=[...f.querySelectorAll('span')].find(e=>e.textContent.includes('All systems deploy built-in safety guardrails'));if(s)s.textContent='AI-assisted workflows can include configurable review, routing and escalation controls. Production behavior depends on connected models, data sources and client-defined policies.';return true};if(!update()){const o=new MutationObserver(()=>{if(update())o.disconnect()});o.observe(document.body,{childList:true,subtree:true})}})
-  </script>
-</body>
-</html>
+  <div class="mt-12 space-y-4">
+    <section class="legal rounded-xl p-6"><h2>1. Synvio service</h2><p class="mt-3 text-sm">Synvio provides software for customer-support operations, including email handling, support workflows, AI-assisted features and web-chat handoff. Feature availability can depend on the customer’s selected configuration and connected channels.</p></section>
+    <section class="legal rounded-xl p-6"><h2>2. Customer accounts and team access</h2><p class="mt-3 text-sm">Customers are responsible for protecting login credentials and inviting only authorized employees. Administrators control company configuration and team invitations. Agent accounts are intended for customer-support work and do not receive administrator configuration rights.</p></section>
+    <section class="legal rounded-xl p-6"><h2>3. Mailboxes and company domains</h2><p class="mt-3 text-sm">A customer may connect only mailboxes, sender identities and domains it is authorized to use. Custom-domain onboarding may require DNS changes approved by the customer’s domain administrator.</p></section>
+    <section class="legal rounded-xl p-6"><h2>4. AI-assisted output</h2><p class="mt-3 text-sm">AI-generated classifications, summaries and drafts can be inaccurate. Customers should review outputs before relying on them. Synvio does not provide legal, medical, financial or other regulated professional advice through AI-generated content.</p></section>
+    <section class="legal rounded-xl p-6"><h2>5. AI chat and human handoff</h2><p class="mt-3 text-sm">Where web chat is enabled, automated responses may be used for routine support. Human handoff is designed to transfer the conversation context to an authorized support employee when escalation is requested or configured.</p></section>
+    <section class="legal rounded-xl p-6"><h2>6. Pricing and usage</h2><p class="mt-3 text-sm">Commercial pricing may include a platform fee and usage-based charges for AI processing or third-party services. Pilot pricing, included usage and billing terms are agreed before activation. Website estimators are planning tools and are not binding quotes.</p></section>
+    <section class="legal rounded-xl p-6"><h2>7. Customer data and privacy</h2><p class="mt-3 text-sm">Synvio may process account information, support messages, customer contact details, conversation metadata, company knowledge, audit data and technical logs when needed to provide the service. The applicable customer agreement should define controller/processor responsibilities, retention and data-subject procedures where required.</p></section>
+    <section class="legal rounded-xl p-6"><h2>8. Service providers</h2><p class="mt-3 text-sm">Synvio may rely on infrastructure, authentication, email, form, chat and AI service providers to operate selected features. The providers used for a production customer can be documented as part of the customer deployment and data-processing terms.</p></section>
+    <section class="legal rounded-xl p-6"><h2>9. Security</h2><p class="mt-3 text-sm">Customers must promptly report suspected unauthorized access or account compromise. No statement on this website should be interpreted as a certification, audit result or guaranteed security standard unless expressly provided in a signed agreement.</p></section>
+    <section class="legal rounded-xl p-6"><h2>10. Acceptable use</h2><p class="mt-3 text-sm">Synvio may not be used for unlawful activity, spam, deceptive impersonation, unauthorized access, malware, prohibited surveillance or attempts to bypass service-provider restrictions.</p></section>
+    <section class="legal rounded-xl p-6"><h2>11. Pilot availability and changes</h2><p class="mt-3 text-sm">Private-pilot features may evolve as the product is improved. Service levels, support commitments, warranties and production obligations apply only where they are expressly included in a signed customer agreement.</p></section>
+    <section class="legal rounded-xl p-6"><h2>12. Contact</h2><p class="mt-3 text-sm">Questions about Synvio, privacy or a customer deployment can be sent to <a class="text-white underline underline-offset-4 decoration-white/20" href="mailto:support@synviocore.xyz">support@synviocore.xyz</a>.</p></section>
+  </div>
+</main>
+
+  <div id="site-footer-mount"></div>
+</body></html>

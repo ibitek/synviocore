@@ -1,0 +1,16 @@
+/* Shared marketing motion. Decorative layers never intercept input. */
+.cursor-glow{position:fixed;left:0;top:0;width:0;height:0;z-index:60;pointer-events:none;opacity:0;transition:opacity .5s ease}
+.cursor-glow::before{content:"";position:absolute;width:650px;height:650px;left:-325px;top:-325px;background:radial-gradient(circle,rgba(0,231,242,.065),rgba(56,211,159,.025) 35%,transparent 68%)}
+.cursor-glow.visible{opacity:1}
+.premium-surface{position:relative;isolation:isolate;transition:border-color .35s ease,box-shadow .35s ease}
+.premium-surface::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:-1;opacity:0;background:radial-gradient(420px circle at var(--pointer-x,50%) var(--pointer-y,50%),rgba(0,231,242,.10),transparent 70%);transition:opacity .4s ease}
+.premium-surface.pointer-active::before{opacity:1}
+.premium-surface.pointer-active{border-color:rgba(0,231,242,.28);box-shadow:0 18px 65px rgba(0,0,0,.28),0 0 24px rgba(0,231,242,.035)}
+#site-header{border-color:rgba(255,255,255,.10)}
+#site-header nav a,#site-footer a{position:relative;transition:color .25s ease}
+#site-header nav a::after,#site-footer a::after{content:"";position:absolute;bottom:-5px;left:0;width:100%;height:1px;background:#00e7f2;transform:scaleX(0);transform-origin:left;transition:transform .25s ease;pointer-events:none}
+#site-header nav a:hover::after,#site-header nav a:focus-visible::after,#site-footer a:hover::after,#site-footer a:focus-visible::after{transform:scaleX(1)}
+main a.rounded-lg,#site-header a.rounded-lg,main button.rounded-lg{transition:translate .25s ease,box-shadow .25s ease,background-color .25s ease}
+@media(hover:hover) and (pointer:fine){main a.rounded-lg:hover,#site-header a.rounded-lg:hover,main button.rounded-lg:hover{translate:0 -2px;box-shadow:0 5px 25px rgba(0,231,242,.12)}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*::before,*::after{animation:none!important;transition:none!important}.cursor-glow{display:none}.premium-surface::before{display:none}.reveal{opacity:1!important;transform:none!important}main a.rounded-lg:hover,#site-header a.rounded-lg:hover,main button.rounded-lg:hover{translate:none}}
+@media(hover:none),(pointer:coarse){.cursor-glow{display:none}}

@@ -1,270 +1,475 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Synvio AI — Customer Support Workspace for Email & AI Chat</title>
-  <meta name="description" content="Synvio is a multi-tenant customer support workspace: real email tickets and replies today, with AI web chat and human handoff being integrated into the same operator platform.">
-  <meta name="theme-color" content="#000000">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Synvio AI — Email & AI Chat Support Workspace</title>
+  <meta name="description" content="Synvio brings customer email, AI web chat, human handoff and agent replies into one support workspace.">
+  <meta name="theme-color" content="#050505">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','sans-serif'],mono:['JetBrains Mono','monospace']},colors:{pitch:'#000000',obsidian:'#070707',surface:'#111111',surfaceHover:'#161616',accentCyan:'#00f0ff',accentEmerald:'#10b981',accentRed:'#ef4444',accentAmber:'#f4b740'}}}}
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter','sans-serif'],
+            mono: ['JetBrains Mono','monospace']
+          },
+          colors: {
+            pitch: '#050505',
+            panel: '#0a0b0c',
+            cyan: '#00e7f2',
+            green: '#38d39f',
+            amber: '#f5b83d',
+            red: '#ff5b67'
+          }
+        }
+      }
+    };
   </script>
+
   <style>
-    :root{color-scheme:dark;--cyan:#00e7f2;--green:#38d39f;--amber:#f4b740;--red:#ff5b67;--line:rgba(255,255,255,.085);--line2:rgba(255,255,255,.15)}
-    *{box-sizing:border-box} html{background:#000} body{margin:0;background:#000;color:#f3f4f6;overflow-x:hidden}
-    ::selection{background:#fff;color:#000}
-    .bg-grid-canvas{background-size:44px 44px;background-image:linear-gradient(to right,rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,.035) 1px,transparent 1px);animation:gridDrift 24s linear infinite}
-    @keyframes gridDrift{to{background-position:44px 44px}}
-    .ambient-glow{background:radial-gradient(circle at 50% 15%,rgba(0,240,255,.07),rgba(16,185,129,.025) 30%,transparent 68%)}
-    .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.8,.2,1),transform .7s cubic-bezier(.2,.8,.2,1)}.reveal.visible{opacity:1;transform:none}
-    .eyebrow{display:inline-flex;align-items:center;gap:.55rem;font-family:'JetBrains Mono',monospace;font-size:.68rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#9ca3aa}.eyebrow:before{content:'';width:6px;height:6px;border-radius:50%;background:#00f0ff;box-shadow:0 0 12px #00f0ff}
-    .panel-glass{background:linear-gradient(180deg,rgba(14,14,14,.94),rgba(5,5,5,.98));border:1px solid rgba(255,255,255,.1);box-shadow:0 28px 90px rgba(0,0,0,.5)}
-    .soft-card{background:rgba(10,10,10,.78);border:1px solid rgba(255,255,255,.085);backdrop-filter:blur(14px)}
-    .shine{position:relative;overflow:hidden}.shine:after{content:'';position:absolute;inset:-200% -70%;background:linear-gradient(110deg,transparent 44%,rgba(255,255,255,.055) 50%,transparent 56%);transform:translateX(-50%);animation:shine 8s ease-in-out infinite;pointer-events:none}@keyframes shine{0%,35%{transform:translateX(-50%)}65%,100%{transform:translateX(50%)}}
-    .scanner{position:absolute;left:0;right:0;height:1px;background:#00f0ff;box-shadow:0 0 16px #00f0ff;opacity:.65;animation:scan 4.8s ease-in-out infinite}@keyframes scan{0%{top:5%;opacity:0}10%,90%{opacity:.65}100%{top:95%;opacity:0}}
-    .mouse-glow{position:fixed;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(0,240,255,.055),transparent 68%);pointer-events:none;z-index:0;transform:translate(-50%,-50%);transition:opacity .2s ease}
-    .orb-wrap{perspective:900px;transform-style:preserve-3d}.orb-ring{position:absolute;inset:50%;width:340px;height:340px;margin:-170px;border:1px solid rgba(255,255,255,.12);border-radius:50%;transform-style:preserve-3d}.orb-ring.r1{transform:rotateX(66deg) rotateZ(15deg);animation:spin1 15s linear infinite}.orb-ring.r2{transform:rotateY(68deg) rotateZ(32deg);animation:spin2 21s linear infinite reverse}.orb-ring.r3{width:250px;height:250px;margin:-125px;border-color:rgba(0,240,255,.23);transform:rotateX(25deg) rotateY(62deg);animation:spin1 10s linear infinite reverse}@keyframes spin1{to{transform:rotateX(66deg) rotateZ(375deg)}}@keyframes spin2{to{transform:rotateY(68deg) rotateZ(392deg)}}
-    .orb-dot{position:absolute;width:8px;height:8px;border-radius:50%;background:#00f0ff;box-shadow:0 0 18px #00f0ff;animation:orbitDot 5s ease-in-out infinite}@keyframes orbitDot{0%,100%{transform:translate3d(-145px,-40px,0);opacity:.35}50%{transform:translate3d(145px,65px,0);opacity:1}}
-    .signal-line{height:1px;background:linear-gradient(90deg,transparent,rgba(0,240,255,.8),transparent);background-size:220% 100%;animation:signal 2.8s linear infinite}@keyframes signal{to{background-position:-220% 0}}
-    .status-pulse{animation:statusPulse 2s ease-in-out infinite}@keyframes statusPulse{50%{box-shadow:0 0 18px rgba(56,211,159,.85)}}
-
-    /* Demo: deliberately mirrors the current Synvio app.css layout */
-    .demo-frame{border:1px solid rgba(255,255,255,.14);border-radius:15px;background:#050505;overflow:hidden;box-shadow:0 36px 110px rgba(0,0,0,.62)}
-    .demo-app{height:700px;display:grid;grid-template-rows:64px minmax(0,1fr);background:radial-gradient(circle at 50% -15%,rgba(0,231,242,.06),transparent 35%),#050505;font-family:Inter,sans-serif}
-    .demo-topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:0 18px;border-bottom:1px solid var(--line);background:rgba(5,5,5,.94)}
-    .demo-brand{display:flex;align-items:center;gap:11px}.demo-brand-mark{width:30px;height:30px;border:1px solid rgba(255,255,255,.22);border-radius:9px;display:grid;place-items:center;transform:rotate(45deg)}.demo-brand-mark:after{content:'';width:7px;height:7px;background:var(--cyan);box-shadow:0 0 12px rgba(0,231,242,.8)}
-    .demo-brand-name{font-size:14px;line-height:1;font-weight:800;letter-spacing:.11em}.demo-brand-sub{margin-top:5px;font-family:'JetBrains Mono';font-size:8px;color:#555b63;text-transform:uppercase}
-    .demo-topnav{display:flex;gap:4px}.demo-nav{height:34px;padding:0 12px;border:1px solid transparent;border-radius:8px;background:transparent;color:#7c8188;font-size:10px;font-weight:600}.demo-nav.active{color:#fff;border-color:var(--line2);background:#101010}
-    .demo-org{display:flex;align-items:center;gap:8px;min-height:34px;padding:0 11px;border:1px solid var(--line);border-radius:8px;background:rgba(255,255,255,.018)}.demo-green{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px rgba(56,211,159,.75)}
-    .demo-workspace{min-height:0;display:grid;grid-template-columns:190px minmax(0,1fr)}.demo-sidebar{min-height:0;border-right:1px solid var(--line);background:#070707;padding:16px 12px;display:flex;flex-direction:column;gap:20px}.demo-side-label{margin:0 8px 8px;color:#555b63;font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}.demo-side-button{display:grid;grid-template-columns:18px 1fr auto;align-items:center;gap:7px;width:100%;padding:9px 10px;border:1px solid transparent;border-radius:8px;background:transparent;color:#6f757c;font-size:10px;text-align:left}.demo-side-button.active{background:#101010;border-color:var(--line);color:#fff}.demo-side-count{font-family:'JetBrains Mono';font-size:8px;color:#00e7f2}
-    .demo-main{min-width:0;min-height:0;padding:12px;background:#050505}.demo-grid{height:100%;display:grid;grid-template-columns:minmax(245px,.82fr) minmax(310px,1.12fr) minmax(285px,.95fr);gap:10px}.demo-panel{min-width:0;min-height:0;border:1px solid var(--line);border-radius:10px;background:#080808;display:flex;flex-direction:column;overflow:hidden}.demo-panel-head{height:68px;flex:0 0 auto;padding:13px 14px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}.demo-eyebrow{font-family:'JetBrains Mono';font-size:8px;color:#555b63;text-transform:uppercase;letter-spacing:.08em}.demo-panel-title{margin-top:4px;font-size:14px;font-weight:720;color:#f3f4f6}.demo-search{margin:12px 14px;height:38px;display:flex;align-items:center;gap:8px;padding:0 11px;border:1px solid var(--line);border-radius:9px;background:#0b0b0b;color:#484d53;font-size:10px}.demo-ticket-list{padding:0 8px 8px;overflow:auto}.demo-ticket{width:100%;padding:13px 12px;margin-bottom:5px;border:1px solid transparent;border-radius:9px;background:transparent;text-align:left;color:#8e949a;transition:.16s ease}.demo-ticket:hover{background:#0c0c0c;border-color:rgba(255,255,255,.06)}.demo-ticket.active{background:#111;border-color:var(--line2);box-shadow:inset 2px 0 0 var(--cyan)}.demo-ticket-top{display:flex;align-items:center;gap:7px}.demo-priority{width:6px;height:6px;border-radius:50%;flex:0 0 auto}.demo-customer{min-width:0;flex:1;color:#d8dade;font-size:10px;font-weight:650;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.demo-age{font-size:8px;color:#555b63}.demo-subject{margin-top:6px;font-size:9px;color:#858a91;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.demo-meta{margin-top:7px;font-size:7px;color:#4e545b;text-transform:uppercase;letter-spacing:.05em}
-    .demo-detail{padding:18px;overflow:auto}.demo-customer-head{display:flex;align-items:center;gap:10px}.demo-avatar{width:38px;height:38px;display:grid;place-items:center;border:1px solid var(--line);border-radius:10px;background:#101010;color:#a6abb1;font-size:9px;font-weight:700}.demo-name{font-size:12px;font-weight:700}.demo-email{margin-top:3px;color:#656b72;font-size:8px;font-family:'JetBrains Mono'}.demo-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}.demo-tag{padding:5px 7px;border:1px solid var(--line);border-radius:6px;color:#777d84;font:500 8px 'JetBrains Mono'}.demo-message{margin-top:16px;padding:18px;border:1px solid var(--line);border-radius:10px;background:#0b0b0b;color:#aeb2b7;font-size:10px;line-height:1.7;white-space:pre-line}.demo-message.out{margin-left:9%;border-color:rgba(0,231,242,.15);background:rgba(0,231,242,.025)}
-    .demo-copilot{padding:16px;overflow:auto;display:flex;flex-direction:column;gap:12px}.demo-state{padding:12px;border:1px solid rgba(0,231,242,.13);border-radius:9px;background:rgba(0,231,242,.025)}.demo-state strong{font-size:9px;color:#00e7f2}.demo-state p{margin-top:5px;color:#646a71;font-size:9px;line-height:1.6}.demo-label{font-size:8px;color:#555b63;text-transform:uppercase;letter-spacing:.08em}.demo-draft{min-height:190px;padding:13px;border:1px solid var(--line);border-radius:9px;background:#0a0a0a;color:#d7dade;font-size:10px;line-height:1.7;white-space:pre-wrap}.demo-actions{margin-top:auto;padding:12px 14px;border-top:1px solid var(--line);display:flex;gap:8px}.demo-action{height:36px;border-radius:8px;font-size:9px;font-weight:700;padding:0 12px}.demo-action.secondary{border:1px solid var(--line);background:#0b0b0b;color:#858b92}.demo-action.primary{flex:1;border:1px solid #fff;background:#fff;color:#000}.demo-action.ai{width:100%;border:1px solid rgba(0,231,242,.25);background:rgba(0,231,242,.04);color:#00e7f2}
-    .demo-toast{position:absolute;right:18px;bottom:18px;padding:10px 12px;border-radius:8px;border:1px solid rgba(56,211,159,.25);background:#080909;color:#38d39f;font:600 9px 'JetBrains Mono';opacity:0;transform:translateY(8px);transition:.25s}.demo-toast.show{opacity:1;transform:none}
-
-    .chat-demo-shell{background:#070707;border:1px solid rgba(255,255,255,.11);border-radius:16px;overflow:hidden;box-shadow:0 30px 90px rgba(0,0,0,.5)}.chat-window{background:#000;border-right:1px solid rgba(255,255,255,.09);min-height:480px}.chat-msg{max-width:82%;padding:11px 13px;border-radius:12px;font-size:11px;line-height:1.65}.chat-msg.ai{background:#fff;color:#000;border-bottom-left-radius:4px}.chat-msg.user{margin-left:auto;background:#0b0b0b;color:#fff;border:1px solid rgba(255,255,255,.28);border-bottom-right-radius:4px}.handoff-card{border:1px solid rgba(0,240,255,.18);background:rgba(0,240,255,.025);border-radius:12px}.handoff-pulse{width:8px;height:8px;border-radius:50%;background:#00f0ff;box-shadow:0 0 10px #00f0ff;animation:handoffPulse 1.6s ease-in-out infinite}@keyframes handoffPulse{50%{transform:scale(1.6);opacity:.45}}
-    .channel-flow-line{position:relative;height:1px;background:rgba(255,255,255,.08);overflow:hidden}.channel-flow-line:after{content:'';position:absolute;top:0;bottom:0;width:80px;background:linear-gradient(90deg,transparent,#00f0ff,transparent);animation:flow 2.2s linear infinite}@keyframes flow{from{left:-80px}to{left:100%}}
-    .pricing-range{accent-color:#fff;width:100%}
-    @media(max-width:1100px){.demo-frame{overflow-x:auto}.demo-app{min-width:1050px}}@media(max-width:760px){.orb-ring{transform:scale(.75)}.mouse-glow{display:none}}
-    @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
+    *{box-sizing:border-box}
+    html{background:#050505}
+    body{
+      margin:0;background:
+        radial-gradient(circle at 50% -12%,rgba(0,231,242,.09),transparent 34rem),
+        #050505;color:#e7e9eb;overflow-x:hidden
+    }
+    ::selection{background:rgba(0,231,242,.26);color:#fff}
+    .grid-bg{
+      background-image:
+        linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px);
+      background-size:44px 44px
+    }
+    .hairline{border-color:rgba(255,255,255,.10)}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:.55rem;
+      font:700 .68rem/1 'JetBrains Mono',monospace;
+      letter-spacing:.15em;text-transform:uppercase;color:#8d949b
+    }
+    .eyebrow:before{
+      content:"";width:6px;height:6px;border-radius:50%;
+      background:#00e7f2;box-shadow:0 0 12px rgba(0,231,242,.8)
+    }
+    .panel{
+      background:linear-gradient(180deg,rgba(14,15,16,.96),rgba(7,8,9,.98));
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow:0 24px 80px rgba(0,0,0,.45)
+    }
+    .soft{
+      background:rgba(11,12,13,.76);
+      border:1px solid rgba(255,255,255,.09);
+      backdrop-filter:blur(14px)
+    }
+    .reveal{
+      opacity:0;transform:translateY(20px);
+      transition:opacity .7s cubic-bezier(.2,.8,.2,1),transform .7s cubic-bezier(.2,.8,.2,1)
+    }
+    .reveal.on{opacity:1;transform:none}
+    .glow-orb{
+      animation:floatOrb 7s ease-in-out infinite alternate;
+      filter:blur(2px)
+    }
+    @keyframes floatOrb{
+      from{transform:translate3d(-3%,-2%,0) scale(.98)}
+      to{transform:translate3d(4%,4%,0) scale(1.05)}
+    }
+    .scan{
+      position:absolute;inset:0;pointer-events:none;overflow:hidden
+    }
+    .scan:after{
+      content:"";position:absolute;left:-20%;top:-20%;width:140%;height:1px;
+      background:linear-gradient(90deg,transparent,rgba(0,231,242,.55),transparent);
+      box-shadow:0 0 18px rgba(0,231,242,.25);
+      animation:scan 5.8s linear infinite
+    }
+    @keyframes scan{0%{top:-5%}100%{top:105%}}
+    .demo-ticket{transition:.18s ease}
+    .demo-ticket:hover{background:rgba(255,255,255,.025)}
+    .demo-ticket.active{
+      background:rgba(0,231,242,.045);
+      box-shadow:inset 2px 0 0 #00e7f2;
+      border-color:rgba(0,231,242,.22)
+    }
+    .chat-bubble{animation:bubbleIn .42s cubic-bezier(.2,.8,.2,1) both}
+    @keyframes bubbleIn{
+      from{opacity:0;transform:translateY(9px) scale(.985)}
+      to{opacity:1;transform:none}
+    }
+    .pulse-dot{animation:pulse 1.8s ease-in-out infinite}
+    @keyframes pulse{
+      0%,100%{box-shadow:0 0 0 0 rgba(56,211,159,.25)}
+      50%{box-shadow:0 0 0 7px rgba(56,211,159,0)}
+    }
+    .shine{position:relative;overflow:hidden}
+    .shine:after{
+      content:"";position:absolute;inset:-80% auto -80% -40%;
+      width:28%;transform:rotate(14deg);
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,.065),transparent);
+      animation:shine 6.5s ease-in-out infinite
+    }
+    @keyframes shine{
+      0%,30%{left:-45%}
+      70%,100%{left:120%}
+    }
+    @media(prefers-reduced-motion:reduce){
+      *,*:before,*:after{animation:none!important;transition:none!important}
+      .reveal{opacity:1;transform:none}
+    }
   </style>
+
+  <script src="./global.js" defer></script>
+<link rel="stylesheet" href="./effects.css">
 </head>
-<body class="font-sans antialiased min-h-screen flex flex-col">
 
-<header id="synvio-header" class="sticky top-0 z-50 bg-black/90 backdrop-blur-xl border-b border-white/10">
-  <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between gap-6">
-    <a href="./index.html" class="flex items-center gap-3 text-lg font-black tracking-[.14em] text-white group shrink-0">
-      <div class="w-6 h-6 border border-white/70 rounded-[3px] flex items-center justify-center transition-transform group-hover:rotate-90 duration-500">
-        <div class="w-2 h-2 rounded-full bg-accentCyan shadow-[0_0_9px_#00f0ff]"></div>
-      </div>
-      <span>SYNVIO<span class="text-neutral-600 font-normal">/</span>AI</span>
-    </a>
+<body class="font-sans antialiased">
+  <div id="site-header-mount"></div>
 
-    <nav class="hidden lg:flex items-center gap-7 text-[10px] font-mono uppercase tracking-[.12em] text-neutral-500">
-      <a href="#about" class="hover:text-white transition-colors">Product</a>
-      <a href="#channels" class="hover:text-white transition-colors">AI Chat + Handoff</a>
-      <a href="#demo" class="hover:text-white transition-colors">Demo</a>
-      <a href="#capabilities" class="hover:text-white transition-colors">Architecture</a>
-      <a href="#pricing" class="hover:text-white transition-colors">Pricing</a>
-      <a href="subpages/faq.html" class="hover:text-white transition-colors">FAQ</a>
-      <a href="subpages/legal.html" class="hover:text-white transition-colors">Legal</a>
-    </nav>
+  <main>
+    <section class="relative overflow-hidden border-b hairline">
+      <div class="absolute inset-0 grid-bg opacity-70 pointer-events-none"></div>
+      <div class="glow-orb absolute -top-56 left-[12%] w-[650px] h-[650px] rounded-full bg-cyan/[.055] blur-3xl pointer-events-none"></div>
+      <div class="glow-orb absolute -bottom-72 right-[6%] w-[600px] h-[600px] rounded-full bg-green/[.035] blur-3xl pointer-events-none" style="animation-delay:-2.4s"></div>
 
-    <div class="flex items-center gap-2 sm:gap-3">
-      <a href="https://app.synviocore.xyz/login.html"
-         class="hidden sm:inline-flex items-center justify-center px-3.5 py-2.5 text-[10px] uppercase font-mono tracking-[.12em] text-neutral-300 hover:text-white transition-colors">
-        Sign in
-      </a>
-      <a href="#contact"
-         class="inline-flex items-center justify-center px-4 sm:px-5 py-2.5 text-[10px] uppercase font-mono tracking-[.12em] font-black text-black bg-white rounded-lg hover:bg-neutral-200 transition-all">
-        Start pilot
-      </a>
-    </div>
-  </div>
-</header>
+      <div class="relative max-w-7xl mx-auto px-6 pt-24 sm:pt-32 pb-20 sm:pb-28">
+        <div class="grid lg:grid-cols-[.92fr_1.18fr] gap-14 lg:gap-16 items-center">
+          <div class="reveal">
+            <div class="eyebrow">Customer support operating system</div>
+            <h1 class="mt-6 text-[2.9rem] sm:text-6xl lg:text-[4.7rem] font-black tracking-[-.058em] leading-[.95] text-white">
+              Email and AI chat.<br>
+              <span class="text-cyan">One support team.</span>
+            </h1>
+            <p class="mt-7 text-base sm:text-lg leading-8 text-neutral-400 max-w-xl">
+              Synvio gives support teams one workspace for customer email, AI web chat, human handoff
+              and replies — so routine questions can be automated without separating customers from your people.
+            </p>
 
-
-<div id="mouse-glow" class="mouse-glow opacity-0"></div>
-<main class="flex-1 relative z-10">
-  <section class="relative overflow-hidden min-h-[calc(100vh-80px)] flex items-center border-b border-white/10">
-    <div class="absolute inset-0 bg-grid-canvas opacity-70"></div><div class="absolute inset-0 ambient-glow"></div>
-    <div class="max-w-7xl mx-auto px-6 py-20 lg:py-24 w-full relative">
-      <div class="grid lg:grid-cols-[1.03fr_.97fr] gap-12 lg:gap-16 items-center">
-        <div class="reveal">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-white/5 border border-white/15 text-[10px] font-mono text-neutral-300 uppercase tracking-[.14em]"><span class="w-1.5 h-1.5 rounded-full bg-accentEmerald shadow-[0_0_8px_#10b981]"></span>REAL EMAIL ENGINE LIVE // AI CHAT NEXT</div>
-          <h1 class="mt-7 text-[3.1rem] sm:text-6xl lg:text-[4.75rem] font-black leading-[.94] tracking-[-.055em] text-white">One workspace.<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-accentCyan to-accentEmerald">Every support conversation.</span></h1>
-          <p class="mt-7 max-w-2xl text-base sm:text-lg leading-8 text-neutral-400 font-light">Synvio turns customer email into real tickets your team can answer from one operator workstation. Next, the same queue will receive AI web-chat conversations — with instant handoff to a human when the visitor asks for one or the AI should escalate.</p>
-          <div class="mt-9 flex flex-col sm:flex-row gap-3">
-            <a href="#demo" class="px-7 py-3.5 bg-white text-black text-[11px] font-mono uppercase tracking-widest font-black rounded hover:bg-neutral-200 hover:shadow-[0_0_28px_rgba(255,255,255,.25)] transition-all text-center">Try the workstation demo</a>
-            <a href="https://app.synviocore.xyz/login.html" class="px-7 py-3.5 border border-white/20 text-white text-[11px] font-mono uppercase tracking-widest font-bold rounded hover:border-accentCyan hover:shadow-[0_0_24px_rgba(0,240,255,.1)] transition-all text-center">Open real app ↗</a>
-          </div>
-          <div class="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl">
-            <div class="soft-card rounded-lg p-3"><div class="text-[8px] font-mono text-neutral-600 uppercase">Inbound</div><div class="mt-1 text-xs font-bold text-white">Email live</div></div>
-            <div class="soft-card rounded-lg p-3"><div class="text-[8px] font-mono text-neutral-600 uppercase">Outbound</div><div class="mt-1 text-xs font-bold text-white">Replies live</div></div>
-            <div class="soft-card rounded-lg p-3"><div class="text-[8px] font-mono text-neutral-600 uppercase">Tenants</div><div class="mt-1 text-xs font-bold text-white">Isolated</div></div>
-            <div class="soft-card rounded-lg p-3"><div class="text-[8px] font-mono text-neutral-600 uppercase">Web chat</div><div class="mt-1 text-xs font-bold text-accentCyan">Implementing</div></div>
-          </div>
-        </div>
-        <div class="relative h-[520px] hidden md:block reveal orb-wrap" id="hero-visual">
-          <div class="absolute inset-0 flex items-center justify-center">
-            <div class="orb-ring r1"></div><div class="orb-ring r2"></div><div class="orb-ring r3"></div><div class="orb-dot"></div>
-            <div class="relative w-36 h-36 rounded-full border border-white/15 bg-black/80 shadow-[0_0_80px_rgba(0,240,255,.12)] flex flex-col items-center justify-center">
-              <div class="w-8 h-8 border border-white/50 flex items-center justify-center rotate-45"><div class="w-2.5 h-2.5 bg-accentCyan shadow-[0_0_14px_#00f0ff]"></div></div>
-              <div class="mt-5 font-mono text-[10px] tracking-[.18em] text-white">SYNVIO CORE</div><div class="mt-1 font-mono text-[8px] text-neutral-600">ROUTING SIGNALS</div>
+            <div class="mt-9 flex flex-col sm:flex-row gap-3">
+              <a href="#contact" class="inline-flex justify-center items-center gap-3 px-6 py-3.5 rounded-lg bg-white text-black text-xs font-mono uppercase tracking-[.12em] font-black hover:bg-neutral-200">
+                Book a pilot <span>↗</span>
+              </a>
+              <a href="#demo" class="inline-flex justify-center items-center px-6 py-3.5 rounded-lg border border-white/15 bg-white/[.02] text-white text-xs font-mono uppercase tracking-[.12em] font-bold hover:border-white/30">
+                Explore the workspace
+              </a>
             </div>
-            <div class="absolute top-16 left-8 soft-card rounded-lg px-4 py-3 animate-[pulse_4s_ease-in-out_infinite]"><div class="text-[8px] font-mono text-neutral-600">EMAIL</div><div class="mt-1 text-xs font-bold">customer@brand.com</div></div>
-            <div class="absolute bottom-20 right-0 soft-card rounded-lg px-4 py-3"><div class="text-[8px] font-mono text-neutral-600">HUMAN HANDOFF</div><div class="mt-1 text-xs font-bold text-accentCyan">Same operator queue</div></div>
-            <div class="absolute top-40 right-2 soft-card rounded-lg px-4 py-3"><div class="text-[8px] font-mono text-neutral-600">TENANT</div><div class="mt-1 text-xs font-bold text-accentEmerald">Correct org matched</div></div>
+
+            <div class="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-[10px] font-mono uppercase tracking-[.11em] text-neutral-500">
+              <span class="inline-flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-green pulse-dot"></span>Email support • live</span>
+              <span class="inline-flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-amber"></span>AI web chat • rollout</span>
+              <span class="inline-flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-amber"></span>Human handoff • rollout</span>
+            </div>
+          </div>
+
+          <div class="reveal">
+            <div class="panel shine rounded-2xl overflow-hidden relative">
+              <div class="scan"></div>
+              <div class="h-11 px-4 border-b hairline bg-black/50 flex items-center justify-between">
+                <div class="flex gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-white/15"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-white/10"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-white/10"></span>
+                </div>
+                <div class="font-mono text-[9px] uppercase tracking-[.16em] text-neutral-500">Synvio workspace</div>
+                <div class="font-mono text-[9px] text-green">● LIVE</div>
+              </div>
+
+              <div class="grid md:grid-cols-[.85fr_1.2fr_1fr] min-h-[465px]">
+                <div class="border-r hairline bg-[#090a0a]">
+                  <div class="px-4 py-4 border-b hairline">
+                    <div class="font-mono text-[9px] uppercase tracking-[.14em] text-neutral-600">Inbox</div>
+                    <div class="mt-1 text-sm font-bold text-white">Customer queue</div>
+                  </div>
+                  <div class="p-2 space-y-2">
+                    <button class="demo-ticket active w-full text-left border border-white/10 rounded-lg p-3" data-demo-ticket="0">
+                      <div class="flex justify-between"><span class="font-mono text-[8px] text-amber uppercase">Priority</span><span class="text-[8px] text-neutral-600">2m</span></div>
+                      <div class="mt-2 text-xs font-semibold text-white">Change delivery address</div>
+                      <div class="mt-1 text-[9px] text-neutral-600">email • maya@northlane.co</div>
+                    </button>
+                    <button class="demo-ticket w-full text-left border border-white/[.07] rounded-lg p-3" data-demo-ticket="1">
+                      <div class="flex justify-between"><span class="font-mono text-[8px] text-cyan uppercase">AI handoff</span><span class="text-[8px] text-neutral-600">5m</span></div>
+                      <div class="mt-2 text-xs font-semibold text-neutral-300">Need a person about billing</div>
+                      <div class="mt-1 text-[9px] text-neutral-600">web chat • visitor #2148</div>
+                    </button>
+                    <button class="demo-ticket w-full text-left border border-white/[.07] rounded-lg p-3" data-demo-ticket="2">
+                      <div class="flex justify-between"><span class="font-mono text-[8px] text-neutral-500 uppercase">Normal</span><span class="text-[8px] text-neutral-600">11m</span></div>
+                      <div class="mt-2 text-xs font-semibold text-neutral-300">Invoice request</div>
+                      <div class="mt-1 text-[9px] text-neutral-600">email • accounts@studio7.com</div>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="border-r hairline bg-[#070808]">
+                  <div class="px-5 py-4 border-b hairline">
+                    <div id="demo-channel" class="font-mono text-[9px] uppercase tracking-[.14em] text-neutral-600">Email conversation</div>
+                    <div id="demo-subject" class="mt-1 text-sm font-bold text-white">Change delivery address</div>
+                    <div id="demo-customer" class="mt-1 text-[9px] text-neutral-600">Maya Chen • maya@northlane.co</div>
+                  </div>
+                  <div id="demo-thread" class="p-5"></div>
+                </div>
+
+                <div class="bg-[#090a0a]">
+                  <div class="px-5 py-4 border-b hairline">
+                    <div class="font-mono text-[9px] uppercase tracking-[.14em] text-cyan">Synvio Copilot</div>
+                    <div class="mt-1 text-sm font-bold text-white">Reply</div>
+                  </div>
+                  <div class="p-5">
+                    <div class="font-mono text-[8px] uppercase tracking-[.12em] text-neutral-600">Suggested reply</div>
+                    <textarea id="demo-reply" class="mt-3 w-full min-h-[210px] resize-none rounded-xl border border-white/10 bg-black/45 p-4 text-xs leading-6 text-neutral-300 outline-none focus:border-cyan/40"></textarea>
+                    <div class="mt-3 flex gap-2">
+                      <button id="demo-generate" class="flex-1 py-2.5 rounded-lg border border-white/10 text-[9px] font-mono uppercase tracking-wider text-neutral-300 hover:border-cyan/30">Generate</button>
+                      <button id="demo-send" class="flex-1 py-2.5 rounded-lg bg-white text-black text-[9px] font-mono uppercase tracking-wider font-black">Send reply</button>
+                    </div>
+                    <div id="demo-status" class="mt-3 h-4 font-mono text-[8px] uppercase tracking-[.1em] text-neutral-600">Ready for agent review</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="about" class="py-24 px-6 max-w-7xl mx-auto">
-    <div class="grid lg:grid-cols-[.82fr_1.18fr] gap-14 lg:gap-20 items-start">
-      <div class="reveal lg:sticky lg:top-28"><div class="eyebrow">What Synvio actually is</div><h2 class="mt-5 text-3xl sm:text-5xl font-black tracking-[-.045em] text-white">A support workstation.<br>Not another disconnected bot.</h2><p class="mt-6 text-neutral-400 leading-7">The real app already receives email, stores the customer conversation under the correct company, and lets an operator send a real reply. The next channel is web chat: AI handles the first line, then hands the conversation to the same human workspace when needed.</p></div>
-      <div class="grid sm:grid-cols-2 gap-4 reveal">
-        <article class="soft-card shine rounded-xl p-6 min-h-[210px]"><div class="text-[10px] font-mono text-accentEmerald uppercase tracking-widest">LIVE / 01</div><h3 class="mt-4 text-lg font-bold">Email → ticket</h3><p class="mt-3 text-sm text-neutral-500 leading-7">A provider webhook is mapped to the correct connected inbox and organization. The message appears as a real ticket — not a browser mock.</p></article>
-        <article class="soft-card shine rounded-xl p-6 min-h-[210px]"><div class="text-[10px] font-mono text-accentEmerald uppercase tracking-widest">LIVE / 02</div><h3 class="mt-4 text-lg font-bold">Human reply → customer</h3><p class="mt-3 text-sm text-neutral-500 leading-7">The operator writes inside Synvio. The backend verifies access and sends from the sender identity configured for that company inbox.</p></article>
-        <article class="soft-card shine rounded-xl p-6 min-h-[210px]"><div class="text-[10px] font-mono text-accentCyan uppercase tracking-widest">NEXT / 03</div><h3 class="mt-4 text-lg font-bold">AI web chat</h3><p class="mt-3 text-sm text-neutral-500 leading-7">A customer-facing chat widget answers routine questions using the company knowledge layer and creates a support conversation when context should move to the team.</p></article>
-        <article class="soft-card shine rounded-xl p-6 min-h-[210px]"><div class="text-[10px] font-mono text-accentCyan uppercase tracking-widest">NEXT / 04</div><h3 class="mt-4 text-lg font-bold">Human handoff in-place</h3><p class="mt-3 text-sm text-neutral-500 leading-7">“Talk to a person” should not send the visitor somewhere else. The conversation enters the same Synvio queue and a worker continues it from the workstation.</p></article>
-      </div>
-    </div>
-  </section>
-
-  <section id="channels" class="py-24 px-6 border-y border-white/10 bg-white/[.012]">
-    <div class="max-w-7xl mx-auto">
-      <div class="max-w-3xl reveal"><div class="eyebrow">Email + AI chat, one queue</div><h2 class="mt-5 text-3xl sm:text-5xl font-black tracking-[-.045em]">AI answers first. A human can take over without changing platforms.</h2><p class="mt-5 text-neutral-400 leading-7">This is the channel model we are implementing: web chat is a new adapter into the same tickets/messages backend, not a separate product beside the email desk.</p></div>
-      <div class="mt-12 chat-demo-shell grid lg:grid-cols-[.86fr_1.14fr] reveal">
-        <div class="chat-window p-5 sm:p-6">
-          <div class="flex items-center justify-between pb-4 border-b border-white/10"><div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-accentCyan shadow-[0_0_9px_#00f0ff]"></span><span class="font-mono text-[10px] uppercase tracking-widest">Brand AI Chat</span></div><span class="font-mono text-[8px] text-neutral-600">SIMULATED DEMO</span></div>
-          <div id="chat-demo-messages" class="mt-5 space-y-3 min-h-[310px]"></div>
-          <div class="mt-4 flex gap-2"><button id="chat-normal" class="flex-1 border border-white/15 rounded-lg px-3 py-2.5 text-[9px] font-mono uppercase tracking-wider hover:border-white/35 transition">Ask routine question</button><button id="chat-human" class="flex-1 bg-white text-black rounded-lg px-3 py-2.5 text-[9px] font-mono uppercase tracking-wider font-black hover:bg-neutral-200 transition">Ask for a human</button></div>
+    <section id="product" class="max-w-7xl mx-auto px-6 py-24 sm:py-32">
+      <div class="grid lg:grid-cols-[.82fr_1.18fr] gap-14 lg:gap-20">
+        <div class="reveal lg:sticky lg:top-28 self-start">
+          <div class="eyebrow">One operating view</div>
+          <h2 class="mt-5 text-3xl sm:text-5xl font-black tracking-[-.045em] leading-[1.02] text-white">
+            Your support team works from one queue.
+          </h2>
+          <p class="mt-6 text-neutral-400 leading-7">
+            Email conversations and AI chat handoffs arrive in the same workspace.
+            Agents see the customer history, write the reply and keep ownership without switching tools.
+          </p>
         </div>
-        <div class="p-6 sm:p-8 bg-[#080808] relative overflow-hidden">
-          <div class="scanner"></div><div class="flex items-center justify-between"><div><div class="text-[9px] font-mono text-neutral-600 uppercase tracking-widest">Same Synvio platform</div><div class="mt-2 text-lg font-bold">Handoff event</div></div><div id="handoff-status" class="text-[9px] font-mono uppercase tracking-wider text-neutral-500 border border-white/10 rounded px-2.5 py-1">AI ACTIVE</div></div>
-          <div class="mt-6 channel-flow-line"></div>
-          <div class="mt-6 handoff-card p-5"><div class="flex items-start gap-3"><div class="handoff-pulse mt-1"></div><div><div class="font-mono text-[9px] uppercase tracking-wider text-accentCyan">Web chat conversation</div><div id="handoff-title" class="mt-2 text-sm font-bold">AI handling routine question</div><div id="handoff-copy" class="mt-2 text-xs text-neutral-500 leading-6">The conversation stays with the automated layer until a handoff condition is met.</div></div></div></div>
-          <div class="mt-4 grid grid-cols-2 gap-3"><div class="soft-card rounded-lg p-4"><div class="text-[8px] font-mono text-neutral-600">CHANNEL</div><div class="mt-1 text-xs font-bold">web_chat</div></div><div class="soft-card rounded-lg p-4"><div class="text-[8px] font-mono text-neutral-600">QUEUE</div><div id="handoff-queue" class="mt-1 text-xs font-bold">AI session</div></div></div>
-          <div id="agent-card" class="mt-4 soft-card rounded-xl p-5 opacity-40 transition-all duration-500"><div class="flex items-center justify-between"><div><div class="font-mono text-[8px] text-neutral-600">OPERATOR WORKSPACE</div><div class="mt-1 text-sm font-bold">Support Agent</div></div><span id="agent-badge" class="font-mono text-[8px] border border-white/10 rounded px-2 py-1 text-neutral-600">WAITING</span></div><div class="mt-4 text-xs text-neutral-500 leading-6">When handoff fires, this same conversation becomes a queue item beside email tickets. The employee sees the history and continues the chat.</div></div>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <section id="demo" class="py-24 px-6 max-w-[1450px] mx-auto">
-    <div class="max-w-3xl reveal"><div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-white/5 border border-white/20 text-[10px] font-mono uppercase tracking-widest">Interactive workstation demo <span class="px-1.5 py-0.5 rounded border border-accentCyan/30 bg-accentCyan/10 text-accentCyan text-[8px]">SIMULATED DATA</span></div><h2 class="mt-5 text-3xl sm:text-5xl font-black tracking-[-.045em]">This time, the demo looks like the actual app.</h2><p class="mt-5 text-neutral-400 leading-7">Same top bar, left workspace rail, live inbox, customer conversation and Synvio Copilot panel. Click tickets, generate a draft and simulate a send. The production app uses live Supabase data; this section uses demo data only.</p></div>
-    <div class="mt-10 demo-frame reveal relative">
-      <div class="h-[2px] w-full bg-gradient-to-r from-transparent via-accentCyan to-transparent animate-pulse"></div>
-      <div class="demo-app">
-        <div class="demo-topbar"><div class="demo-brand"><div class="demo-brand-mark"></div><div><div class="demo-brand-name">SYNVIO AI</div><div class="demo-brand-sub">Support workstation</div></div></div><div class="demo-topnav"><button class="demo-nav active">Inbox</button><button class="demo-nav">Knowledge</button><button class="demo-nav">Analytics</button><button class="demo-nav">Inbox setup</button></div><div class="demo-org"><span class="demo-green status-pulse"></span><div><strong class="block text-[9px]">Northstar Commerce</strong><span class="block mt-0.5 text-[7px] font-mono text-neutral-600">AGENT</span></div></div></div>
-        <div class="demo-workspace"><aside class="demo-sidebar"><div><div class="demo-side-label">Workspace</div><button class="demo-side-button active"><span>◌</span><span>Inbox</span><span class="demo-side-count">3</span></button></div><div><div class="demo-side-label">Coming next</div><button class="demo-side-button"><span>◇</span><span>Knowledge</span></button><button class="demo-side-button"><span>↗</span><span>Analytics</span></button><button class="demo-side-button"><span>⚙</span><span>Inbox setup</span></button></div><div class="mt-auto"><div class="demo-side-label">Backend status</div><div class="p-2.5 border border-white/10 rounded-lg bg-[#0a0a0a] text-[8px] leading-5 text-neutral-600 font-mono">SUPABASE<br><span class="text-accentEmerald">CONNECTED</span><br>DEMO UI / SIMULATED DATA</div></div></aside>
-          <div class="demo-main"><div class="demo-grid">
-            <section class="demo-panel"><div class="demo-panel-head"><div><div class="demo-eyebrow">Live database</div><div class="demo-panel-title">Inbox</div></div><button class="w-8 h-8 border border-white/10 rounded-lg text-neutral-500">↻</button></div><div class="demo-search">⌕ <span>Search live tickets</span></div><div class="demo-ticket-list" id="demo-ticket-list"></div></section>
-            <section class="demo-panel"><div class="demo-panel-head"><div><div class="demo-eyebrow">Customer conversation</div><div id="demo-detail-subject" class="demo-panel-title truncate max-w-[350px]">—</div></div></div><div class="demo-detail"><div class="demo-customer-head"><div class="demo-avatar" id="demo-avatar">CU</div><div><div class="demo-name" id="demo-name">—</div><div class="demo-email" id="demo-email">—</div></div></div><div class="demo-tags" id="demo-tags"></div><div id="demo-thread"></div></div></section>
-            <section class="demo-panel"><div class="demo-panel-head"><div><div class="demo-eyebrow" style="color:#00e7f2">Synvio Copilot</div><div class="demo-panel-title">Reply</div></div><div id="demo-confidence" class="demo-eyebrow">MANUAL REPLY</div></div><div class="demo-copilot"><div class="demo-state"><strong id="demo-state-label">REAL APP PATTERN</strong><p id="demo-state-copy">The production app only shows stored data. This marketing demo simulates the upcoming draft flow.</p></div><div class="demo-label">Reply message</div><div id="demo-draft" class="demo-draft" contenteditable="true"></div><button id="demo-generate" class="demo-action ai">Generate demo draft</button></div><div class="demo-actions"><button class="demo-action secondary">Escalate</button><button id="demo-send" class="demo-action primary">Send Reply</button></div></section>
-          </div></div>
+        <div class="space-y-4 reveal">
+          <article class="soft rounded-2xl p-6 sm:p-7">
+            <div class="font-mono text-[9px] uppercase tracking-[.14em] text-cyan">Email</div>
+            <h3 class="mt-3 text-xl font-bold text-white">Use the company’s own support address.</h3>
+            <p class="mt-3 text-sm leading-7 text-neutral-400">Customer email is routed into the correct company workspace and answered from the configured company identity.</p>
+          </article>
+          <article class="soft rounded-2xl p-6 sm:p-7">
+            <div class="font-mono text-[9px] uppercase tracking-[.14em] text-cyan">AI chat</div>
+            <h3 class="mt-3 text-xl font-bold text-white">Let AI handle routine website questions.</h3>
+            <p class="mt-3 text-sm leading-7 text-neutral-400">The website assistant can resolve repetitive questions using approved company knowledge instead of pushing every visitor into an agent queue.</p>
+          </article>
+          <article class="soft rounded-2xl p-6 sm:p-7">
+            <div class="font-mono text-[9px] uppercase tracking-[.14em] text-cyan">Human handoff</div>
+            <h3 class="mt-3 text-xl font-bold text-white">A customer can ask for a person without starting over.</h3>
+            <p class="mt-3 text-sm leading-7 text-neutral-400">The conversation moves into the same Synvio inbox with the previous chat context attached, so an employee can continue from where the AI stopped.</p>
+          </article>
         </div>
       </div>
-      <div id="demo-toast" class="demo-toast">DEMO: reply submitted</div>
-    </div>
-  </section>
+    </section>
 
-  <section id="capabilities" class="py-24 px-6 border-y border-white/10 bg-white/[.012]">
-    <div class="max-w-7xl mx-auto"><div class="max-w-3xl reveal"><div class="eyebrow">Platform architecture</div><h2 class="mt-5 text-3xl sm:text-5xl font-black tracking-[-.045em]">One backend. Separate companies. Multiple channels.</h2></div><div class="mt-12 grid md:grid-cols-3 gap-4 reveal"><div class="soft-card rounded-xl p-6"><div class="text-[9px] font-mono text-accentCyan uppercase tracking-widest">01 / Multi-tenant</div><h3 class="mt-4 text-lg font-bold">Each company gets its own workspace.</h3><p class="mt-3 text-sm text-neutral-500 leading-7">Organizations, memberships, inboxes, tickets and messages are scoped per tenant. You do not deploy a new Vercel or Supabase for every client.</p></div><div class="soft-card rounded-xl p-6"><div class="text-[9px] font-mono text-accentCyan uppercase tracking-widest">02 / Channel adapters</div><h3 class="mt-4 text-lg font-bold">Email now. Web chat next.</h3><p class="mt-3 text-sm text-neutral-500 leading-7">The conversation model stays common while adapters handle Resend/custom email, later Gmail/Microsoft, web chat and additional channels.</p></div><div class="soft-card rounded-xl p-6"><div class="text-[9px] font-mono text-accentCyan uppercase tracking-widest">03 / Human control</div><h3 class="mt-4 text-lg font-bold">AI assists; the team owns the final answer.</h3><p class="mt-3 text-sm text-neutral-500 leading-7">Drafting and triage can reduce repetitive work without silently turning every customer message into an autonomous send.</p></div></div></div>
-  </section>
+    <section id="chat" class="border-y hairline bg-white/[.012]">
+      <div class="max-w-7xl mx-auto px-6 py-24 sm:py-32">
+        <div class="max-w-3xl reveal">
+          <div class="eyebrow">AI chat → human</div>
+          <h2 class="mt-5 text-3xl sm:text-5xl font-black tracking-[-.045em] text-white">
+            Automation ends exactly where your team should begin.
+          </h2>
+          <p class="mt-6 text-neutral-400 leading-7">
+            The AI web-chat layer is being added around escalation, not around hiding the human team.
+            The rollout is designed so a visitor can request an employee, or the assistant can hand off when the conversation needs judgment.
+          </p>
+          <p class="mt-3 text-[10px] leading-5 font-mono uppercase tracking-[.08em] text-neutral-600">
+            The interaction below demonstrates the handoff flow being implemented; email support is already live.
+          </p>
+        </div>
 
-  <section id="pricing" class="py-24 px-6 max-w-7xl mx-auto">
-    <div class="grid lg:grid-cols-[.88fr_1.12fr] gap-12 lg:gap-16 items-start"><div class="reveal"><div class="eyebrow">Commercial model</div><h2 class="mt-5 text-3xl sm:text-5xl font-black tracking-[-.045em]">Platform fee + measurable AI usage.</h2><p class="mt-6 text-neutral-400 leading-7">No fake “one price fits all” table yet. Pilot pricing is agreed before activation. Longer-term pricing is intended to combine the support platform itself with variable AI processing, instead of burying model usage inside an oversized flat fee.</p><div class="mt-7 space-y-3"><div class="soft-card rounded-xl p-5"><div class="font-mono text-[9px] text-accentCyan uppercase">Platform layer</div><div class="mt-2 text-sm font-bold">Workspace, inboxes, routing, operators, storage and support infrastructure.</div></div><div class="soft-card rounded-xl p-5"><div class="font-mono text-[9px] text-accentCyan uppercase">AI layer</div><div class="mt-2 text-sm font-bold">Triage, retrieval, summarization and draft-generation usage when enabled.</div></div></div></div>
-      <div class="panel-glass rounded-2xl p-7 reveal"><div class="flex items-start justify-between"><div><div class="font-mono text-[9px] text-neutral-600 uppercase tracking-widest">Usage estimator</div><h3 class="mt-2 text-xl font-bold">How much language processing might the workload need?</h3></div><span class="font-mono text-[8px] text-neutral-600 border border-white/10 rounded px-2 py-1">NOT A QUOTE</span></div><div class="mt-7 space-y-6"><div><div class="flex justify-between text-[9px] font-mono text-neutral-500 mb-2"><span>SUPPORT MESSAGES / MONTH</span><output id="mail-out" class="text-white">1,000</output></div><input id="mail-range" class="pricing-range" type="range" min="100" max="20000" step="100" value="1000"></div><div><div class="flex justify-between text-[9px] font-mono text-neutral-500 mb-2"><span>AI-ASSISTED SHARE</span><output id="ai-out" class="text-white">70%</output></div><input id="ai-range" class="pricing-range" type="range" min="0" max="100" step="5" value="70"></div><div><label class="block text-[9px] font-mono text-neutral-500 mb-2">AVERAGE CONTEXT</label><select id="context-range" class="w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-xs"><option value="short">Short</option><option value="standard" selected>Standard</option><option value="long">Long / knowledge-heavy</option></select></div></div><div class="mt-7 grid sm:grid-cols-3 gap-3"><div class="soft-card rounded-lg p-4"><div class="text-[8px] font-mono text-neutral-600">BAND</div><div id="price-band" class="mt-1 text-sm font-bold">Launch</div></div><div class="soft-card rounded-lg p-4"><div class="text-[8px] font-mono text-neutral-600">AI-ASSISTED</div><div id="assisted-out" class="mt-1 text-sm font-bold">700</div></div><div class="soft-card rounded-lg p-4"><div class="text-[8px] font-mono text-neutral-600">PROCESSING RANGE</div><div id="tokens-out" class="mt-1 text-sm font-bold">0.8–2.0M</div></div></div><p class="mt-5 text-[9px] font-mono text-neutral-600 leading-5">Planning estimate only. Real token consumption changes with model, thread length, retrieval context, language and generated output.</p></div>
-    </div>
-  </section>
-
-  <section id="contact" class="py-24 px-6 border-t border-white/10">
-    <div class="max-w-5xl mx-auto grid lg:grid-cols-[.9fr_1.1fr] gap-10 items-start"><div class="reveal"><div class="eyebrow">Founding pilot</div><h2 class="mt-5 text-3xl sm:text-5xl font-black tracking-[-.045em]">Put real support traffic through Synvio.</h2><p class="mt-6 text-neutral-400 leading-7">We are keeping the first commercial deployments deliberately hands-on. One real inbox, real employees, real customer messages, measured results. Introductory scope and price are agreed before activation.</p><div class="mt-7 font-mono text-[9px] text-neutral-600 leading-6">BEST EARLY FIT<br><span class="text-neutral-300">E-COMMERCE / SAAS / SERVICE TEAMS / NON-REGULATED SUPPORT</span></div></div>
-      <form id="pilot-form" action="https://formspree.io/f/xbgjvaaq" method="POST" class="panel-glass rounded-2xl p-7 space-y-4 reveal"><input type="hidden" name="_subject" value="Synvio Founding Pilot Request"><div><label class="block text-[9px] font-mono text-neutral-500 uppercase tracking-widest mb-2">Company</label><input name="company" required class="w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm outline-none focus:border-accentCyan" placeholder="Company name"></div><div><label class="block text-[9px] font-mono text-neutral-500 uppercase tracking-widest mb-2">Work email</label><input name="email" type="email" required class="w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm outline-none focus:border-accentCyan" placeholder="you@company.com"></div><div><label class="block text-[9px] font-mono text-neutral-500 uppercase tracking-widest mb-2">Support volume</label><select name="volume" class="w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm"><option>Under 500 / month</option><option>500–2,000 / month</option><option>2,000–10,000 / month</option><option>10,000+ / month</option></select></div><div><label class="block text-[9px] font-mono text-neutral-500 uppercase tracking-widest mb-2">What should Synvio solve?</label><textarea name="message" rows="4" class="w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm outline-none focus:border-accentCyan resize-none" placeholder="Slow replies, repetitive tickets, no shared inbox view..."></textarea></div><button id="pilot-submit" class="w-full bg-white text-black rounded-lg px-5 py-3.5 text-[10px] font-mono uppercase tracking-widest font-black hover:bg-neutral-200 transition">Request private pilot</button><div id="pilot-status" class="hidden text-xs rounded-lg border px-4 py-3"></div></form>
-    </div>
-  </section>
-</main>
-
-<footer id="synvio-footer" class="bg-black border-t border-white/10 py-12 px-6 mt-auto">
-  <div class="max-w-7xl mx-auto">
-    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-9">
-      <div class="max-w-2xl">
-        <div class="flex items-center gap-3">
-          <div class="w-5 h-5 border border-white/50 rounded-[3px] flex items-center justify-center">
-            <div class="w-1.5 h-1.5 rounded-full bg-accentCyan shadow-[0_0_7px_#00f0ff]"></div>
+        <div class="mt-12 grid lg:grid-cols-[.9fr_1.1fr] gap-5 reveal">
+          <div class="panel rounded-2xl overflow-hidden">
+            <div class="px-5 py-4 border-b hairline flex items-center justify-between">
+              <div>
+                <div class="font-mono text-[9px] uppercase tracking-[.14em] text-amber">Rollout demo</div>
+                <div class="mt-1 text-sm font-bold text-white">AI customer chat</div>
+              </div>
+              <span class="text-[9px] font-mono text-green">● ONLINE</span>
+            </div>
+            <div id="handoff-chat" class="p-5 min-h-[350px] space-y-3">
+              <div class="chat-bubble max-w-[82%] rounded-xl border border-white/10 bg-white/[.025] p-4 text-xs leading-6 text-neutral-300">
+                Hi — how can I help with your order?
+              </div>
+              <div class="chat-bubble ml-auto max-w-[82%] rounded-xl border border-cyan/20 bg-cyan/[.035] p-4 text-xs leading-6 text-neutral-200">
+                I need to change the invoice details and I’d rather speak with a person.
+              </div>
+            </div>
+            <div class="p-4 border-t hairline">
+              <button id="handoff-button" class="w-full py-3 rounded-lg bg-white text-black text-[10px] font-mono uppercase tracking-[.12em] font-black">
+                Request human support
+              </button>
+            </div>
           </div>
-          <span class="text-sm font-black tracking-[.14em] text-white">SYNVIO<span class="text-neutral-600 font-normal">/</span>AI</span>
+
+          <div class="panel rounded-2xl overflow-hidden">
+            <div class="px-5 py-4 border-b hairline">
+              <div class="font-mono text-[9px] uppercase tracking-[.14em] text-neutral-600">Synvio inbox</div>
+              <div class="mt-1 text-sm font-bold text-white">Agent handoff</div>
+            </div>
+            <div class="p-5 min-h-[420px]">
+              <div id="handoff-empty" class="h-[350px] grid place-items-center text-center">
+                <div>
+                  <div class="w-11 h-11 mx-auto border border-white/12 rounded-xl grid place-items-center text-cyan font-mono">↘</div>
+                  <div class="mt-4 text-sm font-bold text-white">Waiting for escalation</div>
+                  <p class="mt-2 text-xs leading-6 text-neutral-600 max-w-xs">The customer’s chat context appears here when a human takes over.</p>
+                </div>
+              </div>
+
+              <div id="handoff-ticket" class="hidden">
+                <div class="flex items-center justify-between gap-4">
+                  <div>
+                    <div class="font-mono text-[9px] uppercase tracking-[.14em] text-cyan">Web chat • handed off</div>
+                    <div class="mt-2 text-lg font-bold text-white">Billing details need a human</div>
+                  </div>
+                  <span class="px-2 py-1 rounded border border-amber/20 text-amber text-[8px] font-mono uppercase">Priority</span>
+                </div>
+                <div class="mt-5 rounded-xl border border-white/10 bg-black/35 p-4">
+                  <div class="font-mono text-[8px] uppercase text-neutral-600">Context preserved</div>
+                  <p class="mt-3 text-xs leading-6 text-neutral-300">Customer asked to change invoice details and explicitly requested a person.</p>
+                </div>
+                <textarea class="mt-4 w-full min-h-[150px] rounded-xl border border-white/10 bg-black/40 p-4 text-xs leading-6 text-neutral-300 outline-none" placeholder="Agent reply..."></textarea>
+                <button class="mt-3 w-full py-3 rounded-lg bg-white text-black text-[9px] font-mono uppercase tracking-wider font-black">Send as support team</button>
+              </div>
+            </div>
+          </div>
         </div>
-        <p class="mt-4 text-xs leading-6 text-neutral-500 max-w-xl">
-          Customer support workspace for email and AI web chat — with human handoff,
-          separate company workspaces and operator control in the same platform.
-        </p>
       </div>
+    </section>
 
-      <div class="flex flex-wrap items-center gap-x-6 gap-y-3 text-[10px] font-mono uppercase tracking-[.12em] text-neutral-500">
-        <a href="#about" class="hover:text-white transition-colors">Product</a>
-        <a href="#channels" class="hover:text-white transition-colors">AI Chat</a>
-        <a href="#demo" class="hover:text-white transition-colors">Demo</a>
-        <a href="#pricing" class="hover:text-white transition-colors">Pricing</a>
-        <a href="subpages/faq.html" class="hover:text-white transition-colors">FAQ</a>
-        <a href="subpages/legal.html" class="hover:text-white transition-colors">Legal</a>
-        <a href="https://app.synviocore.xyz/login.html" class="hover:text-white transition-colors">Sign in</a>
+    <section id="demo" class="max-w-7xl mx-auto px-6 py-24 sm:py-32">
+      <div class="grid lg:grid-cols-[.8fr_1.2fr] gap-14 items-start">
+        <div class="reveal">
+          <div class="eyebrow">Interactive demo</div>
+          <h2 class="mt-5 text-3xl sm:text-5xl font-black tracking-[-.045em] text-white">Built around the screen agents actually use.</h2>
+          <p class="mt-6 text-neutral-400 leading-7">
+            Try the product demo above: switch tickets, generate a sample draft and walk through a reply flow.
+            The interface mirrors the real Synvio workstation. Demo actions do not send email or modify a customer workspace.
+          </p>
+        </div>
+        <div class="reveal soft rounded-2xl p-6 sm:p-8">
+          <div class="font-mono text-[9px] uppercase tracking-[.14em] text-neutral-600">What an agent gets</div>
+          <div class="mt-5 grid sm:grid-cols-2 gap-3">
+            <div class="border border-white/10 rounded-xl p-4"><div class="text-sm font-bold text-white">Queue</div><p class="mt-2 text-xs leading-6 text-neutral-500">Email and handed-off chat tickets in one inbox.</p></div>
+            <div class="border border-white/10 rounded-xl p-4"><div class="text-sm font-bold text-white">Conversation</div><p class="mt-2 text-xs leading-6 text-neutral-500">Customer history and channel context before replying.</p></div>
+            <div class="border border-white/10 rounded-xl p-4"><div class="text-sm font-bold text-white">Reply workspace</div><p class="mt-2 text-xs leading-6 text-neutral-500">Manual or AI-assisted draft, reviewed by the employee.</p></div>
+            <div class="border border-white/10 rounded-xl p-4"><div class="text-sm font-bold text-white">Company identity</div><p class="mt-2 text-xs leading-6 text-neutral-500">Replies leave from the support identity configured by the admin.</p></div>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <div class="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row justify-between gap-3 text-[9px] font-mono uppercase tracking-[.1em] text-neutral-700">
-      <span>© 2026 Synvio AI</span>
-      <span>Private pilot • Human-reviewed support workflows</span>
-    </div>
-  </div>
-</footer>
+    <section id="roles" class="border-y hairline bg-black/20">
+      <div class="max-w-7xl mx-auto px-6 py-24">
+        <div class="max-w-3xl reveal">
+          <div class="eyebrow">Team access</div>
+          <h2 class="mt-5 text-3xl sm:text-5xl font-black tracking-[-.045em] text-white">Agents work customers. Admins control the workspace.</h2>
+          <p class="mt-6 text-neutral-400 leading-7">Synvio separates day-to-day support from company configuration so employees see the tools they need without access to sensitive setup or knowledge management.</p>
+        </div>
 
+        <div class="mt-12 grid lg:grid-cols-2 gap-4 reveal">
+          <div class="panel rounded-2xl p-7">
+            <div class="font-mono text-[9px] uppercase tracking-[.14em] text-cyan">Agent</div>
+            <h3 class="mt-3 text-2xl font-bold text-white">Handle customer conversations.</h3>
+            <div class="mt-6 space-y-3 text-sm text-neutral-400">
+              <div class="flex gap-3"><span class="text-green">✓</span><span>Open the shared inbox and customer threads</span></div>
+              <div class="flex gap-3"><span class="text-green">✓</span><span>Write and send replies</span></div>
+              <div class="flex gap-3"><span class="text-green">✓</span><span>Take over AI web chat handoffs</span></div>
+              <div class="flex gap-3"><span class="text-neutral-700">—</span><span class="text-neutral-600">No mailbox configuration access</span></div>
+              <div class="flex gap-3"><span class="text-neutral-700">—</span><span class="text-neutral-600">No knowledge-base management</span></div>
+            </div>
+          </div>
 
-<script>
-(function(){
-  // Section reveals
-  const io=('IntersectionObserver'in window)?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}}),{threshold:.12}):null;
-  document.querySelectorAll('.reveal').forEach(x=>io?io.observe(x):x.classList.add('visible'));
-  // Cursor glow
-  const glow=document.getElementById('mouse-glow');
-  window.addEventListener('pointermove',e=>{if(!glow)return;glow.style.left=e.clientX+'px';glow.style.top=e.clientY+'px';glow.style.opacity='1'});window.addEventListener('pointerleave',()=>{if(glow)glow.style.opacity='0'});
-  // Hero tilt
-  const hero=document.getElementById('hero-visual');hero?.addEventListener('pointermove',e=>{const r=hero.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5;const y=(e.clientY-r.top)/r.height-.5;hero.style.transform=`rotateY(${x*4}deg) rotateX(${-y*4}deg)`});hero?.addEventListener('pointerleave',()=>hero.style.transform='');
+          <div class="panel rounded-2xl p-7">
+            <div class="font-mono text-[9px] uppercase tracking-[.14em] text-amber">Admin</div>
+            <h3 class="mt-3 text-2xl font-bold text-white">Control the company workspace.</h3>
+            <div class="mt-6 space-y-3 text-sm text-neutral-400">
+              <div class="flex gap-3"><span class="text-green">✓</span><span>Everything an agent can do</span></div>
+              <div class="flex gap-3"><span class="text-green">✓</span><span>Connect and change support inboxes</span></div>
+              <div class="flex gap-3"><span class="text-green">✓</span><span>Manage approved company knowledge</span></div>
+              <div class="flex gap-3"><span class="text-green">✓</span><span>Rename the company workspace</span></div>
+              <div class="flex gap-3"><span class="text-green">✓</span><span>Invite employees and manage team access</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  // Product demo: mirrors the real app layout but keeps marketing data simulated.
-  const tickets=[
-    {name:'Maya Chen',email:'maya@northlane.co',subject:'Address change before dispatch',priority:'priority',color:'#f4b740',status:'open',age:'2m',avatar:'MC',message:'Hi — I just noticed the shipping address on order #4831 is my old office. Can you change it before the package goes out?',draft:'Hi Maya,\n\nThanks for flagging this. Please send the new shipping address and we’ll confirm whether the order can still be updated before dispatch.\n\nBest,\nNorthstar Support'},
-    {name:'Oliver Grant',email:'oliver@gmail.com',subject:'Return status for order #4762',priority:'normal',color:'#858b92',status:'waiting',age:'11m',avatar:'OG',message:'Hello, I returned the package last week. Could you check whether the refund has already been processed?',draft:'Hi Oliver,\n\nThanks for checking in. I can look into the return status for order #4762. We’ll verify the warehouse receipt and update you on the refund status.\n\nBest,\nNorthstar Support'},
-    {name:'Alicia Park',email:'accounts@studio-seven.com',subject:'Invoice copy needed',priority:'normal',color:'#858b92',status:'open',age:'18m',avatar:'AP',message:'Could you resend the VAT invoice for order #4698 to this address? Our accounting team cannot locate the original.',draft:'Hi Alicia,\n\nAbsolutely — we’ll resend the invoice for order #4698 to this email address.\n\nBest,\nNorthstar Support'}
-  ];
-  let selected=0, cycling=true;
-  const list=document.getElementById('demo-ticket-list');
-  function renderList(){list.innerHTML='';tickets.forEach((t,i)=>{const b=document.createElement('button');b.className='demo-ticket'+(i===selected?' active':'');b.innerHTML=`<div class="demo-ticket-top"><span class="demo-priority" style="background:${t.color}"></span><span class="demo-customer">${t.name}</span><span class="demo-age">${t.age}</span></div><div class="demo-subject">${t.subject}</div><div class="demo-meta">email · ${t.status}</div>`;b.onclick=()=>{cycling=false;selectTicket(i)};list.appendChild(b)})}
-  function selectTicket(i){selected=i;renderList();const t=tickets[i];document.getElementById('demo-detail-subject').textContent=t.subject;document.getElementById('demo-avatar').textContent=t.avatar;document.getElementById('demo-name').textContent=t.name;document.getElementById('demo-email').textContent=t.email;document.getElementById('demo-tags').innerHTML=`<span class="demo-tag">${t.priority.toUpperCase()}</span><span class="demo-tag">${t.status.toUpperCase()}</span><span class="demo-tag">EMAIL</span>`;document.getElementById('demo-thread').innerHTML=`<div class="demo-message"><div class="font-mono text-[7px] text-neutral-600 mb-2">CUSTOMER → SUPPORT</div>${t.message}</div>`;document.getElementById('demo-draft').textContent='';document.getElementById('demo-confidence').textContent='MANUAL REPLY';document.getElementById('demo-state-label').textContent='REAL APP PATTERN';}
-  function typeText(el,text,done){el.textContent='';let i=0;const timer=setInterval(()=>{el.textContent+=text.slice(i,i+3);i+=3;if(i>=text.length){clearInterval(timer);done?.()}},14)}
-  document.getElementById('demo-generate')?.addEventListener('click',()=>{const b=document.getElementById('demo-generate');b.disabled=true;b.textContent='Analyzing context…';document.getElementById('demo-confidence').textContent='PROCESSING';document.getElementById('demo-state-label').textContent='DEMO AI DRAFT';setTimeout(()=>typeText(document.getElementById('demo-draft'),tickets[selected].draft,()=>{document.getElementById('demo-confidence').textContent='DRAFT READY';b.textContent='Generate demo draft';b.disabled=false}),650)});
-  document.getElementById('demo-send')?.addEventListener('click',()=>{const toast=document.getElementById('demo-toast');toast.classList.add('show');toast.textContent='DEMO ONLY: reply submitted';setTimeout(()=>toast.classList.remove('show'),2300)});
-  selectTicket(0);setInterval(()=>{if(cycling)selectTicket((selected+1)%tickets.length)},5200);
+    <section id="pricing" class="max-w-7xl mx-auto px-6 py-24 sm:py-32">
+      <div class="grid lg:grid-cols-[.85fr_1.15fr] gap-14 items-start">
+        <div class="reveal">
+          <div class="eyebrow">Pricing</div>
+          <h2 class="mt-5 text-3xl sm:text-5xl font-black tracking-[-.045em] text-white">Platform access + actual AI usage.</h2>
+          <p class="mt-6 text-neutral-400 leading-7">
+            Pricing is based on the support workspace you need and the AI processing your team actually uses.
+            Early companies can start with a founding pilot before moving to a production plan.
+          </p>
+          <div class="mt-7 soft rounded-xl p-5">
+            <div class="font-mono text-[9px] uppercase tracking-[.14em] text-cyan">Founding pilot</div>
+            <div class="mt-2 text-sm font-bold text-white">Introductory scope agreed before activation.</div>
+            <p class="mt-2 text-xs leading-6 text-neutral-500">A practical way to test Synvio on real customer traffic without committing to a large contract first.</p>
+          </div>
+        </div>
 
-  // AI web-chat + human-handoff simulation.
-  const msgBox=document.getElementById('chat-demo-messages');
-  function setMsgs(mode){if(!msgBox)return;if(mode==='human'){msgBox.innerHTML='<div class="chat-msg ai">Hi — I can help with orders, returns and product questions.</div><div class="chat-msg user">I need to speak to a person about a damaged delivery.</div><div class="chat-msg ai">Of course. I’m transferring this conversation to the support team with the context attached.</div>';document.getElementById('handoff-status').textContent='HANDOFF REQUESTED';document.getElementById('handoff-status').className='text-[9px] font-mono uppercase tracking-wider text-accentCyan border border-accentCyan/30 rounded px-2.5 py-1';document.getElementById('handoff-title').textContent='Human requested — ticket enters operator queue';document.getElementById('handoff-copy').textContent='The same chat history becomes a support conversation. The employee receives the context instead of asking the visitor to repeat everything.';document.getElementById('handoff-queue').textContent='Priority / Web Chat';document.getElementById('agent-card').style.opacity='1';document.getElementById('agent-badge').textContent='CONNECTED';document.getElementById('agent-badge').className='font-mono text-[8px] border border-accentEmerald/30 rounded px-2 py-1 text-accentEmerald'}else{msgBox.innerHTML='<div class="chat-msg ai">Hi — I can help with orders, returns and product questions.</div><div class="chat-msg user">Where is order #4831?</div><div class="chat-msg ai">I found the order context. It is currently marked for dispatch. Would you like the tracking details?</div>';document.getElementById('handoff-status').textContent='AI ACTIVE';document.getElementById('handoff-status').className='text-[9px] font-mono uppercase tracking-wider text-neutral-500 border border-white/10 rounded px-2.5 py-1';document.getElementById('handoff-title').textContent='AI handling routine question';document.getElementById('handoff-copy').textContent='The conversation stays with the automated layer until a handoff condition is met.';document.getElementById('handoff-queue').textContent='AI session';document.getElementById('agent-card').style.opacity='.4';document.getElementById('agent-badge').textContent='WAITING';document.getElementById('agent-badge').className='font-mono text-[8px] border border-white/10 rounded px-2 py-1 text-neutral-600'}}
-  document.getElementById('chat-normal')?.addEventListener('click',()=>setMsgs('normal'));document.getElementById('chat-human')?.addEventListener('click',()=>setMsgs('human'));setMsgs('normal');
+        <div class="panel rounded-2xl p-6 sm:p-8 reveal">
+          <div class="font-mono text-[9px] uppercase tracking-[.14em] text-neutral-600">Usage estimator</div>
+          <h3 class="mt-2 text-xl font-bold text-white">Estimate the workload Synvio would process.</h3>
 
-  // Usage estimator.
-  const mails=document.getElementById('mail-range'), ai=document.getElementById('ai-range'), ctx=document.getElementById('context-range');
-  function compact(n){return n>=1e6?(n/1e6).toFixed(n>=1e7?0:1)+'M':Math.round(n/1e3)+'k'}
-  function priceCalc(){const m=+mails.value,r=+ai.value/100,a=Math.round(m*r),p={short:[450,1100],standard:[900,2400],long:[1800,5000]}[ctx.value],lo=m*120+a*p[0],hi=m*260+a*p[1];document.getElementById('mail-out').textContent=m.toLocaleString('en-US');document.getElementById('ai-out').textContent=Math.round(r*100)+'%';document.getElementById('assisted-out').textContent=a.toLocaleString('en-US');document.getElementById('price-band').textContent=m<=1000?'Launch':m<=5000?'Growth':'Scale';document.getElementById('tokens-out').textContent=compact(lo)+'–'+compact(hi)}[mails,ai,ctx].forEach(x=>{x?.addEventListener('input',priceCalc);x?.addEventListener('change',priceCalc)});priceCalc();
+          <div class="mt-7 space-y-6">
+            <div>
+              <div class="flex justify-between mb-2"><label class="font-mono text-[9px] uppercase text-neutral-500">Emails / month</label><output id="price-emails" class="font-mono text-xs text-white">1,000</output></div>
+              <input id="price-emails-input" type="range" min="100" max="20000" step="100" value="1000" class="w-full accent-white">
+            </div>
+            <div>
+              <div class="flex justify-between mb-2"><label class="font-mono text-[9px] uppercase text-neutral-500">AI chat conversations / month</label><output id="price-chats" class="font-mono text-xs text-white">500</output></div>
+              <input id="price-chats-input" type="range" min="0" max="20000" step="100" value="500" class="w-full accent-white">
+            </div>
+            <div>
+              <div class="flex justify-between mb-2"><label class="font-mono text-[9px] uppercase text-neutral-500">AI-assisted replies</label><output id="price-ai" class="font-mono text-xs text-white">70%</output></div>
+              <input id="price-ai-input" type="range" min="0" max="100" step="5" value="70" class="w-full accent-white">
+            </div>
+          </div>
 
-  // Formspree without leaving the page.
-  const form=document.getElementById('pilot-form'),submit=document.getElementById('pilot-submit'),status=document.getElementById('pilot-status');form?.addEventListener('submit',async e=>{e.preventDefault();submit.disabled=true;submit.textContent='Sending…';status.classList.add('hidden');try{const res=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{Accept:'application/json'}});if(!res.ok)throw new Error();form.reset();status.textContent='Request received. We’ll get back to you with the next step.';status.className='text-xs rounded-lg border px-4 py-3 border-accentEmerald/30 bg-accentEmerald/5 text-accentEmerald'}catch(err){status.textContent='Could not send the request. Please try again.';status.className='text-xs rounded-lg border px-4 py-3 border-accentRed/30 bg-accentRed/5 text-accentRed'}finally{submit.disabled=false;submit.textContent='Request private pilot'}});
-})();
-</script>
-</body></html>
+          <div class="mt-7 grid sm:grid-cols-3 gap-3">
+            <div class="border border-white/10 rounded-xl p-4"><div class="font-mono text-[8px] uppercase text-neutral-600">Volume band</div><div id="price-band" class="mt-2 font-bold text-white">Launch</div></div>
+            <div class="border border-white/10 rounded-xl p-4"><div class="font-mono text-[8px] uppercase text-neutral-600">AI actions</div><div id="price-actions" class="mt-2 font-bold text-white">1,200</div></div>
+            <div class="border border-white/10 rounded-xl p-4"><div class="font-mono text-[8px] uppercase text-neutral-600">AI processing</div><div id="price-tokens" class="mt-2 font-bold text-white">1.2–3.0M</div></div>
+          </div>
+
+          <p class="mt-4 text-[10px] leading-5 text-neutral-600">Planning estimate only. Actual AI processing depends on message length, chat history, company knowledge and model configuration.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="border-t hairline">
+      <div class="max-w-7xl mx-auto px-6 py-24">
+        <div class="grid lg:grid-cols-[1fr_.9fr] gap-12">
+          <div class="reveal">
+            <div class="eyebrow">Founding companies</div>
+            <h2 class="mt-5 text-3xl sm:text-5xl font-black tracking-[-.045em] text-white">Put one real support inbox through Synvio.</h2>
+            <p class="mt-6 text-neutral-400 leading-7 max-w-xl">We’ll configure the workspace with you, connect the support channel and use the pilot to measure whether the workflow saves your team time.</p>
+          </div>
+
+          <form id="pilot-form" action="https://formspree.io/f/xbgjvaaq" method="POST" class="panel rounded-2xl p-6 sm:p-8 reveal space-y-4">
+            <input type="hidden" name="_subject" value="Synvio pilot request">
+            <div><label class="block mb-2 font-mono text-[9px] uppercase text-neutral-500">Company</label><input name="company" required class="w-full h-11 px-3 rounded-lg border border-white/10 bg-black/40 text-white outline-none focus:border-cyan/40"></div>
+            <div><label class="block mb-2 font-mono text-[9px] uppercase text-neutral-500">Work email</label><input name="email" type="email" required class="w-full h-11 px-3 rounded-lg border border-white/10 bg-black/40 text-white outline-none focus:border-cyan/40"></div>
+            <div><label class="block mb-2 font-mono text-[9px] uppercase text-neutral-500">Current support setup</label><textarea name="message" rows="4" class="w-full p-3 rounded-lg border border-white/10 bg-black/40 text-white outline-none focus:border-cyan/40" placeholder="How many people answer support and where do messages arrive today?"></textarea></div>
+            <button class="w-full h-11 rounded-lg bg-white text-black text-[10px] font-mono uppercase tracking-[.12em] font-black">Request pilot</button>
+            <div id="pilot-status" class="hidden text-xs leading-6"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer-mount"></div>
+</body>
+</html>
