@@ -106,8 +106,9 @@
     }
   </style>
 
-  <script src="./global.js?v=8.2" defer></script>
-<link rel="stylesheet" href="./effects.css?v=8.1">
+  <script src="./global.js?v=12" defer></script>
+  <script src="./page-motion.js?v=12" defer></script>
+<link rel="stylesheet" href="./effects.css?v=12">
 <script src="./appearance.js?v=8.1"></script>
 <link rel="stylesheet" href="./appearance.css?v=8.2">
 <link rel="stylesheet" href="./marketing-v8.css?v=8.2">
@@ -390,44 +391,47 @@
       <div class="grid lg:grid-cols-[.85fr_1.15fr] gap-14 items-start">
         <div class="reveal">
           <div class="eyebrow">Pricing</div>
-          <h2 class="mt-5 text-3xl sm:text-5xl font-black tracking-[-.045em] text-white">Platform access + actual AI usage.</h2>
+          <h2 class="mt-5 text-3xl sm:text-5xl font-black tracking-[-.045em] text-white">Pay for the AI you actually use.</h2>
           <p class="mt-6 text-neutral-400 leading-7">
-            Pricing is based on the support workspace you need and the AI processing your team actually uses.
-            Early companies can start with a founding pilot before moving to a production plan.
+            A short ticket and a long conversation should not cost the same. Our proposed pilot rate counts the real input and output tokens used by Copilot. An unused ticket adds $0 in AI usage.
           </p>
           <div class="mt-7 soft rounded-xl p-5">
-            <div class="font-mono text-[9px] uppercase tracking-[.14em] text-cyan">Founding pilot</div>
-            <div class="mt-2 text-sm font-bold text-white">Introductory scope agreed before activation.</div>
-            <p class="mt-2 text-xs leading-6 text-neutral-500">A practical way to test Synvio on real customer traffic without committing to a large contract first.</p>
+            <div class="font-mono text-[9px] uppercase tracking-[.14em] text-cyan">Proposed founding-pilot rates · USD</div>
+            <div class="mt-2 text-sm font-bold text-white">$4 / million input tokens · $16 / million output tokens</div>
+            <p class="mt-2 text-xs leading-6 text-neutral-500">New workspaces currently receive $10 of one-time Synvio trial credit. No per-agent AI fee in this pilot proposal. Each draft or Copilot question counts as an AI call, including repeated calls on the same ticket. Workspace, email, taxes and later production terms are agreed separately before activation.</p>
           </div>
         </div>
 
         <div class="panel rounded-2xl p-6 sm:p-8 reveal">
           <div class="font-mono text-[9px] uppercase tracking-[.14em] text-neutral-600">Usage estimator</div>
-          <h3 class="mt-2 text-xl font-bold text-white">Estimate the workload Synvio would process.</h3>
+          <h3 class="mt-2 text-xl font-bold text-white">Estimate a month of AI usage.</h3>
 
           <div class="mt-7 space-y-6">
             <div>
-              <div class="flex justify-between mb-2"><label class="font-mono text-[9px] uppercase text-neutral-500">Emails / month</label><output id="price-emails" class="font-mono text-xs text-white">1,000</output></div>
-              <input id="price-emails-input" type="range" min="100" max="20000" step="100" value="1000" class="w-full accent-white">
+               <div class="flex justify-between mb-2"><label for="price-tickets-input" class="font-mono text-[9px] uppercase text-neutral-500">Tickets / month</label><output id="price-tickets" class="font-mono text-xs text-white">1,000</output></div>
+               <input id="price-tickets-input" type="range" min="0" max="20000" step="100" value="1000" class="w-full accent-cyan">
             </div>
             <div>
-              <div class="flex justify-between mb-2"><label class="font-mono text-[9px] uppercase text-neutral-500">AI chat conversations / month</label><output id="price-chats" class="font-mono text-xs text-white">500</output></div>
-              <input id="price-chats-input" type="range" min="0" max="20000" step="100" value="500" class="w-full accent-white">
+               <div class="flex justify-between mb-2"><label for="price-calls-input" class="font-mono text-[9px] uppercase text-neutral-500">AI calls per ticket</label><output id="price-calls" class="font-mono text-xs text-white">1</output></div>
+               <input id="price-calls-input" type="range" min="0" max="10" step="1" value="1" class="w-full accent-cyan">
             </div>
             <div>
-              <div class="flex justify-between mb-2"><label class="font-mono text-[9px] uppercase text-neutral-500">AI-assisted replies</label><output id="price-ai" class="font-mono text-xs text-white">70%</output></div>
-              <input id="price-ai-input" type="range" min="0" max="100" step="5" value="70" class="w-full accent-white">
+               <div class="flex justify-between mb-2"><label for="price-input-input" class="font-mono text-[9px] uppercase text-neutral-500">Input tokens per call</label><output id="price-input" class="font-mono text-xs text-white">10,000</output></div>
+               <input id="price-input-input" type="range" min="1000" max="50000" step="1000" value="10000" class="w-full accent-cyan">
+            </div>
+            <div>
+               <div class="flex justify-between mb-2"><label for="price-output-input" class="font-mono text-[9px] uppercase text-neutral-500">Output tokens per call</label><output id="price-output" class="font-mono text-xs text-white">1,000</output></div>
+               <input id="price-output-input" type="range" min="100" max="5000" step="100" value="1000" class="w-full accent-cyan">
             </div>
           </div>
 
           <div class="mt-7 grid sm:grid-cols-3 gap-3">
-            <div class="border border-white/10 rounded-xl p-4"><div class="font-mono text-[8px] uppercase text-neutral-600">Volume band</div><div id="price-band" class="mt-2 font-bold text-white">Launch</div></div>
-            <div class="border border-white/10 rounded-xl p-4"><div class="font-mono text-[8px] uppercase text-neutral-600">AI actions</div><div id="price-actions" class="mt-2 font-bold text-white">1,200</div></div>
-            <div class="border border-white/10 rounded-xl p-4"><div class="font-mono text-[8px] uppercase text-neutral-600">AI processing</div><div id="price-tokens" class="mt-2 font-bold text-white">1.2–3.0M</div></div>
+             <div class="border border-white/10 rounded-xl p-4"><div class="font-mono text-[8px] uppercase text-neutral-600">AI calls</div><div id="price-actions" class="mt-2 font-bold text-white">1,000</div></div>
+             <div class="border border-white/10 rounded-xl p-4"><div class="font-mono text-[8px] uppercase text-neutral-600">Estimated AI use</div><div id="price-amount" class="mt-2 font-bold text-white">$56.00</div></div>
+             <div class="border border-white/10 rounded-xl p-4"><div class="font-mono text-[8px] uppercase text-neutral-600">One sample call</div><div id="price-per-call" class="mt-2 font-bold text-white">$0.056</div></div>
           </div>
 
-          <p class="mt-4 text-[10px] leading-5 text-neutral-600">Planning estimate only. Actual AI processing depends on message length, chat history, company knowledge and model configuration.</p>
+           <p class="mt-4 text-[10px] leading-5 text-neutral-600">Illustrative calculator, not your wallet balance or an invoice. Actual usage depends on every AI call, attachment analysis, message length and company knowledge. Self-service top-ups are not live yet; rates may change before a signed pilot.</p>
         </div>
       </div>
     </section>
@@ -457,3 +461,4 @@
   <div id="site-footer-mount"></div>
 </body>
 </html>
+

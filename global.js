@@ -112,10 +112,21 @@
   const thread = document.getElementById("demo-thread");
   const reply = document.getElementById("demo-reply");
   const status = document.getElementById("demo-status");
+  const demoContent=[channel,subject,customer,thread,reply,status].filter(Boolean);
+  let demoTransition=0;
+  let draftTimer=0;
+  const demoMotion=()=>document.documentElement.dataset.motion!=='off'&&!matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  function loadTicket(index) {
+  async function loadTicket(index,instant=false) {
     const item = ticketData[index];
     if (!item || !thread) return;
+    if(draftTimer){clearInterval(draftTimer);draftTimer=0;}
+    const transition=++demoTransition;
+    demoContent.forEach(node=>node.getAnimations?.().forEach(animation=>animation.cancel()));
+    if(!instant&&demoMotion()){
+      await Promise.all(demoContent.map(node=>node.animate([{opacity:1},{opacity:0}],{duration:140,easing:'ease-in'}).finished.catch(()=>{})));
+      if(transition!==demoTransition)return;
+    }
     demoButtons.forEach(btn => btn.classList.toggle("active", Number(btn.dataset.demoTicket) === index));
     channel.textContent = item.channel;
     subject.textContent = item.subject;
@@ -128,21 +139,23 @@
         <div class="mt-2 text-xs leading-6 text-neutral-300">${escapeHtml(text)}</div>
       </div>
     `).join("");
+    if(!instant&&demoMotion())demoContent.forEach(node=>node.animate([{opacity:0},{opacity:1}],{duration:310,easing:'cubic-bezier(.2,.8,.2,1)'}));
   }
 
   demoButtons.forEach(btn => btn.addEventListener("click", () => loadTicket(Number(btn.dataset.demoTicket))));
-  loadTicket(0);
+  loadTicket(0,true);
 
   document.getElementById("demo-generate")?.addEventListener("click", () => {
     if (!reply) return;
+    if(draftTimer)clearInterval(draftTimer);
     const final = ticketData[Number(document.querySelector("[data-demo-ticket].active")?.dataset.demoTicket || 0)].reply;
     reply.value = "";
     status.textContent = "Generating draft…";
     let i = 0;
-    const timer = setInterval(() => {
+    draftTimer = setInterval(() => {
       reply.value = final.slice(0, i += 5);
       if (i >= final.length) {
-        clearInterval(timer);
+        clearInterval(draftTimer);draftTimer=0;
         reply.value = final;
         status.textContent = "Draft ready for review";
       }
@@ -191,31 +204,19 @@
     reveals.forEach(el => el.classList.add("on"));
   }
 
-  const emails = document.getElementById("price-emails-input");
-  const chats = document.getElementById("price-chats-input");
-  const ai = document.getElementById("price-ai-input");
-  function fmtTokens(v) {
-    if (v >= 1e6) return `${(v/1e6).toFixed(v >= 1e7 ? 0 : 1)}M`;
-    return `${Math.round(v/1e3)}k`;
-  }
+  const pricingInputs = ['tickets','calls','input','output'].map(name => document.getElementById(`price-${name}-input`));
   function updatePricing() {
-    if (!emails || !chats || !ai) return;
-    const e = Number(emails.value);
-    const c = Number(chats.value);
-    const rate = Number(ai.value)/100;
-    const actions = Math.round(e*rate + c);
-    const low = e*150 + actions*850;
-    const high = e*320 + actions*2300;
-    const total = e+c;
-    const band = total <= 1500 ? "Launch" : total <= 7000 ? "Growth" : "Scale";
-    document.getElementById("price-emails").textContent = e.toLocaleString("en-US");
-    document.getElementById("price-chats").textContent = c.toLocaleString("en-US");
-    document.getElementById("price-ai").textContent = `${Math.round(rate*100)}%`;
-    document.getElementById("price-band").textContent = band;
+    if (pricingInputs.some(input => !input)) return;
+    const [tickets,callsPerTicket,inputTokens,outputTokens] = pricingInputs.map(input => Number(input.value));
+    const actions = tickets * callsPerTicket;
+    const perCall = (inputTokens*4 + outputTokens*16)/1_000_000;
+    for (const [name,value] of Object.entries({tickets,calls:callsPerTicket,input:inputTokens,output:outputTokens}))
+      document.getElementById(`price-${name}`).textContent = value.toLocaleString('en-US');
     document.getElementById("price-actions").textContent = actions.toLocaleString("en-US");
-    document.getElementById("price-tokens").textContent = `${fmtTokens(low)}–${fmtTokens(high)}`;
+    document.getElementById("price-amount").textContent = (actions*perCall).toLocaleString('en-US',{style:'currency',currency:'USD',minimumFractionDigits:2,maximumFractionDigits:4});
+    document.getElementById("price-per-call").textContent = '$'+perCall.toFixed(4);
   }
-  [emails,chats,ai].forEach(el => el?.addEventListener("input", updatePricing));
+  pricingInputs.forEach(el => el?.addEventListener("input", updatePricing));
   updatePricing();
 
   const form = document.getElementById("pilot-form");
