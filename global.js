@@ -209,7 +209,7 @@
     if (pricingInputs.some(input => !input)) return;
     const [tickets,callsPerTicket,inputTokens,outputTokens] = pricingInputs.map(input => Number(input.value));
     const actions = tickets * callsPerTicket;
-    const perCall = (inputTokens*4 + outputTokens*16)/1_000_000;
+    const perCall = (inputTokens*6.4 + outputTokens*25.6)/1_000_000;
     for (const [name,value] of Object.entries({tickets,calls:callsPerTicket,input:inputTokens,output:outputTokens}))
       document.getElementById(`price-${name}`).textContent = value.toLocaleString('en-US');
     document.getElementById("price-actions").textContent = actions.toLocaleString("en-US");
