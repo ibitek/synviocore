@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Synvio AI — Email & AI Chat Support Workspace</title>
-  <meta name="description" content="Synvio brings customer email, AI web chat, human handoff and agent replies into one support workspace.">
+  <title>Synvio AI — Email, TikTok & AI Chat Support Workspace</title>
+  <meta name="description" content="Synvio is a support workspace for email, TikTok chat and AI web chat. Pay about 0.5–2¢ per AI action and 0.4¢ per message, with a $2 wallet to try the panel and API.">
   <meta name="theme-color" content="#050505">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="./vendor-tailwind.css?v=8.1">
+  <link rel="stylesheet" href="./vendor-tailwind.css?v=15">
   
 
   <style>
@@ -100,18 +100,41 @@
       0%,30%{left:-45%}
       70%,100%{left:120%}
     }
+    .channel-rail{
+      overflow:hidden;border-top:1px solid rgba(255,255,255,.08);
+      border-bottom:1px solid rgba(255,255,255,.08);background:rgba(0,0,0,.28)
+    }
+    .channel-rail-track{
+      display:flex;gap:2.4rem;width:max-content;padding:14px 0;
+      animation:channelRail 32s linear infinite;
+      font:700 .68rem/1 'JetBrains Mono',monospace;
+      letter-spacing:.14em;text-transform:uppercase;color:#8d949b
+    }
+    .channel-rail-track span{white-space:nowrap}
+    .channel-rail-track span:before{content:"●";color:#00e7f2;margin-right:.7rem}
+    @keyframes channelRail{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    .price-flash{animation:priceFlash .45s ease}
+    @keyframes priceFlash{
+      from{color:#00e7f2;text-shadow:0 0 12px rgba(0,231,242,.35)}
+      to{color:#fff;text-shadow:none}
+    }
+    .soft.lift,.panel.lift{transition:transform .35s ease,border-color .35s ease}
+    @media(hover:hover) and (pointer:fine){
+      .soft.lift:hover,.panel.lift:hover{transform:translateY(-3px)}
+    }
+    .verdict-on{border-color:rgba(0,231,242,.35)!important;background:rgba(0,231,242,.05)}
     @media(prefers-reduced-motion:reduce){
       *,*:before,*:after{animation:none!important;transition:none!important}
       .reveal{opacity:1;transform:none}
     }
   </style>
 
-  <script src="./global.js?v=12.2" defer></script>
-  <script src="./page-motion.js?v=12" defer></script>
-<link rel="stylesheet" href="./effects.css?v=12">
-<script src="./appearance.js?v=8.1"></script>
-<link rel="stylesheet" href="./appearance.css?v=8.2">
-<link rel="stylesheet" href="./marketing-v8.css?v=8.2">
+  <script src="./global.js?v=15.1" defer></script>
+  <script src="./page-motion.js?v=15.1" defer></script>
+<link rel="stylesheet" href="./effects.css?v=15.1">
+<script src="./appearance.js?v=15"></script>
+<link rel="stylesheet" href="./appearance.css?v=15">
+<link rel="stylesheet" href="./marketing-v8.css?v=15">
 <link rel="icon" type="image/svg+xml" href="favicon.svg?v=8.2"></head>
 
 <body class="font-sans antialiased">
@@ -128,12 +151,12 @@
           <div class="reveal">
             <div class="eyebrow">Customer support operating system</div>
             <h1 class="mt-6 text-[2.9rem] sm:text-6xl lg:text-[4.7rem] font-black tracking-[-.058em] leading-[.95] text-white">
-              Email and AI chat.<br>
+              Email, TikTok and AI chat.<br>
               <span class="text-cyan">One support team.</span>
             </h1>
             <p class="mt-7 text-base sm:text-lg leading-8 text-neutral-400 max-w-xl">
-              Synvio gives support teams one workspace for customer email, AI web chat, human handoff
-              and replies — so routine questions can be automated without separating customers from your people.
+              Synvio gives support teams one workspace for customer email, TikTok chats, AI web chat, ecommerce macros
+              and human replies — with a $2 wallet so you can try the panel and API before you spend.
             </p>
 
             <div class="mt-9 flex flex-col sm:flex-row gap-3">
@@ -146,9 +169,9 @@
             </div>
 
             <div class="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-[10px] font-mono uppercase tracking-[.11em] text-neutral-500">
-              <span class="inline-flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-green pulse-dot"></span>Email support • live</span>
-              <span class="inline-flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-amber"></span>AI web chat • rollout</span>
-              <span class="inline-flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-amber"></span>Human handoff • rollout</span>
+              <span class="inline-flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-green pulse-dot"></span>Email • live</span>
+              <span class="inline-flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-green pulse-dot"></span>TikTok chats</span>
+              <span class="inline-flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-amber"></span>Helpdesk widgets • in build</span>
             </div>
           </div>
 
@@ -183,9 +206,9 @@
                       <div class="mt-1 text-[9px] text-neutral-600">web chat • visitor #2148</div>
                     </button>
                     <button class="demo-ticket w-full text-left border border-white/[.07] rounded-lg p-3" data-demo-ticket="2">
-                      <div class="flex justify-between"><span class="font-mono text-[8px] text-neutral-500 uppercase">Normal</span><span class="text-[8px] text-neutral-600">11m</span></div>
-                      <div class="mt-2 text-xs font-semibold text-neutral-300">Invoice request</div>
-                      <div class="mt-1 text-[9px] text-neutral-600">email • accounts@studio7.com</div>
+                      <div class="flex justify-between"><span class="font-mono text-[8px] text-neutral-500 uppercase">TikTok</span><span class="text-[8px] text-neutral-600">11m</span></div>
+                      <div class="mt-2 text-xs font-semibold text-neutral-300">Where is my order?</div>
+                      <div class="mt-1 text-[9px] text-neutral-600">tiktok • shop message</div>
                     </button>
                   </div>
                 </div>
@@ -221,6 +244,13 @@
       </div>
     </section>
 
+    <div class="channel-rail" aria-hidden="true">
+      <div class="channel-rail-track">
+        <span>Email</span><span>TikTok business chat</span><span>AI web chat</span><span>Ecommerce macros</span><span>Knowledge setup AI</span><span>Real estate playbooks</span><span>Zendesk widget</span><span>Freshdesk widget</span><span>Intercom widget</span>
+        <span>Email</span><span>TikTok business chat</span><span>AI web chat</span><span>Ecommerce macros</span><span>Knowledge setup AI</span><span>Real estate playbooks</span><span>Zendesk widget</span><span>Freshdesk widget</span><span>Intercom widget</span>
+      </div>
+    </div>
+
     <section id="product" class="max-w-7xl mx-auto px-6 py-24 sm:py-32">
       <div class="grid lg:grid-cols-[.82fr_1.18fr] gap-14 lg:gap-20">
         <div class="reveal lg:sticky lg:top-28 self-start">
@@ -229,26 +259,41 @@
             Your support team works from one queue.
           </h2>
           <p class="mt-6 text-neutral-400 leading-7">
-            Email conversations and AI chat handoffs arrive in the same workspace.
-            Agents see the customer history, write the reply and keep ownership without switching tools.
+            Email, TikTok chats and AI handoffs arrive in the same workspace.
+            Agents see the customer history, apply ecommerce macros and keep ownership without switching tools.
           </p>
         </div>
 
         <div class="space-y-4 reveal">
-          <article class="soft rounded-2xl p-6 sm:p-7">
+          <article class="soft lift rounded-2xl p-6 sm:p-7">
             <div class="font-mono text-[9px] uppercase tracking-[.14em] text-cyan">Email</div>
             <h3 class="mt-3 text-xl font-bold text-white">Use the company’s own support address.</h3>
             <p class="mt-3 text-sm leading-7 text-neutral-400">Customer email is routed into the correct company workspace and answered from the configured company identity.</p>
           </article>
-          <article class="soft rounded-2xl p-6 sm:p-7">
+          <article class="soft lift rounded-2xl p-6 sm:p-7">
             <div class="font-mono text-[9px] uppercase tracking-[.14em] text-cyan">AI chat</div>
             <h3 class="mt-3 text-xl font-bold text-white">Let AI handle routine website questions.</h3>
             <p class="mt-3 text-sm leading-7 text-neutral-400">The website assistant can resolve repetitive questions using approved company knowledge instead of pushing every visitor into an agent queue.</p>
           </article>
-          <article class="soft rounded-2xl p-6 sm:p-7">
+          <article class="soft lift rounded-2xl p-6 sm:p-7">
             <div class="font-mono text-[9px] uppercase tracking-[.14em] text-cyan">Human handoff</div>
             <h3 class="mt-3 text-xl font-bold text-white">A customer can ask for a person without starting over.</h3>
             <p class="mt-3 text-sm leading-7 text-neutral-400">The conversation moves into the same Synvio inbox with the previous chat context attached, so an employee can continue from where the AI stopped.</p>
+          </article>
+          <article class="soft lift rounded-2xl p-6 sm:p-7">
+            <div class="font-mono text-[9px] uppercase tracking-[.14em] text-cyan">TikTok</div>
+            <h3 class="mt-3 text-xl font-bold text-white">Handle TikTok chats in the same queue.</h3>
+            <p class="mt-3 text-sm leading-7 text-neutral-400">Business TikTok conversations arrive through official TikTok business APIs and sit next to email, so shoppers do not wait in a separate inbox.</p>
+          </article>
+          <article class="soft lift rounded-2xl p-6 sm:p-7">
+            <div class="font-mono text-[9px] uppercase tracking-[.14em] text-cyan">Ecommerce macros</div>
+            <h3 class="mt-3 text-xl font-bold text-white">Reuse the replies shops send every day.</h3>
+            <p class="mt-3 text-sm leading-7 text-neutral-400">Macros cover order status, returns, shipping changes and stock questions so agents insert a reviewed template instead of rewriting the same answer.</p>
+          </article>
+          <article class="soft lift rounded-2xl p-6 sm:p-7">
+            <div class="font-mono text-[9px] uppercase tracking-[.14em] text-cyan">Knowledge AI</div>
+            <h3 class="mt-3 text-xl font-bold text-white">AI that helps you configure knowledge, not guess it.</h3>
+            <p class="mt-3 text-sm leading-7 text-neutral-400">Admins get setup tools that structure approved company knowledge for real estate, ecommerce and other niche workflows — Copilot then uses only what you approved.</p>
           </article>
         </div>
       </div>
@@ -342,9 +387,9 @@
         <div class="reveal soft rounded-2xl p-6 sm:p-8">
           <div class="font-mono text-[9px] uppercase tracking-[.14em] text-neutral-600">What an agent gets</div>
           <div class="mt-5 grid sm:grid-cols-2 gap-3">
-            <div class="border border-white/10 rounded-xl p-4"><div class="text-sm font-bold text-white">Queue</div><p class="mt-2 text-xs leading-6 text-neutral-500">Email and handed-off chat tickets in one inbox.</p></div>
+            <div class="border border-white/10 rounded-xl p-4"><div class="text-sm font-bold text-white">Queue</div><p class="mt-2 text-xs leading-6 text-neutral-500">Email, TikTok and handed-off chat tickets in one inbox.</p></div>
             <div class="border border-white/10 rounded-xl p-4"><div class="text-sm font-bold text-white">Conversation</div><p class="mt-2 text-xs leading-6 text-neutral-500">Customer history and channel context before replying.</p></div>
-            <div class="border border-white/10 rounded-xl p-4"><div class="text-sm font-bold text-white">Reply workspace</div><p class="mt-2 text-xs leading-6 text-neutral-500">Manual or AI-assisted draft, reviewed by the employee.</p></div>
+            <div class="border border-white/10 rounded-xl p-4"><div class="text-sm font-bold text-white">Reply workspace</div><p class="mt-2 text-xs leading-6 text-neutral-500">Macros, manual or AI-assisted draft, reviewed by the employee.</p></div>
             <div class="border border-white/10 rounded-xl p-4"><div class="text-sm font-bold text-white">Company identity</div><p class="mt-2 text-xs leading-6 text-neutral-500">Replies leave from the support identity configured by the admin.</p></div>
           </div>
         </div>
@@ -366,7 +411,7 @@
             <div class="mt-6 space-y-3 text-sm text-neutral-400">
               <div class="flex gap-3"><span class="text-green">✓</span><span>Open the shared inbox and customer threads</span></div>
               <div class="flex gap-3"><span class="text-green">✓</span><span>Write and send replies</span></div>
-              <div class="flex gap-3"><span class="text-green">✓</span><span>Take over AI web chat handoffs</span></div>
+              <div class="flex gap-3"><span class="text-green">✓</span><span>Take over AI web chat and TikTok handoffs</span></div>
               <div class="flex gap-3"><span class="text-neutral-700">—</span><span class="text-neutral-600">No mailbox configuration access</span></div>
               <div class="flex gap-3"><span class="text-neutral-700">—</span><span class="text-neutral-600">No knowledge-base management</span></div>
             </div>
@@ -378,10 +423,55 @@
             <div class="mt-6 space-y-3 text-sm text-neutral-400">
               <div class="flex gap-3"><span class="text-green">✓</span><span>Everything an agent can do</span></div>
               <div class="flex gap-3"><span class="text-green">✓</span><span>Connect and change support inboxes</span></div>
-              <div class="flex gap-3"><span class="text-green">✓</span><span>Manage approved company knowledge</span></div>
+              <div class="flex gap-3"><span class="text-green">✓</span><span>Manage approved company knowledge and setup AI</span></div>
               <div class="flex gap-3"><span class="text-green">✓</span><span>Rename the company workspace</span></div>
               <div class="flex gap-3"><span class="text-green">✓</span><span>Invite employees and manage team access</span></div>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="channels" class="max-w-7xl mx-auto px-6 py-24 sm:py-32">
+      <div class="max-w-3xl reveal">
+        <div class="eyebrow">Channels &amp; niches</div>
+        <h2 class="mt-5 text-3xl sm:text-5xl font-black tracking-[-.045em] text-white">Built for shops, listings and the inboxes you already run.</h2>
+        <p class="mt-6 text-neutral-400 leading-7">Synvio is not a generic chatbot drop-in. Setup is meant to be simple: connect a channel, approve knowledge, invite the team. Special tools help admins configure knowledge for ecommerce and real estate instead of dumping a raw document pile on Copilot.</p>
+      </div>
+      <div class="mt-12 grid md:grid-cols-3 gap-4 reveal">
+        <article class="soft lift rounded-2xl p-6">
+          <div class="font-mono text-[9px] uppercase tracking-[.14em] text-cyan">TikTok chats</div>
+          <h3 class="mt-3 text-lg font-bold text-white">Official business messaging</h3>
+          <p class="mt-3 text-sm leading-7 text-neutral-400">TikTok customer chats use official TikTok business APIs. Messages land in the same agent queue, with the same wallet billing as email.</p>
+        </article>
+        <article class="soft lift rounded-2xl p-6">
+          <div class="font-mono text-[9px] uppercase tracking-[.14em] text-cyan">Ecommerce</div>
+          <h3 class="mt-3 text-lg font-bold text-white">Macros for orders and returns</h3>
+          <p class="mt-3 text-sm leading-7 text-neutral-400">Reusable macros for tracking, exchanges, out-of-stock and checkout questions. Agents stay in control; the customer still sees your brand.</p>
+        </article>
+        <article class="soft lift rounded-2xl p-6">
+          <div class="font-mono text-[9px] uppercase tracking-[.14em] text-cyan">Real estate</div>
+          <h3 class="mt-3 text-lg font-bold text-white">Knowledge for listings and visits</h3>
+          <p class="mt-3 text-sm leading-7 text-neutral-400">Setup AI helps structure viewing rules, listing facts and office hours so answers stay on the knowledge you approved — not on invented property details.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="integrations" class="border-y hairline bg-white/[.012]">
+      <div class="max-w-7xl mx-auto px-6 py-24 sm:py-32">
+        <div class="grid lg:grid-cols-[.85fr_1.15fr] gap-14 items-start">
+          <div class="reveal">
+            <div class="eyebrow">Helpdesk widgets</div>
+            <h2 class="mt-5 text-3xl sm:text-5xl font-black tracking-[-.045em] text-white">Zendesk, Freshdesk and Intercom — same wallet, same rules.</h2>
+            <p class="mt-6 text-neutral-400 leading-7">We are building Synvio as a widget API for Zendesk, Freshdesk and Intercom. Teams that already live in those helpdesks will get suggested replies and macros without a second billing product.</p>
+            <p class="mt-4 text-neutral-400 leading-7">Usage is charged with the same wallet you already see on the admin page at <a class="text-white underline underline-offset-4 decoration-white/20" href="https://app.synviocore.xyz">app.synviocore.xyz</a> — AI actions, messages and the $25/seat plan proposal included.</p>
+            <p class="mt-4 text-[10px] leading-5 font-mono uppercase tracking-[.08em] text-neutral-600">Widgets are in active development. They are not a live drop-in connector today.</p>
+          </div>
+          <div class="reveal panel rounded-2xl p-6 sm:p-8 space-y-4">
+            <div class="font-mono text-[9px] uppercase tracking-[.14em] text-neutral-600">Same commercial system</div>
+            <div class="border border-white/10 rounded-xl p-4"><div class="text-sm font-bold text-white">Zendesk widget</div><p class="mt-2 text-xs leading-6 text-neutral-500">Drafts and macros inside Zendesk, billed to the Synvio organization wallet.</p></div>
+            <div class="border border-white/10 rounded-xl p-4"><div class="text-sm font-bold text-white">Freshdesk widget</div><p class="mt-2 text-xs leading-6 text-neutral-500">The same pay-as-you-go actions and optional $25 seat plan.</p></div>
+            <div class="border border-white/10 rounded-xl p-4"><div class="text-sm font-bold text-white">Intercom widget</div><p class="mt-2 text-xs leading-6 text-neutral-500">Admin billing stays on app.synviocore.xyz, not a separate Intercom invoice.</p></div>
           </div>
         </div>
       </div>
@@ -391,47 +481,75 @@
       <div class="grid lg:grid-cols-[.85fr_1.15fr] gap-14 items-start">
         <div class="reveal">
           <div class="eyebrow">Pricing</div>
-          <h2 class="mt-5 text-3xl sm:text-5xl font-black tracking-[-.045em] text-white">Pay for the AI you actually use.</h2>
+          <h2 class="mt-5 text-3xl sm:text-5xl font-black tracking-[-.045em] text-white">Pay for the work that actually happened.</h2>
           <p class="mt-6 text-neutral-400 leading-7">
-            A short ticket and a long conversation should not cost the same. Our proposed pilot rate counts the real input and output tokens used by Copilot. An unused ticket adds $0 in AI usage.
+            Every AI action is billed from what that action used — typically about <strong class="text-white font-semibold">0.5¢ to 2¢</strong>. Every message your team sends or receives is <strong class="text-white font-semibold">0.4¢</strong>. A conversation with no AI and no messages adds $0.
           </p>
-          <div class="mt-7 soft rounded-xl p-5">
-            <div class="font-mono text-[9px] uppercase tracking-[.14em] text-cyan">Proposed founding-pilot rates · USD</div>
-            <div class="mt-2 text-sm font-bold text-white">$6.40 / million input tokens · $25.60 / million output tokens</div>
-            <p class="mt-2 text-xs leading-6 text-neutral-500">New workspaces currently receive $10 of one-time Synvio trial credit. No per-agent AI fee in this pilot proposal. Each draft or Copilot question counts as an AI call, including repeated calls on the same ticket. Workspace, email, taxes and later production terms are agreed separately before activation.</p>
+          <div class="mt-7 space-y-3">
+            <div class="soft rounded-xl p-5">
+              <div class="font-mono text-[9px] uppercase tracking-[.14em] text-cyan">Start with $2</div>
+              <div class="mt-2 text-sm font-bold text-white">Every workspace opens with $2 in the wallet.</div>
+              <p class="mt-2 text-xs leading-6 text-neutral-500">That credit is enough to try the panel, Copilot, knowledge setup and the API thoroughly. Configuration is meant to stay simple: connect a channel, invite people, spend only when you use the product.</p>
+            </div>
+            <div class="soft rounded-xl p-5">
+              <div class="font-mono text-[9px] uppercase tracking-[.14em] text-cyan">Automatic plan proposal</div>
+              <div class="mt-2 text-sm font-bold text-white">$25 per seat when PAYG would exceed $25 × the team.</div>
+              <p class="mt-2 text-xs leading-6 text-neutral-500">Seats include every agent and every admin. When pay-as-you-go costs pass $25 × that headcount, Synvio proposes a $25/seat monthly plan. The plan unlocks a month of usage equal to <strong class="text-neutral-300">$25 × seats × 10</strong> of pay-as-you-go value. You are not enrolled automatically — the product only recommends the switch.</p>
+            </div>
+            <div class="soft rounded-xl p-5">
+              <div class="font-mono text-[9px] uppercase tracking-[.14em] text-cyan">Why this is hard to lose money on</div>
+              <p class="mt-2 text-xs leading-6 text-neutral-500">You are not paying a platform tax for idle seats on PAYG. Unused AI is $0. The wallet is visible on the admin page before spend happens. If credit runs out, AI pauses instead of running an open invoice. The $25 plan is offered only after PAYG would already have crossed $25 per person — and then it covers ten times that amount for the month, so high volume becomes a ceiling, not a surprise.</p>
+            </div>
           </div>
         </div>
 
         <div class="panel rounded-2xl p-6 sm:p-8 reveal">
           <div class="font-mono text-[9px] uppercase tracking-[.14em] text-neutral-600">Usage estimator</div>
-          <h3 class="mt-2 text-xl font-bold text-white">Estimate a month of AI usage.</h3>
+          <h3 class="mt-2 text-xl font-bold text-white">See PAYG next to the $25 seat plan.</h3>
 
           <div class="mt-7 space-y-6">
             <div>
-               <div class="flex justify-between mb-2"><label for="price-tickets-input" class="font-mono text-[9px] uppercase text-neutral-500">Tickets / month</label><output id="price-tickets" class="font-mono text-xs text-white">1,000</output></div>
-               <input id="price-tickets-input" type="range" min="0" max="20000" step="100" value="1000" class="w-full accent-cyan">
+              <div class="flex justify-between mb-2"><label for="price-seats-input" class="font-mono text-[9px] uppercase text-neutral-500">Seats (agents + admin)</label><output id="price-seats" class="font-mono text-xs text-white">4</output></div>
+              <input id="price-seats-input" type="range" min="1" max="50" step="1" value="4" class="w-full accent-cyan">
             </div>
             <div>
-               <div class="flex justify-between mb-2"><label for="price-calls-input" class="font-mono text-[9px] uppercase text-neutral-500">AI calls per ticket</label><output id="price-calls" class="font-mono text-xs text-white">1</output></div>
-               <input id="price-calls-input" type="range" min="0" max="10" step="1" value="1" class="w-full accent-cyan">
+              <div class="flex justify-between mb-2"><label for="price-ai-count-input" class="font-mono text-[9px] uppercase text-neutral-500">AI actions / month</label><output id="price-ai-count" class="font-mono text-xs text-white">800</output></div>
+              <input id="price-ai-count-input" type="range" min="0" max="20000" step="50" value="800" class="w-full accent-cyan">
             </div>
             <div>
-               <div class="flex justify-between mb-2"><label for="price-input-input" class="font-mono text-[9px] uppercase text-neutral-500">Input tokens per call</label><output id="price-input" class="font-mono text-xs text-white">10,000</output></div>
-               <input id="price-input-input" type="range" min="1000" max="50000" step="1000" value="10000" class="w-full accent-cyan">
+              <div class="flex justify-between mb-2"><label for="price-messages-input" class="font-mono text-[9px] uppercase text-neutral-500">Messages sent + received</label><output id="price-messages" class="font-mono text-xs text-white">3,000</output></div>
+              <input id="price-messages-input" type="range" min="0" max="50000" step="100" value="3000" class="w-full accent-cyan">
             </div>
             <div>
-               <div class="flex justify-between mb-2"><label for="price-output-input" class="font-mono text-[9px] uppercase text-neutral-500">Output tokens per call</label><output id="price-output" class="font-mono text-xs text-white">1,000</output></div>
-               <input id="price-output-input" type="range" min="100" max="5000" step="100" value="1000" class="w-full accent-cyan">
+              <div class="flex justify-between mb-2"><label for="price-aicost-input" class="font-mono text-[9px] uppercase text-neutral-500">Typical AI action</label><output id="price-aicost" class="font-mono text-xs text-white">1.0¢</output></div>
+              <input id="price-aicost-input" type="range" min="0.5" max="2" step="0.1" value="1" class="w-full accent-cyan">
             </div>
           </div>
 
-          <div class="mt-7 grid sm:grid-cols-3 gap-3">
-             <div class="border border-white/10 rounded-xl p-4"><div class="font-mono text-[8px] uppercase text-neutral-600">AI calls</div><div id="price-actions" class="mt-2 font-bold text-white">1,000</div></div>
-             <div class="border border-white/10 rounded-xl p-4"><div class="font-mono text-[8px] uppercase text-neutral-600">Estimated AI use</div><div id="price-amount" class="mt-2 font-bold text-white">$89.60</div></div>
-             <div class="border border-white/10 rounded-xl p-4"><div class="font-mono text-[8px] uppercase text-neutral-600">One sample call</div><div id="price-per-call" class="mt-2 font-bold text-white">$0.0896</div></div>
+          <div class="mt-7 grid sm:grid-cols-2 gap-3">
+            <div class="border border-white/10 rounded-xl p-4"><div class="font-mono text-[8px] uppercase text-neutral-600">PAYG estimate</div><div id="price-payg" class="mt-2 font-bold text-white">$20.00</div></div>
+            <div class="border border-white/10 rounded-xl p-4"><div class="font-mono text-[8px] uppercase text-neutral-600">Proposal threshold</div><div id="price-threshold" class="mt-2 font-bold text-white">$100.00</div></div>
+            <div class="border border-white/10 rounded-xl p-4"><div class="font-mono text-[8px] uppercase text-neutral-600">$25 × seats</div><div id="price-plan" class="mt-2 font-bold text-white">$100.00</div></div>
+            <div class="border border-white/10 rounded-xl p-4"><div class="font-mono text-[8px] uppercase text-neutral-600">Included on the plan (×10)</div><div id="price-included" class="mt-2 font-bold text-white">$1,000.00</div></div>
           </div>
+          <div id="price-verdict" class="mt-4 border border-white/10 rounded-xl p-4 text-sm leading-7 text-neutral-300">Stay on pay-as-you-go. Usage is still below $25 per seat.</div>
+          <p class="mt-4 text-[10px] leading-5 text-neutral-600"><span id="price-plan-comparison" aria-live="polite"></span><br>Illustrative calculator, not your wallet balance or an invoice. Messages are 0.4¢ each. AI actions usually land between 0.5¢ and 2¢ depending on length. Widget API usage on Zendesk, Freshdesk or Intercom uses the same numbers.</p>
+        </div>
+      </div>
+    </section>
 
-           <p class="mt-4 text-[10px] leading-5 text-neutral-600">Illustrative calculator, not your wallet balance or an invoice. Actual usage depends on every AI call, attachment analysis, message length and company knowledge. Self-service top-ups are not live yet; rates may change before a signed pilot.</p>
+    <section id="trust" class="border-y hairline bg-black/20">
+      <div class="max-w-7xl mx-auto px-6 py-24">
+        <div class="max-w-3xl reveal">
+          <div class="eyebrow">Data &amp; independence</div>
+          <h2 class="mt-5 text-3xl sm:text-5xl font-black tracking-[-.045em] text-white">We do not sit in your customer database.</h2>
+          <p class="mt-6 text-neutral-400 leading-7">Synvio does not receive access to your CRM, customer databases or employee passwords. AI is not trained on your support conversations. Synvio does not keep a separate warehouse of your source data — the service runs on independent platforms that you can audit on their own terms.</p>
+        </div>
+        <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-4 reveal">
+          <div class="soft lift rounded-2xl p-5"><div class="font-mono text-[9px] uppercase tracking-[.14em] text-cyan">Supabase</div><p class="mt-3 text-sm leading-7 text-neutral-400">Workspace accounts and conversation records on an independent database platform.</p></div>
+          <div class="soft lift rounded-2xl p-5"><div class="font-mono text-[9px] uppercase tracking-[.14em] text-cyan">Postmark</div><p class="mt-3 text-sm leading-7 text-neutral-400">Transactional email delivery, separate from Synvio’s application servers.</p></div>
+          <div class="soft lift rounded-2xl p-5"><div class="font-mono text-[9px] uppercase tracking-[.14em] text-cyan">OpenAI</div><p class="mt-3 text-sm leading-7 text-neutral-400">Generation only. Your utterances are not used to train models for Synvio.</p></div>
+          <div class="soft lift rounded-2xl p-5"><div class="font-mono text-[9px] uppercase tracking-[.14em] text-cyan">TikTok</div><p class="mt-3 text-sm leading-7 text-neutral-400">Official TikTok business APIs for chats — not unofficial scraping or personal logins.</p></div>
         </div>
       </div>
     </section>
@@ -442,7 +560,7 @@
           <div class="reveal">
             <div class="eyebrow">Founding companies</div>
             <h2 class="mt-5 text-3xl sm:text-5xl font-black tracking-[-.045em] text-white">Put one real support inbox through Synvio.</h2>
-            <p class="mt-6 text-neutral-400 leading-7 max-w-xl">We’ll configure the workspace with you, connect the support channel and use the pilot to measure whether the workflow saves your team time.</p>
+            <p class="mt-6 text-neutral-400 leading-7 max-w-xl">Start with $2 in the wallet, connect a channel, and try the panel and API. We’ll help if you want a guided pilot on a real inbox.</p>
           </div>
 
           <form id="pilot-form" action="https://formspree.io/f/xbgjvaaq" method="POST" class="panel rounded-2xl p-6 sm:p-8 reveal space-y-4">
