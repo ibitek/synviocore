@@ -1,9 +1,10 @@
-# Synvio marketing site — export repair
+# Synvio V18 — marketing
 
-Static website. Upload the contents of this folder to the marketing website project, not the application repository.
+Ta paczka trafia do repo **strony marketingowej**, nie aplikacji. Usuń stary Book a pilot przez zastąpienie plików paczką i wykonaj deployment.
 
-Preserved Cursor homepage design and content. Restored global.js and the distinct FAQ/legal pages from Synvio_V15_marketing because these three files had been overwritten with homepage HTML. Adapted the calculator to the new homepage controls and fixed the contact form submit-button lookup. Asset versions refreshed.
+Najpierw wdroż aplikację z `Synvio_V18_Flow.zip`, zgodnie z jej `DEPLOY_FLOW.md`. Aby uruchomić prawdziwego asystenta na stronie, opublikuj bota z dozwoloną domeną `https://synviocore.xyz`, ustaw jego publiczny UUID jako `FLOW_MARKETING_BOT_ID` w Vercelu aplikacji i wykonaj redeploy. Kluczy API nie dodawaj do plików marketingu.
 
-The homepage pricing and product claims are proposals from the Cursor version. They do not implement or change backend billing or integrations. Review them before publishing. The contact form was not submitted during verification.
+Domyślny adres aplikacji jest zapisany w `flow-site.js`: `https://flow.synviocore.xyz`. Zmiana domeny wymaga aktualizacji tego adresu i linków strony. Bez skonfigurowanego bota widoczny jest link do edytora, nie pozorowana rozmowa AI.
 
-No build step required. index.html is the entry point. Header/footer remain managed by global.js.
+Statyczna strona bez kroku budowania. Wgraj zawartość paczki, zachowując pliki w katalogu głównym projektu.
+
