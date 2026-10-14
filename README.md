@@ -1,10 +1,6 @@
-# Synvio V18 — marketing
-
-Ta paczka trafia do repo **strony marketingowej**, nie aplikacji. Usuń stary Book a pilot przez zastąpienie plików paczką i wykonaj deployment.
-
-Najpierw wdroż aplikację z `Synvio_V18_Flow.zip`, zgodnie z jej `DEPLOY_FLOW.md`. Aby uruchomić prawdziwego asystenta na stronie, opublikuj bota z dozwoloną domeną `https://synviocore.xyz`, ustaw jego publiczny UUID jako `FLOW_MARKETING_BOT_ID` w Vercelu aplikacji i wykonaj redeploy. Kluczy API nie dodawaj do plików marketingu.
-
-Domyślny adres aplikacji jest zapisany w `flow-site.js`: `https://flow.synviocore.xyz`. Zmiana domeny wymaga aktualizacji tego adresu i linków strony. Bez skonfigurowanego bota widoczny jest link do edytora, nie pozorowana rozmowa AI.
-
-Statyczna strona bez kroku budowania. Wgraj zawartość paczki, zachowując pliki w katalogu głównym projektu.
-
+# Marketing V25
+Complete static site; files belong at the marketing repository root.
+The published widget bot ID is be400619-9cff-4066-ba07-e028043d5b1c. Added exactly once on the home, FAQ and Legal pages. No provider keys are embedded.
+Before launch: publish this bot in Flow and allow the actual marketing domain in its permitted origins. Keep the existing DNS. Deploy V25 Workspace/Flow and database before advertising V25 prices.
+No real chat request was sent during local checks. Check the deployed widget after publishing.
+Legal content reflects product behavior; verify operator identity, applicable customer contracts and actual retention arrangements before commercial launch. No operator address or jurisdiction has been invented.

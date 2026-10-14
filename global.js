@@ -204,20 +204,7 @@
     reveals.forEach(el => el.classList.add("on"));
   }
 
-  const pricingNames = ['seats','ai-count','aicost'];
-  const pricingInputs = pricingNames.map(name => document.getElementById(`price-${name}-input`));
-  function updatePricing() {
-    if (pricingInputs.some(input => !input)) return;
-    const [seats,actions,cents] = pricingInputs.map(input => Number(input.value));
-    const money = value => value.toLocaleString('en-US',{style:'currency',currency:'USD'});
-    const payg=actions*cents/100,plan=seats*25,included=seats*40;
-    pricingNames.forEach((name,index)=>document.getElementById(`price-${name}`).textContent=index===2?cents.toFixed(1)+'¢':Number(pricingInputs[index].value).toLocaleString('en-US'));
-    for(const [name,value] of Object.entries({payg,threshold:plan,plan,included}))document.getElementById(`price-${name}`).textContent=money(value);
-    document.getElementById('price-verdict').textContent=payg<=plan?'Stay on pay-as-you-go. Estimated usage is below or equal to the whole-team plan price.':payg<=included?`The plan may save ${money(payg-plan)} at this estimated usage. Switching requires administrator approval.`:'Estimated usage exceeds the plan allowance. Review the limit and additional-usage terms before switching.';
-    document.getElementById('price-plan-comparison').textContent='Estimated AI usage only. The plan lasts 30 days; it does not renew or enable PAYG automatically.';
-  }
-  pricingInputs.forEach(input=>input?.addEventListener('input',updatePricing));
-  updatePricing();
+
 
 
 })();
