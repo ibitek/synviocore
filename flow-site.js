@@ -1,1 +1,0 @@
-/* Widget is embedded explicitly in each HTML page. */
