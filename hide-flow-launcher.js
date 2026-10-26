@@ -5,7 +5,7 @@
   const getLaunch = () => mount.firstElementChild?.shadowRoot?.querySelector('.launch');
   const openChat = event => {
     event?.preventDefault();
-    event?.stopPropagation();
+    event?.stopImmediatePropagation();
     let tries = 0;
     const trigger = () => {
       const launch = getLaunch();
