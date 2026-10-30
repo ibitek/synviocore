@@ -1,36 +1,36 @@
 (() => {
+  // Canonical marketing preview renderer. The old package ran four competing
+  // renderers which overwrote the same .preview element.
   const host = document.querySelector('.preview');
   if (!host) return;
+  const data = [
+    {name:'Northwind Studio',id:'#1000017',channel:'EMAIL · WAITING',subject:'Pricing follow-up',message:'Could you send more details about monthly usage?',answer:'Absolutely. I prepared a clear estimate and can explain the wallet and optional plan.'},
+    {name:'Website visitor',id:'#1000026',channel:'CHAT · HANDLED BY SYNVIO/AI',subject:'Website question',message:'How does the assistant work?',answer:'It answers from approved knowledge and can hand a conversation to your team when you decide.'},
+    {name:'Instagram customer',id:'#1000018',channel:'INSTAGRAM · WAITING',subject:'Instagram connection',message:'Can I connect my professional Instagram account?',answer:'Yes. Connect through Meta, then use AI only or a controlled Workspace handoff.'}
+  ];
+  host.innerHTML = `<div class="ws-demo"><header class="ws-top"><b><i></i>SYNVIO/APP<small>SUPPORT WORKSPACE</small></b><nav><span>Flow studio</span><strong>Inbox</strong><span>Knowledge</span><span>Inbox setup</span><span>Admin</span><span>Wallet</span></nav><em><i></i> synviocore</em></header><div class="ws-body"><aside class="ws-nav"><small>SUPPORT</small><button class="active">▣ <span>Inbox</span><b>4</b></button><button>⌁ <span>Assigned to you</span></button><button>✓ <span>Resolved</span><b>32</b></button><button>▱ <span>Trash</span></button><button>▤ <span>Archive</span></button><button>◉ <span>Spam</span></button><small>ADMINISTRATION</small><button>▤ <span>Knowledge</span></button><button>⚙ <span>Inbox setup</span></button><button>♙ <span>Company & team</span></button><button>▣ <span>Wallet & BYOK</span></button><small>TEAM AVAILABILITY</small><div class="ws-online"><i></i><b>Team<br>availability</b><em>ONLINE</em></div></aside><aside class="ws-queue"><div class="ws-queue-title"><small>TICKET QUEUE</small><b><i></i> Live</b></div><h3>Inbox</h3><input placeholder="Search conversations or #100000"><div class="ws-selects"><button>All in this view⌄</button><button>All channels⌄</button></div><div class="ws-list">${data.map((x,i)=>`<button data-ws-row="${i}"><b>${x.name}</b><time>${i?'25.10.2026':'26.10.2026'}</time><strong>${x.id} · ${x.subject}</strong><span>${x.channel}</span></button>`).join('')}</div></aside><main class="ws-thread"><div class="ws-empty"><i></i><h3>Select a conversation</h3><p>Read the full conversation and reply from one workspace.</p></div></main><aside class="ws-copilot"><small>FOR THE EMPLOYEE</small><h3><i></i> Synvio Copilot</h3><p>YOUR SUPPORT ASSISTANT</p><div class="ws-copilot-content"><b>Conversation summary</b><p>Select a conversation to receive a short, clear summary.</p></div><label>Ask Copilot<textarea placeholder="Ask about this conversation…"></textarea></label></aside></div><footer>AI suggestions are drafts. You decide and send.</footer></div>`;
+  const thread = host.querySelector('.ws-thread');
+  const summary = host.querySelector('.ws-copilot-content');
+  const rows = [...host.querySelectorAll('[data-ws-row]')];
+  const show = i => {
+    const c = data[i];
+    rows.forEach((r,n) => r.classList.toggle('selected', n === i));
+    thread.classList.add('changing');
+    setTimeout(() => {
+      thread.innerHTML = `<header><div><small>OPEN · ${c.channel.split('·')[0]}</small><h3>${c.subject}</h3></div><button>Take ownership</button></header><div class="ws-context">Conversation context loaded · latest customer message available</div><article class="ws-bubble"><b>${c.name}</b><p>${c.message}</p><time>now</time></article><article class="ws-bubble ai"><b>SYNVIO/AI</b><p>${c.answer}</p><time>draft</time></article><div class="ws-compose">Write a reply or generate an AI draft <button>Generate draft</button><button>Send reply</button></div>`;
+      summary.innerHTML = `<b>Conversation summary</b><p>${c.name} is asking about ${c.subject.toLowerCase()}.</p><hr><b>Suggested actions</b><ol><li>Review the answer against your policy.</li><li>Send or edit the AI draft.</li></ol>`;
+      thread.classList.remove('changing');
+    }, 120);
+  };
+  rows.forEach(r => r.addEventListener('click', () => show(Number(r.dataset.wsRow))));
+  host.querySelectorAll('.ws-nav button').forEach(b => b.addEventListener('click', () => { host.querySelector('.ws-nav .active')?.classList.remove('active'); b.classList.add('active'); }));
 
-  host.innerHTML = `
-    <figure class="workspace-hero-shot">
-      <img src="assets/workspace-hero-ai.png" alt="Fictional SYNVIO Workspace conversation preview showing inbox, open conversation, and Copilot">
-      <figcaption>
-        <span>Workspace / Inbox · interactive product preview</span>
-        <button type="button">Open large preview</button>
-      </figcaption>
-    </figure>
-    <dialog class="workspace-lightbox">
-      <button class="close" aria-label="Close preview">×</button>
-      <img src="assets/workspace-hero-ai.png" alt="Expanded fictional SYNVIO Workspace conversation preview">
-    </dialog>`;
-
-  const dialog = host.querySelector('dialog');
-  host.querySelector('figcaption button').addEventListener('click', () => dialog.showModal());
-  dialog.querySelector('.close').addEventListener('click', () => dialog.close());
-  dialog.addEventListener('click', event => {
-    if (event.target === dialog) dialog.close();
-  });
-})();
-
-// Keep the channel catalogue current without changing the existing marketing
-// layout: Commerce is the shared Shopify connector for both FLOW and Workspace.
-(() => {
   const grid = document.querySelector('#channels .grid');
-  if (!grid || grid.querySelector('[data-commerce-channel]')) return;
-  const card = document.createElement('article');
-  card.className = 'card channel';
-  card.dataset.commerceChannel = 'true';
-  card.innerHTML = '<i>▦</i><h3>Shopify Commerce</h3><p>Connect a Shopify store through the central Commerce gateway. FLOW and Workspace can check products, inventory, orders and fulfilment without exposing store tokens.</p><mark>Available now</mark><a class="text-link" href="https://commerce.synviocore.xyz/shopify-admin.html">Open Commerce ↗</a>';
-  grid.append(card);
+  if (grid && !grid.querySelector('[data-commerce-channel]')) {
+    const card = document.createElement('article');
+    card.className = 'card channel';
+    card.dataset.commerceChannel = 'true';
+    card.innerHTML = '<i>▦</i><h3>Shopify Commerce</h3><p>Connect a Shopify store through the central Commerce gateway. FLOW and Workspace can check products, inventory, orders and fulfilment without exposing store tokens.</p><mark>Available now</mark><a class="text-link" href="https://commerce.synviocore.xyz/shopify-admin.html">Open Commerce ↗</a>';
+    grid.append(card);
+  }
 })();
