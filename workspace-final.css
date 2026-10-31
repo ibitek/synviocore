@@ -1,7 +1,0 @@
-/* Full-width final presentation of the Workspace reference. */
-@media(min-width:901px){
-  .hero-grid{grid-template-columns:1fr!important;gap:42px!important}
-  .hero-grid>div:first-child{max-width:650px}
-  .hero-grid>.preview{grid-column:1;width:100%!important;max-width:none!important;justify-self:stretch}
-  .hero{padding-bottom:88px}
-}

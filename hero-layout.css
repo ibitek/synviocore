@@ -1,3 +1,0 @@
-/* Keep the marketing hero balanced: the product preview must not squeeze the message. */
-@media(min-width:901px){.hero-grid{grid-template-columns:minmax(430px,1fr) minmax(0,620px);justify-content:space-between;gap:34px}.hero-grid>div{min-width:0}.hero h1{font-size:clamp(56px,5vw,66px);white-space:nowrap}.preview{width:100%;min-width:0;justify-self:end}.preview .desk{grid-template-columns:88px 132px minmax(0,1fr) 145px}.inbox-list{min-width:0}.thread{min-width:0}.copilot{min-width:0}.thread-head h3{font-size:13px}.bubble{max-width:84%}}
-@media(max-width:900px){.hero h1{white-space:normal}}
