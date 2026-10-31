@@ -7,6 +7,14 @@
   // renderers which overwrote the same .preview element.
   const host = document.querySelector('.preview');
   if (!host) return;
+  const heroGrid = host.parentElement;
+  if (heroGrid && !heroGrid.querySelector('.hero-side')) {
+    const side = document.createElement('aside');
+    side.className = 'hero-side';
+    side.setAttribute('aria-label', 'SYNVIO modules');
+    side.innerHTML = '<article><small>01 / FLOW</small><h3>Build the assistant.</h3><p>Shape knowledge, rules and handoff in a focused assistant studio.</p><a href="https://flow.synviocore.xyz/">Open Flow ↗</a></article><article><small>02 / COMMERCE</small><h3>Keep answers current.</h3><p>Connect Shopify so products, stock and orders stay grounded.</p><a href="https://commerce.synviocore.xyz/shopify-admin.html">Open Commerce ↗</a></article>';
+    heroGrid.insertBefore(side, host);
+  }
   const data = [
     {name:'Northwind Studio',id:'#1000017',channel:'EMAIL · WAITING',subject:'Pricing follow-up',message:'Could you send more details about monthly usage?',answer:'Absolutely. I prepared a clear estimate and can explain the wallet and optional plan.'},
     {name:'Website visitor',id:'#1000026',channel:'CHAT · HANDLED BY SYNVIO/AI',subject:'Website question',message:'How does the assistant work?',answer:'It answers from approved knowledge and can hand a conversation to your team when you decide.'},
