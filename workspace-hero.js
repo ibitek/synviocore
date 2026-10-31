@@ -1,4 +1,8 @@
 (() => {
+  const fixes = document.createElement('link');
+  fixes.rel = 'stylesheet';
+  fixes.href = 'marketing-fixes.css';
+  document.head.appendChild(fixes);
   // Canonical marketing preview renderer. The old package ran four competing
   // renderers which overwrote the same .preview element.
   const host = document.querySelector('.preview');
@@ -24,13 +28,23 @@
   };
   rows.forEach(r => r.addEventListener('click', () => show(Number(r.dataset.wsRow))));
   host.querySelectorAll('.ws-nav button').forEach(b => b.addEventListener('click', () => { host.querySelector('.ws-nav .active')?.classList.remove('active'); b.classList.add('active'); }));
+  show(0);
+
+  const demo = host.querySelector('.ws-demo');
+  host.addEventListener('pointermove', event => {
+    const rect = host.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width - 0.5;
+    const y = (event.clientY - rect.top) / rect.height - 0.5;
+    demo.style.transform = `perspective(1400px) rotateX(${(-y * 1.6).toFixed(2)}deg) rotateY(${(x * 2.2).toFixed(2)}deg)`;
+  });
+  host.addEventListener('pointerleave', () => { demo.style.transform = ''; });
 
   const grid = document.querySelector('#channels .grid');
   if (grid && !grid.querySelector('[data-commerce-channel]')) {
     const card = document.createElement('article');
-    card.className = 'card channel';
+    card.className = 'card channel channel-commerce';
     card.dataset.commerceChannel = 'true';
-    card.innerHTML = '<i>▦</i><h3>Shopify Commerce</h3><p>Connect a Shopify store through the central Commerce gateway. FLOW and Workspace can check products, inventory, orders and fulfilment without exposing store tokens.</p><mark>Available now</mark><a class="text-link" href="https://commerce.synviocore.xyz/shopify-admin.html">Open Commerce ↗</a>';
+    card.innerHTML = '<div class="commerce-icon">▦</div><div><p class="commerce-kicker">COMMERCE LAYER</p><h3>Shopify Commerce</h3><p>Connect one store for product, stock, order and fulfilment answers in FLOW and Workspace — without exposing store tokens.</p></div><div class="commerce-actions"><mark>Available now</mark><a class="text-link" href="https://commerce.synviocore.xyz/shopify-admin.html">Open Commerce ↗</a></div>';
     grid.append(card);
   }
 })();
