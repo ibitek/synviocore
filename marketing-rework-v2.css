@@ -1,0 +1,26 @@
+/* Marketing v6: a single composed hero with a real, readable product preview. */
+.marketing-flow-widget, #marketing-flow-widget, [data-synvio-launcher], [data-synvio-widget-launcher] { display: none !important; visibility: hidden !important; pointer-events: none !important; }
+.hero-grid { display: grid !important; grid-template-columns: minmax(300px, .86fr) minmax(540px, 1.14fr) !important; gap: 42px !important; align-items: start !important; }
+.hero-grid > .hero-copy, .hero-grid > .copy { grid-column: 1; grid-row: 1; min-width: 0; }
+.hero-grid > .preview { grid-column: 2; grid-row: 1; min-width: 0; width: 100% !important; margin: 0 !important; }
+.preview { aspect-ratio: 16 / 10 !important; min-height: 480px !important; height: auto !important; overflow: visible !important; perspective: 1400px; }
+.preview .ws-demo { width: 100% !important; height: 100% !important; min-height: 0 !important; border-radius: 18px; overflow: hidden; transform-style: preserve-3d; box-shadow: 0 22px 70px #0007; }
+.hero-side { grid-column: 1 / -1; grid-row: 2; display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 16px !important; margin-top: 2px; }
+.hero-side .product-card { min-height: 170px; }
+.ws-demo .ws-thread { background: #0c121b; }
+.ws-demo .ws-message { max-width: min(86%, 560px); }
+.ws-demo .ws-message.ai { border-color: #326bd1; background: #174ba9; }
+.ws-demo .ws-demo-footer { min-height: 42px; }
+.ws-demo .ws-nav, .ws-demo .ws-queue, .ws-demo .ws-copilot { font-size: clamp(8px, .75vw, 12px); }
+.ws-demo .ws-queue-item { transition: background .2s ease, transform .2s ease; }
+.ws-demo .ws-queue-item:hover { transform: translateX(2px); background: #22314a; }
+@media (max-width: 1100px) {
+  .hero-grid { grid-template-columns: 1fr !important; }
+  .hero-grid > .preview { grid-column: 1; grid-row: 2; }
+  .hero-side { grid-column: 1; grid-row: 3; }
+  .preview { min-height: 420px !important; }
+}
+@media (max-width: 640px) {
+  .hero-side { grid-template-columns: 1fr !important; }
+  .preview { min-height: 350px !important; }
+}

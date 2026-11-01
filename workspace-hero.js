@@ -3,6 +3,10 @@
   fixes.rel = 'stylesheet';
   fixes.href = 'marketing-fixes.css';
   document.head.appendChild(fixes);
+  const finalStyles = document.createElement('link');
+  finalStyles.rel = 'stylesheet';
+  finalStyles.href = 'marketing-rework-v3.css';
+  document.head.appendChild(finalStyles);
   // Canonical marketing preview renderer. The old package ran four competing
   // renderers which overwrote the same .preview element.
   const host = document.querySelector('.preview');
@@ -21,6 +25,8 @@
     {name:'Instagram customer',id:'#1000018',channel:'INSTAGRAM · WAITING',subject:'Instagram connection',message:'Can I connect my professional Instagram account?',answer:'Yes. Connect through Meta, then use AI only or a controlled Workspace handoff.'}
   ];
   host.innerHTML = `<div class="ws-demo"><header class="ws-top"><b><i></i>SYNVIO/APP<small>SUPPORT WORKSPACE</small></b><nav><span>Flow studio</span><strong>Inbox</strong><span>Knowledge</span><span>Inbox setup</span><span>Admin</span><span>Wallet</span></nav><em><i></i> synviocore</em></header><div class="ws-body"><aside class="ws-nav"><small>SUPPORT</small><button class="active">▣ <span>Inbox</span><b>4</b></button><button>⌁ <span>Assigned to you</span></button><button>✓ <span>Resolved</span><b>32</b></button><button>▱ <span>Trash</span></button><button>▤ <span>Archive</span></button><button>◉ <span>Spam</span></button><small>ADMINISTRATION</small><button>▤ <span>Knowledge</span></button><button>⚙ <span>Inbox setup</span></button><button>♙ <span>Company & team</span></button><button>▣ <span>Wallet & BYOK</span></button><small>TEAM AVAILABILITY</small><div class="ws-online"><i></i><b>Team<br>availability</b><em>ONLINE</em></div></aside><aside class="ws-queue"><div class="ws-queue-title"><small>TICKET QUEUE</small><b><i></i> Live</b></div><h3>Inbox</h3><input placeholder="Search conversations or #100000"><div class="ws-selects"><button>All in this view⌄</button><button>All channels⌄</button></div><div class="ws-list">${data.map((x,i)=>`<button data-ws-row="${i}"><b>${x.name}</b><time>${i?'25.10.2026':'26.10.2026'}</time><strong>${x.id} · ${x.subject}</strong><span>${x.channel}</span></button>`).join('')}</div></aside><main class="ws-thread"><div class="ws-empty"><i></i><h3>Select a conversation</h3><p>Read the full conversation and reply from one workspace.</p></div></main><aside class="ws-copilot"><small>FOR THE EMPLOYEE</small><h3><i></i> Synvio Copilot</h3><p>YOUR SUPPORT ASSISTANT</p><div class="ws-copilot-content"><b>Conversation summary</b><p>Select a conversation to receive a short, clear summary.</p></div><label>Ask Copilot<textarea placeholder="Ask about this conversation…"></textarea></label></aside></div><footer>AI suggestions are drafts. You decide and send.</footer></div>`;
+  const svg = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14v10H9l-4 3V6Z"/></svg>';
+  host.querySelectorAll('.ws-nav button').forEach((button) => { if (!button.querySelector('.ws-icon')) { const label = button.querySelector('span'); const icon = document.createElement('span'); icon.className='ws-icon'; icon.innerHTML=svg; button.prepend(icon); if (label) label.textContent=label.textContent.trim(); } });
   const thread = host.querySelector('.ws-thread');
   const summary = host.querySelector('.ws-copilot-content');
   const rows = [...host.querySelectorAll('[data-ws-row]')];

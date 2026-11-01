@@ -1,0 +1,17 @@
+/* Marketing v3: aligned hero, genuine product preview and no hidden launcher. */
+:root { --mk-bg:#0b1018; --mk-panel:#151d2a; --mk-panel2:#1b2638; --mk-line:#2c3a52; --mk-text:#eef3fb; --mk-muted:#a6b4cb; --mk-blue:#4d86ff; --mk-cyan:#16d7e8; }
+html,body { background:var(--mk-bg)!important; overflow-x:hidden; }
+.hero-grid { max-width:1180px!important; grid-template-columns:minmax(0,.86fr) minmax(540px,1.14fr)!important; gap:42px!important; align-items:center!important; }
+.hero-grid > .preview { grid-column:2; grid-row:1; width:100%!important; min-width:0!important; aspect-ratio:1.68!important; height:auto!important; min-height:500px!important; max-height:none!important; overflow:hidden!important; transform-origin:center; transition:transform .32s cubic-bezier(.2,.8,.2,1),box-shadow .32s ease; }
+.hero-side { grid-column:1; grid-row:2; display:grid!important; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; margin-top:4px; }
+.hero-side article { min-width:0; padding:22px; border:1px solid var(--mk-line); border-radius:18px; background:linear-gradient(135deg,var(--mk-panel),#111a28); }
+.hero-side h3 { margin:.55rem 0 .4rem; }.hero-side p { color:var(--mk-muted); }.hero-side a,.text-link { color:#b9c9ff; font-weight:700; }
+.ws-demo { height:100%!important; min-height:0!important; background:#0b111b!important; border:1px solid #344766!important; border-radius:18px!important; overflow:hidden!important; box-shadow:0 24px 70px rgba(0,0,0,.28); }
+.ws-body { min-height:calc(100% - 80px)!important; }.ws-nav button { display:flex; align-items:center; gap:8px; }.ws-nav button:first-letter { color:var(--mk-cyan); }
+.ws-nav button:hover,.ws-list button:hover { background:#1b2940!important; }.ws-icon { width:16px; height:16px; color:var(--mk-cyan); display:inline-grid; place-items:center; }
+.ws-icon svg { width:15px; height:15px; stroke:currentColor; fill:none; stroke-width:1.8; }
+.channel-commerce { grid-column:auto; }.commerce-actions { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+footer { border-top:1px solid var(--mk-line); }
+[data-synvio-launcher],#marketing-flow-widget,.flow-widget-launcher,.synvio-flow-launcher { display:none!important; }
+@media (max-width:1100px) { .hero-grid { grid-template-columns:1fr!important; }.hero-grid > .preview { grid-column:1; grid-row:2; min-height:460px!important; }.hero-side { grid-column:1; grid-row:3; } }
+@media (max-width:640px) { .hero-side { grid-template-columns:1fr; }.hero-grid > .preview { min-height:360px!important; aspect-ratio:1.25!important; }.ws-demo { border-radius:14px!important; } }
