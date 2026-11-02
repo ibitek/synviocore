@@ -1,0 +1,13 @@
+body:has(#marketing-chat[open]){overflow:hidden}
+#marketing-chat{padding:0;width:min(480px,calc(100vw - 24px));height:min(700px,calc(100dvh - 32px));max-width:none;max-height:none;background:#151820;color:#f4f6fa;border:1px solid #3b4656;border-radius:20px;box-shadow:0 30px 100px #0008;overflow:hidden}
+#marketing-chat[open]{display:flex;flex-direction:column}
+#marketing-chat::backdrop{background:#080c16b3;backdrop-filter:blur(6px)}
+.marketing-chat-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 22px;border-bottom:1px solid #2c3441;flex-shrink:0}
+.marketing-chat-kicker{font:700 10px 'JetBrains Mono',monospace;letter-spacing:.14em;color:#4ad9df}
+#marketing-chat-title{font-size:23px;letter-spacing:-.04em;line-height:1.2;margin:7px 0 0}
+.marketing-chat-close{display:grid;place-items:center;width:36px;height:36px;padding:0;border:1px solid #354050;border-radius:10px;background:#1e2530;color:#dce3ef;cursor:pointer;font-size:16px}
+#marketing-chat-mount{flex:1;min-height:0;overflow:hidden}
+#marketing-chat-state{padding:24px;color:#aebbd0;font-size:14px;line-height:1.6}
+#marketing-chat-state[hidden],#marketing-chat-retry[hidden]{display:none}
+#marketing-chat-retry{padding:10px 16px;border:1px solid #647bff;border-radius:10px;color:#fff;background:#5f77ed;cursor:pointer;font:inherit}
+@media(max-width:480px){#marketing-chat{height:calc(100dvh - 24px);border-radius:16px}.marketing-chat-heading{padding:16px 18px}}
