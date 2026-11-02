@@ -1,0 +1,5 @@
+/* The conversation is styled and positioned by published FLOW settings. */
+#marketing-chat-state{position:fixed;right:20px;bottom:20px;z-index:2147483001;max-width:min(360px,calc(100vw - 40px));padding:16px 20px;border:1px solid #3b4656;border-radius:14px;background:#151820;color:#dce3ef;box-shadow:0 12px 40px #0005;font-size:14px;line-height:1.5}
+#marketing-chat-state p{margin:0 0 12px}
+#marketing-chat-state button{padding:8px 12px;border:1px solid #3b4656;border-radius:9px;background:#222a38;color:#eef2fa;cursor:pointer;font:inherit;margin-right:8px}
+#marketing-chat-state[hidden],#marketing-chat-retry[hidden]{display:none}
