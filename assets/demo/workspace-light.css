@@ -1,0 +1,322 @@
+/* SYNVIO workspace — paleta jasna (1:1 z trybem ciemnym).
+   Ten sam układ i komponenty co workspace-theme.css;
+   tutaj są wyłącznie tokeny i kolory, które w tamtych plikach były na sztywno.
+   Aktywne przez <html data-theme="light">, ładowane jako ostatni arkusz. */
+:root[data-theme="light"]{
+  color-scheme:light;
+  --bg:#f4f6fb;--bg-deep:#ecf0f7;
+  --side-bg:#f8fafd;--queue-bg:#fbfcfe;--convo-bg:#f4f6fb;
+  --panel:#ffffff;--panel-2:#f3f6fb;--panel-3:#e9eef7;
+  --bubble-in:#ffffff;--bubble-out:#eaf1fd;
+  --line:rgba(23,37,63,.08);--line-strong:rgba(23,37,63,.16);
+  --text:#16213c;--muted:#55637c;--dim:#5f6b80;
+  --cyan:#0d8b95;--accent:#1f6feb;--accent-2:#1a5fd0;
+  --green:#1a7f37;--amber:#b26a00;--red:#cf222e;
+  --field:#f3f6fb;--header:rgba(255,255,255,.94);--soft:rgba(47,129,247,.07);
+  --glow:rgba(47,129,247,.05);--shadow:0 16px 38px rgba(23,37,63,.1);
+  --button-bg:#2f81f7;--button-text:#fff;
+  --hover:#eef2f8;--active:#eaf1fd;
+  --ink-soft:#3d4d69;--ink-faint:#6b7789;
+  --link:#1765d8;--link-strong:#17408f;--link-muted:#5b7cab;
+  --red-text:#a40e26;
+}
+
+:root[data-theme="light"] ::selection{background:rgba(47,129,247,.18);color:#0b1a33}
+:root[data-theme="light"] ::-webkit-scrollbar-thumb{background:#c9d3e2;border:2px solid var(--bg)}
+:root[data-theme="light"] ::-webkit-scrollbar-thumb:hover{background:#b3bfd3}
+
+/* ── Topbar (light) ─────────────────────────────────────── */
+:root[data-theme="light"] .brand-mark{
+  background:radial-gradient(circle at 50% 50%,#0aa7b8 0 4px,rgba(10,167,184,0) 4.6px) no-repeat padding-box,
+    linear-gradient(160deg,#ffffff,#eef4f7) padding-box,
+    linear-gradient(155deg,#7bf6ff,#2ad9e8 46%,#0aa7b8) border-box;
+  box-shadow:0 0 0 1px rgba(10,167,184,.14),0 6px 14px rgba(10,167,184,.16);
+}
+:root[data-theme="light"] .brand-name,:root[data-theme="light"] .brand-accent{color:var(--text)}
+:root[data-theme="light"] .brand-sub{color:var(--dim)}
+:root[data-theme="light"] .nav-button{color:var(--muted)}
+:root[data-theme="light"] .nav-button:hover{color:var(--text);background:var(--hover)}
+:root[data-theme="light"] .nav-button.active{color:var(--text);background:var(--active);border-color:rgba(23,37,63,.1)}
+:root[data-theme="light"] .org-chip strong{color:var(--text)}
+:root[data-theme="light"] .status-dot{box-shadow:0 0 0 3px rgba(26,127,55,.14)}
+:root[data-theme="light"] .logout-button,:root[data-theme="light"] .theme-toggle{border-color:var(--line-strong);color:var(--muted)}
+:root[data-theme="light"] .logout-button:hover,:root[data-theme="light"] .theme-toggle:hover{color:var(--text);border-color:rgba(23,37,63,.24);background:var(--hover)}
+:root[data-theme="light"] .icon-button:hover{color:var(--text);background:var(--panel-3)}
+
+/* ── Sidebar (light) ────────────────────────────────────── */
+:root[data-theme="light"] .sidebar{border-right-color:var(--line)}
+:root[data-theme="light"] .side-label{color:var(--dim)}
+:root[data-theme="light"] .side-button{color:var(--ink-soft)}
+:root[data-theme="light"] .side-button:hover{background:var(--hover);color:var(--text)}
+:root[data-theme="light"] .side-button.active{background:var(--active);color:var(--text)}
+:root[data-theme="light"] .side-count{color:var(--dim)}
+:root[data-theme="light"] .side-button.active .side-count{color:var(--text)}
+:root[data-theme="light"] .access-card{background:#f1f5fb}
+:root[data-theme="light"] .si-inbox{color:#7c8899}
+:root[data-theme="light"] .motion-slider{background:#e9eef4}
+:root[data-theme="light"] .motion-slider.ticket{background:#e9eef4}
+
+/* ── Panels & cards (light) ─────────────────────────────── */
+:root[data-theme="light"] .panel,.admin-card,.knowledge-list-card,.knowledge-editor-card,.message-card,.setup-card,.invite-card,.message-file{
+  background-color:var(--panel)!important;
+  border-color:var(--line);
+}
+:root[data-theme="light"] .admin-card:hover,.knowledge-list-card:hover,.knowledge-editor-card:hover,.message-card:hover,.message-file:hover,.setup-card:hover,.invite-card:hover{
+  border-color:var(--line-strong);
+  box-shadow:var(--shadow),0 0 22px var(--soft);
+}
+:root[data-theme="light"] .ticket-row:hover,.knowledge-row:hover,.theme-option:hover{
+  transform:translateY(-1px);
+  border-color:var(--accent);
+  background-color:var(--soft);
+}
+:root[data-theme="light"] .side-button:hover,.nav-button:hover,.logout-button:hover,.icon-button:hover,.btn-secondary:hover,.file-button:hover{
+  color:var(--text);
+  background:var(--soft);
+  border-color:var(--line-strong);
+  transform:translateY(-1px);
+}
+
+/* ── Buttons (light) ────────────────────────────────────── */
+:root[data-theme="light"] .file-button{background:var(--panel-2);border-color:var(--line);color:var(--ink-soft)}
+:root[data-theme="light"] .file-button:hover{background:var(--hover);color:var(--text)}
+:root[data-theme="light"] #gen-btn{background:var(--panel-2);border-color:var(--line);color:var(--text)}
+:root[data-theme="light"] #gen-btn:hover{background:var(--hover);color:var(--text)}
+:root[data-theme="light"] #send-btn{border:1px solid #2f81f7;background:var(--button-bg);color:#fff}
+:root[data-theme="light"] #send-btn:hover{background:#1f6feb;border-color:#1f6feb}
+
+/* ── Inputs (light) ─────────────────────────────────────── */
+:root[data-theme="light"] .admin-input,:root[data-theme="light"] .admin-textarea{
+  background:var(--field)!important;
+  color:var(--text)!important;
+  border-color:var(--line)!important;
+}
+:root[data-theme="light"] .admin-input:focus,:root[data-theme="light"] .admin-textarea:focus{
+  outline:2px solid var(--accent);
+  outline-offset:2px;
+}
+:root[data-theme="light"] input::placeholder,:root[data-theme="light"] textarea::placeholder{color:var(--dim)!important}
+
+/* ── AI sidebar (light) ─────────────────────────────────── */
+:root[data-theme="light"] .ai-sidebar{border-left-color:var(--line)}
+:root[data-theme="light"] .ai-sidebar-head .eyebrow{color:var(--dim)}
+:root[data-theme="light"] .ai-identity small{color:var(--dim)}
+:root[data-theme="light"] #ai-empty,:root[data-theme="light"] .ai-empty p{color:var(--muted)}
+:root[data-theme="light"] #ai-status{color:var(--dim)}
+:root[data-theme="light"] .ai-chat{border-top-color:var(--line)}
+:root[data-theme="light"] .ai-input-label{color:var(--text)}
+:root[data-theme="light"] #ai-question{background:#fff;border-color:var(--line)}
+:root[data-theme="light"] #ai-ask{background:var(--ask-bg);color:var(--ask-fg)}
+:root[data-theme="light"] #ai-ask:hover{background:#243453;box-shadow:none}
+:root[data-theme="light"] .ai-sidebar-foot{color:var(--ink-faint)}
+
+/* ── Komunikaty wątku (light) ───────────────────────────── */
+:root[data-theme="light"] .thread-avatar.visitor{background:#e6edf7;color:var(--muted)}
+:root[data-theme="light"] .thread-avatar.agent{background:#dbe4f2;color:var(--ink-soft)}
+:root[data-theme="light"] .message-card{background:#fff;color:var(--text)}
+:root[data-theme="light"] .message-card.inbound{background:var(--bubble-in)!important}
+:root[data-theme="light"] .message-card.outbound{background:var(--bubble-out)!important;border-color:transparent!important}
+:root[data-theme="light"] .message-card.bot{background:rgba(13,139,149,.07)!important;box-shadow:inset 0 0 0 1px rgba(13,139,149,.2)}
+:root[data-theme="light"] .message-author strong{color:var(--text)}
+:root[data-theme="light"] .message-author small{color:var(--dim)}
+:root[data-theme="light"] .message-meta{color:var(--ink-faint)}
+:root[data-theme="light"] .message-file{background:#f5f8fd;border-color:var(--line)}
+
+/* ── Composer (light) ───────────────────────────────────── */
+:root[data-theme="light"] .composer-banner{background:var(--panel-2);color:var(--muted)}
+:root[data-theme="light"] #draft-editor{background:#fff;color:var(--text);box-shadow:inset 0 0 0 1px var(--line)}
+:root[data-theme="light"] #draft-editor::placeholder{color:#98a3b6}
+:root[data-theme="light"] .attachment-controls{color:var(--dim)}
+:root[data-theme="light"] #attach-button{color:var(--dim)}
+:root[data-theme="light"] #attach-button:hover{color:var(--text)}
+:root[data-theme="light"] .composer-footer span{color:var(--dim)}
+
+/* ── Universal Subpage Light Theme Overrides (Knowledge, Admin, Billing, Analytics, Auth) ── */
+:root[data-theme="light"] body {
+  background: #f4f6fb !important;
+  color: #0f172a !important;
+}
+
+:root[data-theme="light"] .topbar,
+:root[data-theme="light"] header:not(.conversation-header) {
+  background: #ffffff !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+}
+
+:root[data-theme="light"] .brand-name {
+  color: #0f172a !important;
+}
+
+:root[data-theme="light"] .nav-button,
+:root[data-theme="light"] header nav a {
+  color: #64748b !important;
+}
+
+:root[data-theme="light"] .nav-button:hover,
+:root[data-theme="light"] header nav a:hover {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+:root[data-theme="light"] .nav-button.active,
+:root[data-theme="light"] header nav a.active {
+  background: #eff6ff !important;
+  color: #1d4ed8 !important;
+}
+
+:root[data-theme="light"] .user-cluster .org-chip {
+  background: #f1f5f9 !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+:root[data-theme="light"] .user-cluster .org-chip strong {
+  color: #0f172a !important;
+}
+
+:root[data-theme="light"] .user-cluster .org-chip span {
+  color: #64748b !important;
+}
+
+:root[data-theme="light"] .logout-button,
+:root[data-theme="light"] .theme-toggle {
+  background: #f1f5f9 !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #334155 !important;
+}
+
+:root[data-theme="light"] .logout-button:hover,
+:root[data-theme="light"] .theme-toggle:hover {
+  background: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+/* Page content cards & headings across Knowledge, Setup, Admin, Billing, Analytics */
+:root[data-theme="light"] .page-content h1,
+:root[data-theme="light"] main h1,
+:root[data-theme="light"] h2,
+:root[data-theme="light"] h3 {
+  color: #0f172a !important;
+}
+
+:root[data-theme="light"] .page-head p,
+:root[data-theme="light"] main p,
+:root[data-theme="light"] small,
+:root[data-theme="light"] .permission-note,
+:root[data-theme="light"] .inline-status,
+:root[data-theme="light"] .settings-hint,
+:root[data-theme="light"] .eyebrow {
+  color: #475569 !important;
+}
+
+:root[data-theme="light"] :is(.admin-card, .knowledge-list-card, .knowledge-editor-card, .setup-card, .invite-card, .auth-card, .auth-visual, section:not(.balances), .balances article, .panel, .onboard-guide) {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #0f172a !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+}
+
+/* Form controls on subpages */
+:root[data-theme="light"] :is(.admin-input, .admin-textarea, .auth-input, input:not([type="checkbox"]):not([type="radio"]), select, textarea) {
+  background: #f8fafc !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+:root[data-theme="light"] :is(.admin-input, .admin-textarea, .auth-input, input, select, textarea):focus {
+  border-color: #0284c7 !important;
+  outline: 2px solid rgba(2, 132, 199, 0.2) !important;
+}
+
+:root[data-theme="light"] label {
+  color: #334155 !important;
+  font-weight: 600 !important;
+}
+
+/* Buttons on subpages */
+:root[data-theme="light"] :is(.btn-primary, .auth-submit, button[type="submit"]:not(.secondary)) {
+  background: #0284c7 !important;
+  border: 1px solid #0284c7 !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+:root[data-theme="light"] :is(.btn-primary, .auth-submit, button[type="submit"]:not(.secondary)):hover {
+  background: #0369a1 !important;
+  border-color: #0369a1 !important;
+}
+
+:root[data-theme="light"] :is(.btn-secondary, button.secondary, .file-button) {
+  background: #f1f5f9 !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #1e293b !important;
+  font-weight: 500 !important;
+}
+
+:root[data-theme="light"] :is(.btn-secondary, button.secondary, .file-button):hover {
+  background: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+/* Tables on subpages (DNS, Usage, Team, Metrics) */
+:root[data-theme="light"] table {
+  background: #ffffff !important;
+}
+
+:root[data-theme="light"] th {
+  background: #f1f5f9 !important;
+  color: #475569 !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+}
+
+:root[data-theme="light"] td {
+  border-bottom: 1px solid #e2e8f0 !important;
+  color: #1e293b !important;
+}
+
+/* Navigation tabs (e.g. Wallet & plans / Charge history) */
+:root[data-theme="light"] nav.tabs a {
+  background: #f1f5f9 !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #334155 !important;
+  padding: 8px 16px !important;
+  border-radius: 8px !important;
+  text-decoration: none !important;
+}
+
+:root[data-theme="light"] nav.tabs a:hover {
+  background: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+:root[data-theme="light"] nav.tabs a.active,
+:root[data-theme="light"] nav.tabs a[aria-current="page"] {
+  background: #0284c7 !important;
+  border-color: #0284c7 !important;
+  color: #ffffff !important;
+}
+
+/* Onboarding & Guide elements */
+:root[data-theme="light"] .txt-dropzone {
+  background: #f8fafc !important;
+  border: 2px dashed #cbd5e1 !important;
+  color: #334155 !important;
+}
+
+:root[data-theme="light"] .onboard-warning {
+  background: #fffbeb !important;
+  border: 1px solid #fde68a !important;
+  color: #92400e !important;
+}
+
+:root[data-theme="light"] .guide-bubble {
+  background: #f1f5f9 !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #1e293b !important;
+}
+
+:root[data-theme="light"] .guide-bubble.user {
+  background: #e0f2fe !important;
+  border: 1px solid #bae6fd !important;
+  color: #0369a1 !important;
+}

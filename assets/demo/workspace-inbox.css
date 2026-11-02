@@ -1,0 +1,1643 @@
+/* SYNVIO workspace-inbox — finisz wyglądu 1:1 ze wzorcem SYNVIO-WORKSPACE-INBOX.
+   Przeniesione reguły wzorca (workspace-inbox.css + workspace-inbox-ref.css),
+   zakreskowane wyłącznie do body.workspace-inbox (strona Inbox), żeby nie ruszać
+   pozostałych stron. Ładowane PO inbox.css, więc wygrywają z regułami Copilota
+   o tej samej specyficzności. Funkcje, identyfikatory i zdarzenia — bez zmian. */
+
+/* ── Siatka: 294px + 1fr (+338px Copilot ≥1200px) ────────── */
+:root[data-theme] body.workspace-inbox .side-group{display:flex;flex-direction:column;gap:1px}
+:root[data-theme] body.workspace-inbox .conversation-layout{grid-template-columns:294px minmax(0,1fr);gap:0}
+:root[data-theme] body.workspace-inbox .queue-panel{background:var(--queue-bg);border-right:1px solid rgba(255,255,255,.04)}
+:root[data-theme] body.workspace-inbox .conversation-panel{background:var(--convo-bg)}
+@media(min-width:1200px){
+  :root[data-theme] body.workspace-inbox .conversation-layout{grid-template-columns:294px minmax(0,1fr) 338px}
+}
+
+/* ── Kolejka: nagłówek, szukanie, filtry ─────────────────── */
+:root[data-theme] body.workspace-inbox .queue-panel .panel-head{padding:20px 18px 8px;min-height:0;display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+:root[data-theme] body.workspace-inbox .queue-panel .eyebrow{font-size:9.5px;letter-spacing:.15em;color:#79808a}
+:root[data-theme] body.workspace-inbox .queue-panel .panel-title{margin-top:6px;font-size:19px;font-weight:700;letter-spacing:-.01em}
+:root[data-theme] body.workspace-inbox .queue-head-meta{display:inline-flex;align-items:center;gap:6px;padding-top:4px;font:600 9px/1 "IBM Plex Mono",monospace;letter-spacing:.12em;color:#6f767f;flex:0 0 auto}
+:root[data-theme] body.workspace-inbox .queue-head-meta i{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px rgba(63,185,80,.14)}
+:root[data-theme] body.workspace-inbox .search-area{padding:10px 16px 12px}
+:root[data-theme] body.workspace-inbox .search-box{height:40px;display:flex;align-items:center;gap:8px;padding:0 12px;background:#232833;border:1px solid rgba(255,255,255,.05);border-radius:10px;transition:border-color .18s ease,box-shadow .18s ease}
+:root[data-theme] body.workspace-inbox .search-box:focus-within{border-color:rgba(47,129,247,.6);box-shadow:0 0 0 3px rgba(47,129,247,.12)}
+:root[data-theme] body.workspace-inbox .search-box input{height:100%;font-size:12.5px}
+:root[data-theme] body.workspace-inbox .queue-fields{grid-column:1/-1;grid-row:3;display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 16px 12px}
+:root[data-theme] body.workspace-inbox .queue-field{display:flex;flex-direction:column;gap:7px;min-width:0;margin:0;padding:0!important;font-size:9px;line-height:1.3}
+:root[data-theme] body.workspace-inbox .queue-field>span{font-size:9px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:#6f767f}
+:root[data-theme] body.workspace-inbox .queue-field select{width:100%;height:36px;min-height:36px;padding:0 10px;background:#232833;border:1px solid rgba(255,255,255,.05);border-radius:9px;color:#c9ced5;font-size:11.5px}
+
+/* ── Kolejka: wiersze — miękkie szare tło, zero ramek ────── */
+:root[data-theme] body.workspace-inbox .queue-panel>#ticket-list,
+:root[data-theme] body.workspace-inbox .queue-panel>#ticket-empty{grid-row:4}
+:root[data-theme] body.workspace-inbox .queue-panel>#queue-more{grid-row:5;margin:0 16px 12px}
+:root[data-theme] body.workspace-inbox .ticket-list{padding:2px 10px 14px;gap:2px}
+:root[data-theme] body.workspace-inbox .ticket-row{width:100%;margin:0;padding:11px 10px 12px;border:0;border-radius:10px;background:transparent;text-align:left;box-shadow:none}
+:root[data-theme] body.workspace-inbox .ticket-row:hover{background:#232833;border:0;transform:none}
+:root[data-theme] body.workspace-inbox .ticket-row.active{background:#2b313a;border:0;box-shadow:none}
+:root[data-theme] body.workspace-inbox .ticket-row-top{display:grid;grid-template-columns:auto auto minmax(0,1fr) auto;align-items:center;gap:10px}
+:root[data-theme] body.workspace-inbox .priority-dot{display:none}
+:root[data-theme] body.workspace-inbox .ticket-channel{width:26px;height:26px;flex:0 0 26px;display:grid;place-items:center;border:0;border-radius:8px;background:#2d333c;color:#a9b0b8}
+:root[data-theme] body.workspace-inbox .ticket-channel svg{width:14px;height:14px;display:block;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+:root[data-theme] body.workspace-inbox .ticket-channel.chat{background:rgba(47,129,247,.16);color:#6ba7ff}
+:root[data-theme] body.workspace-inbox .ticket-customer{font-size:12.5px;font-weight:600;color:#e8eaed;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+:root[data-theme] body.workspace-inbox .ticket-age{font-size:10.5px;font-weight:500;color:#6f767f;letter-spacing:0}
+:root[data-theme] body.workspace-inbox .ticket-subject{margin-top:7px;font-size:11.5px;color:#98a0a9;line-height:1.45}
+:root[data-theme] body.workspace-inbox .ticket-meta{margin-top:8px;font:600 9px/1.4 "IBM Plex Mono",monospace;letter-spacing:.09em;text-transform:uppercase;color:#666e77}
+:root[data-theme] body.workspace-inbox .ticket-row:focus-visible{outline:2px solid rgba(47,129,247,.7);outline-offset:2px}
+
+:root[data-theme]{--trash-icon:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 6h18'/%3E%3Cpath d='M8 6V4h8v2'/%3E%3Cpath d='M19 6l-1 14H6L5 6'/%3E%3Cpath d='M10 11v5'/%3E%3Cpath d='M14 11v5'/%3E%3C/svg%3E");}
+/* â”€â”€ Rozmowa: nagĹ‚Ăłwek â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+:root[data-theme] body.workspace-inbox .conversation-header{display:flex;align-items:center;gap:12px;padding:16px 20px 10px;border-bottom:0;background:var(--convo-bg);flex-wrap:nowrap}
+:root[data-theme] body.workspace-inbox .conversation-heading{flex:1 1 auto;min-width:0}
+:root[data-theme] body.workspace-inbox #detail-subject{font-size:17px;font-weight:650;letter-spacing:-.01em;color:#eef1f4;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+:root[data-theme] body.workspace-inbox .customer-head{margin-top:6px;gap:0}
+:root[data-theme] body.workspace-inbox .customer-head .avatar{display:none}
+:root[data-theme] body.workspace-inbox .customer-name{display:none}
+:root[data-theme] body.workspace-inbox .customer-email{display:block;max-width:420px;font-size:11.5px;color:#79808a;letter-spacing:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+:root[data-theme] body.workspace-inbox .detail-meta{display:none}
+:root[data-theme] body.workspace-inbox .conversation-actions{width:auto;margin-left:auto;display:flex;align-items:center;gap:8px;flex-wrap:nowrap}
+:root[data-theme] body.workspace-inbox .status-control{width:auto;display:flex;align-items:center;gap:8px;flex-shrink:0}
+:root[data-theme] body.workspace-inbox .status-control>.field-label{display:none}
+:root[data-theme] body.workspace-inbox .status-control select{width:auto;height:30px;min-height:30px;padding:0 8px;border:1px solid rgba(255,255,255,.09);border-radius:7px;background:transparent;color:#c9ced5;font:600 9.5px/1 "IBM Plex Mono",monospace;letter-spacing:.1em;text-transform:uppercase}
+:root[data-theme] body.workspace-inbox .status-control select[data-status="open"]{color:#5aa2ff;border-color:rgba(47,129,247,.38);background:rgba(47,129,247,.1)}
+:root[data-theme] body.workspace-inbox .status-control select[data-status="waiting"]{color:#f5a524;border-color:rgba(245,165,36,.32);background:rgba(245,165,36,.08)}
+:root[data-theme] body.workspace-inbox .status-control select[data-status="resolved"]{color:#3fb950;border-color:rgba(63,185,80,.34);background:rgba(63,185,80,.08)}
+:root[data-theme] body.workspace-inbox .status-control select[data-status="spam"]{color:#f0616d;border-color:rgba(240,97,109,.32);background:rgba(240,97,109,.08)}
+:root[data-theme] body.workspace-inbox .status-control select:focus-visible{outline:2px solid rgba(47,129,247,.7);outline-offset:2px}
+:root[data-theme] body.workspace-inbox #refresh-button{order:2;height:30px;min-height:30px;padding:0 11px;background:transparent;border:1px solid rgba(255,255,255,.09);border-radius:7px;color:#c9ced5;font-size:11px;white-space:nowrap}
+:root[data-theme] body.workspace-inbox #refresh-button:hover{background:#2a2f37;color:#fff}
+:root[data-theme] body.workspace-inbox #take-ticket{order:3;height:30px;min-height:30px;padding:0 12px;border:0;border-radius:7px;background:#2f81f7;color:#fff;font-size:11px;font-weight:600;white-space:nowrap}
+:root[data-theme] body.workspace-inbox #take-ticket:hover{background:#4b93ff;color:#fff}
+:root[data-theme] body.workspace-inbox #take-ticket:disabled{opacity:.45}
+:root[data-theme] body.workspace-inbox #resolve-ticket{order:4;height:30px;min-height:30px;padding:0 12px;border:1px solid rgba(255,255,255,.09);border-radius:7px;background:#2f353f;color:#dfe4ea;font-size:11px;white-space:nowrap}
+:root[data-theme] body.workspace-inbox #resolve-ticket:hover{background:#353c46;color:#fff}
+:root[data-theme] body.workspace-inbox .ownership-actions{display:flex;align-items:center;gap:8px;margin-top:0}
+:root[data-theme] body.workspace-inbox #trash-ticket{order:6;width:30px;height:30px;min-height:30px;padding:0;font-size:0;border:1px solid rgba(255,255,255,.09);border-radius:7px;background:transparent;color:#9aa1a9}
+:root[data-theme] body.workspace-inbox #trash-ticket:hover{background:#2a2f37;color:#f0616d}
+:root[data-theme] body.workspace-inbox #trash-ticket::before{content:"";display:block;width:15px;height:15px;margin:0 auto;background:currentColor;-webkit-mask:var(--trash-icon) center/contain no-repeat;mask:var(--trash-icon) center/contain no-repeat}
+
+/* â”€â”€ Pasek kontekstu â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+:root[data-theme] body.workspace-inbox .conversation-context{display:flex;align-items:center;gap:7px;min-width:0;margin:0 20px 4px;padding:10px 14px;border:0;border-radius:10px;background:#262b33;color:#9aa1a9;font-size:11px;line-height:1.55}
+:root[data-theme] body.workspace-inbox .conversation-context[hidden]{display:none}
+:root[data-theme] body.workspace-inbox .conversation-context i{width:6px;height:6px;flex:0 0 6px;margin-top:0;border-radius:50%;background:#3fb950;box-shadow:none}
+:root[data-theme] body.workspace-inbox .conversation-context>span{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+:root[data-theme] body.workspace-inbox .conversation-context strong,
+:root[data-theme] body.workspace-inbox .conversation-context .sep,
+:root[data-theme] body.workspace-inbox .conversation-context .ctx-muted{display:none}
+
+/* â”€â”€ WÄ…tek: peĹ‚noszerokie karty z avatarem po lewej â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+:root[data-theme] body.workspace-inbox .thread-scroll{min-height:0;padding:10px 20px 6px;background:var(--convo-bg)}
+:root[data-theme] body.workspace-inbox #message-thread{display:flex;flex-direction:column;gap:14px;min-width:0;padding:0}
+:root[data-theme] body.workspace-inbox .message-row{display:flex;align-items:flex-start;gap:10px;width:100%;max-width:none;margin:0;min-width:0;align-self:stretch}
+:root[data-theme] body.workspace-inbox .message-row.outbound{flex-direction:row-reverse}
+:root[data-theme] body.workspace-inbox .message-row.outbound .message-meta-details{text-align:right}
+:root[data-theme] body.workspace-inbox #continue-ticket,
+:root[data-theme] body.workspace-inbox #continuation-links:empty{display:none}
+:root[data-theme] body.workspace-inbox #attachments-health:empty{display:none}
+:root[data-theme] body.workspace-inbox .thread-avatar{width:40px;height:40px;flex:0 0 40px;display:grid;place-items:center;border:0;border-radius:50%;background:#2e343e;color:#9aa1a9;font-size:11px;font-weight:650}
+:root[data-theme] body.workspace-inbox .thread-avatar svg{width:17px;height:17px;display:block;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+:root[data-theme] body.workspace-inbox .thread-avatar.visitor{background:#2e343e;color:#9aa1a9}
+:root[data-theme] body.workspace-inbox .thread-avatar.agent{background:#353c46;color:#c9ced5}
+:root[data-theme] body.workspace-inbox .thread-avatar.ai{background:#2f81f7;color:#fff;border:0;border-radius:50%}
+:root[data-theme] body.workspace-inbox .thread-avatar.ai svg{width:19px;height:19px;fill:currentColor;stroke:none}
+:root[data-theme] body.workspace-inbox .message-card{flex:0 1 auto;width:auto;max-width:min(64%,620px);min-width:0;margin:0;padding:14px 16px 12px;border:0;border-radius:14px;background:#262b33;color:#dfe3e8;font-size:12.5px;line-height:1.7;box-shadow:none;overflow-wrap:anywhere;word-break:break-word}
+:root[data-theme] body.workspace-inbox .message-card.inbound{align-self:flex-start;border:0;background:#262b33}
+:root[data-theme] body.workspace-inbox .message-card.outbound{align-self:flex-start;border:0;border-color:transparent;background:#2b313a}
+:root[data-theme] body.workspace-inbox .message-card.bot{background:rgba(32,212,220,.07);box-shadow:inset 0 0 0 1px rgba(32,212,220,.16)}
+:root[data-theme] body.workspace-inbox .motion-ready .message-card:hover{padding:14px 16px 12px;border-color:transparent;box-shadow:none}
+:root[data-theme] body.workspace-inbox .message-meta{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 7px;color:var(--muted);font-size:9px;line-height:1.4}
+:root[data-theme] body.workspace-inbox .message-author-name{min-width:0;overflow:hidden;color:#eef1f4;font-size:12px;font-weight:650;text-overflow:ellipsis;white-space:nowrap}
+:root[data-theme] body.workspace-inbox .message-meta-details{flex:0 0 auto;color:#6f767f;font:500 9.5px/1.4 "IBM Plex Mono",monospace;letter-spacing:.04em;text-align:right}
+:root[data-theme] body.workspace-inbox .message-text{min-width:0;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word}
+:root[data-theme] body.workspace-inbox .message-card .message-file{max-width:100%;overflow-wrap:anywhere;margin-top:9px;border:1px solid rgba(255,255,255,.07);border-radius:10px;background:#20252d}
+:root[data-theme="light"] body.workspace-inbox .message-card{border:1px solid var(--line);background:var(--panel-2)}
+:root[data-theme="light"] body.workspace-inbox .message-card.inbound{background:var(--bubble-in)}
+:root[data-theme="light"] body.workspace-inbox .message-card.outbound{border-color:var(--line);background:var(--bubble-out)}
+
+
+/* â”€â”€ Composer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+:root[data-theme] body.workspace-inbox .reply-composer{max-height:none;overflow:visible;display:flex;flex-direction:column;gap:10px;padding:8px 20px 16px;background:var(--convo-bg);border-top:0;border-radius:0}
+:root[data-theme] body.workspace-inbox .composer-heading{margin:0;gap:8px;justify-content:flex-end;align-items:center}
+:root[data-theme] body.workspace-inbox .composer-ai-actions{gap:8px}
+:root[data-theme] body.workspace-inbox .composer-ai-actions .file-button{min-height:30px;padding:0 12px;font-size:10px;height:30px;background:#2f353f;border:1px solid rgba(255,255,255,.07);border-radius:7px;color:#c9ced5}
+:root[data-theme] body.workspace-inbox .composer-ai-actions .file-button:hover{background:#353c46;color:#fff}
+:root[data-theme] body.workspace-inbox .create-draft{background:#2f353f;border-color:rgba(255,255,255,.07);color:#dfe4ea}
+:root[data-theme] body.workspace-inbox .create-draft:hover{background:#353c46;color:#fff}
+:root[data-theme] body.workspace-inbox #ai-toggle{background:#2f353f;border-color:rgba(255,255,255,.07);color:#dfe4ea}
+:root[data-theme] body.workspace-inbox #ai-toggle:hover{background:#353c46;color:#fff}
+:root[data-theme] body.workspace-inbox #draft-editor{width:100%;height:104px;min-height:96px;max-height:180px;padding:14px 16px;background:#262b33;border:0;border-radius:12px;color:#dfe3e8;font-size:12.5px;line-height:1.65;resize:vertical}
+:root[data-theme] body.workspace-inbox #draft-editor::placeholder{color:#6b727b}
+:root[data-theme] body.workspace-inbox #draft-editor:focus{box-shadow:inset 0 0 0 1px rgba(47,129,247,.55)}
+:root[data-theme] body.workspace-inbox .staged-attachments:empty{display:none}
+:root[data-theme] body.workspace-inbox .attachment-controls{display:flex;align-items:center;gap:10px;padding:0;border:0;background:transparent;margin-top:0;font-size:10px;color:#61686f}
+:root[data-theme] body.workspace-inbox #attach-button{background:transparent;border:0;padding:0;color:#6f767f;font-size:10px}
+:root[data-theme] body.workspace-inbox #attach-button:hover{color:#dfe3e8;background:transparent}
+:root[data-theme] body.workspace-inbox .composer-footer{margin:0;display:flex;flex-direction:column;align-items:stretch;gap:8px}
+:root[data-theme] body.workspace-inbox #composer-status{order:2;font-size:10px;line-height:1.5;color:#61686f;text-align:left}
+:root[data-theme] body.workspace-inbox #approve-button{order:1;align-self:flex-start;min-width:110px;height:32px;min-height:32px;padding:0 14px;border:0;border-radius:7px;background:#2f81f7;color:#fff;font-size:11px;font-weight:600}
+:root[data-theme] body.workspace-inbox #approve-button:hover{background:#4b93ff}
+:root[data-theme] body.workspace-inbox #approve-button:disabled{opacity:.45}
+
+/* â”€â”€ Copilot: integralna czÄ™Ĺ›Ä‡ Workspace â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+:root[data-theme] body.workspace-inbox .ai-sidebar{background:var(--queue-bg);border-left:1px solid rgba(255,255,255,.04)}
+:root[data-theme] body.workspace-inbox .ai-sidebar-head{min-height:0;padding:18px 18px 10px;border-bottom:0;align-items:flex-start}
+:root[data-theme] body.workspace-inbox .ai-sidebar-head .eyebrow{font-size:9px;letter-spacing:.15em;color:#79808a}
+:root[data-theme] body.workspace-inbox .ai-identity{gap:10px;margin-top:8px;align-items:center}
+:root[data-theme] body.workspace-inbox .ai-brand-mark{width:30px;height:30px;flex:0 0 30px;border:0;border-radius:50%;background:#2f81f7;box-shadow:none}
+:root[data-theme] body.workspace-inbox .ai-brand-mark span{width:9px;height:9px;transform:none;border-radius:2px;background:#fff;box-shadow:none;animation:none}
+:root[data-theme] body.workspace-inbox .ai-sidebar h2{font-size:15.5px;font-weight:650;letter-spacing:-.01em}
+:root[data-theme] body.workspace-inbox .ai-identity small{font-size:8.5px;letter-spacing:.14em;color:#6f767f}
+:root[data-theme] body.workspace-inbox .ai-body{padding:0;font-size:11.5px;line-height:1.7}
+:root[data-theme] body.workspace-inbox #ai-transcript{display:flex;flex-direction:column;gap:12px;justify-content:flex-start;min-height:0;padding:10px 18px 16px}
+:root[data-theme] body.workspace-inbox #ai-transcript:has(> #ai-empty:not([hidden])){justify-content:flex-start}
+:root[data-theme] body.workspace-inbox #ai-empty{max-width:none;margin:0;padding:0;align-items:flex-start;text-align:left;color:#9aa1a9;font-size:11.5px;line-height:1.75}
+:root[data-theme] body.workspace-inbox .ai-empty-mark,
+:root[data-theme] body.workspace-inbox .ai-empty h3{display:none}
+:root[data-theme] body.workspace-inbox #ai-status{margin:10px 0 0;text-align:left;font-size:10px;line-height:1.5;color:#61686f}
+:root[data-theme] body.workspace-inbox #ai-result{padding:12px;border-radius:9px}
+:root[data-theme] body.workspace-inbox .ai-chat{min-height:0;padding:12px 18px 14px;background:var(--queue-bg);border-top:1px solid rgba(255,255,255,.04);margin:0}
+:root[data-theme] body.workspace-inbox .ai-input-label{margin-bottom:8px;font-size:12px;font-weight:600;color:#dfe3e8}
+:root[data-theme] body.workspace-inbox #ai-chat-form{display:flex;align-items:flex-end;gap:8px;margin:0}
+:root[data-theme] body.workspace-inbox #ai-chat-form .field-label{position:absolute;width:1px;height:1px;padding:0;margin:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+:root[data-theme] body.workspace-inbox #ai-question{flex:1;min-width:0;min-height:44px;max-height:120px;padding:11px 12px;background:#262b33;border:1px solid rgba(255,255,255,.05);border-radius:10px;font-size:11.5px;line-height:1.55;resize:vertical}
+:root[data-theme] body.workspace-inbox #ai-ask{width:32px;height:32px;flex:0 0 32px;align-self:flex-end;margin:0;padding:0;border:0;border-radius:50%;background:#e8eaed;color:#0c0d0f;font-size:13px}
+:root[data-theme] body.workspace-inbox #ai-ask:hover{background:#fff;box-shadow:none}
+:root[data-theme] body.workspace-inbox #ai-chat-status{font-size:10px;color:#61686f}
+:root[data-theme] body.workspace-inbox #ai-context-draft{font-size:10.5px}
+:root[data-theme] body.workspace-inbox .ai-sidebar-foot{padding:10px 18px 14px;font-size:9.5px;color:#61686f}
+
+/* â”€â”€ Logo: subtelna animacja symbolu przy najechaniu â”€â”€â”€â”€â”€â”€â”€ */
+:root[data-theme] body.workspace-inbox .brand .brand-mark{transition:transform .28s ease}
+:root[data-theme] body.workspace-inbox .brand:hover .brand-mark{transform:rotate(45deg) scale(1.07) rotate(-7deg)}
+:root[data-theme] body.workspace-inbox .brand:hover .brand-name,
+:root[data-theme] body.workspace-inbox .brand:hover .brand-sub{transform:none}
+@media (prefers-reduced-motion:reduce){
+  :root[data-theme] body.workspace-inbox .brand .brand-mark{transition:none}
+  :root[data-theme] body.workspace-inbox .brand:hover .brand-mark{transform:rotate(45deg)}
+}
+
+/* â”€â”€ Team availability pod sekcjÄ… Settings â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+:root[data-theme] body.workspace-inbox .team-availability-slot{margin:2px 0 0}
+:root[data-theme] body.workspace-inbox .team-availability-slot .team-availability-panel{background:transparent;border:0;border-radius:0;padding:0}
+:root[data-theme] body.workspace-inbox .team-availability-slot .team-availability-panel>summary{list-style:none;display:grid;grid-template-columns:18px minmax(0,1fr) auto;gap:8px;align-items:center;min-height:32px;padding:0 8px;border:1px solid transparent;border-radius:7px;color:var(--muted);font-size:10px;font-weight:400;cursor:pointer;transition:background-color .15s ease,color .15s ease}
+:root[data-theme] body.workspace-inbox .team-availability-slot .team-availability-panel>summary::-webkit-details-marker{display:none}
+:root[data-theme] body.workspace-inbox .team-availability-slot .team-availability-panel>summary:hover{background:rgba(255,255,255,.05);color:var(--text)}
+:root[data-theme] body.workspace-inbox .team-availability-slot .team-availability-panel>summary:focus-visible{outline:2px solid rgba(47,129,247,.7);outline-offset:2px}
+:root[data-theme] body.workspace-inbox .team-availability-slot .team-availability-panel>summary .ta-icon{width:18px;height:18px;display:grid;place-items:center}
+:root[data-theme] body.workspace-inbox .team-availability-slot .team-availability-panel>summary .ta-icon svg{width:15px;height:15px;display:block;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+:root[data-theme] body.workspace-inbox .team-availability-slot .team-availability-panel>summary .ta-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px rgba(63,185,80,.14)}
+:root[data-theme] body.workspace-inbox .team-availability-slot .team-availability-rows{margin-top:6px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel-2)}
+:root[data-theme] body.workspace-inbox .team-availability-slot .team-availability-rows label{display:flex;align-items:center;gap:10px;margin:9px 0;font-size:11px;color:var(--text);cursor:pointer}
+:root[data-theme] body.workspace-inbox .team-availability-slot .team-availability-rows label:first-child{margin-top:2px}
+:root[data-theme] body.workspace-inbox .team-availability-slot .team-availability-rows input[type="checkbox"]{width:15px;height:15px;flex:0 0 15px;accent-color:var(--accent);cursor:pointer}
+:root[data-theme] body.workspace-inbox .team-availability-slot .team-availability-rows input[type="checkbox"]:focus-visible{outline:2px solid rgba(47,129,247,.7);outline-offset:2px}
+:root[data-theme] body.workspace-inbox .team-availability-slot .team-availability-rows input[type="checkbox"]:disabled{cursor:default;opacity:.6}
+:root[data-theme] body.workspace-inbox .team-availability-slot .team-availability-rows small{display:block;margin-top:8px;font-size:9.5px;line-height:1.6;color:var(--muted)}
+
+/* â”€â”€ Otwarte listy wyboru w ciemnym motywie â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+:root[data-theme] body.workspace-inbox{color-scheme:dark}
+:root[data-theme] body.workspace-inbox select option,
+:root[data-theme] body.workspace-inbox select optgroup{background-color:#262b33;color:#e8eaed}
+:root[data-theme="light"] body.workspace-inbox{color-scheme:light}
+:root[data-theme="light"] body.workspace-inbox select option,
+:root[data-theme="light"] body.workspace-inbox select optgroup{background-color:#ffffff;color:#16213c}
+
+/* â”€â”€ ResponsywnoĹ›Ä‡ wg wzorca â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+@media(min-width:1200px){
+  :root[data-theme] body.workspace-inbox .composer-heading{display:flex!important;margin-bottom:8px}
+}
+@media(max-width:1540px){
+  :root[data-theme] body.workspace-inbox .conversation-header{flex-wrap:wrap;padding-bottom:10px}
+  :root[data-theme] body.workspace-inbox .conversation-actions{width:100%;margin-left:0;justify-content:flex-start;flex-wrap:wrap}
+}
+@media(max-width:1199px){
+  :root[data-theme] body.workspace-inbox .conversation-layout{grid-template-columns:240px minmax(0,1fr)}
+  :root[data-theme] body.workspace-inbox .conversation-layout .conversation-panel{display:flex}
+  :root[data-theme] body.workspace-inbox .queue-panel{display:flex;flex-direction:column}
+  :root[data-theme] body.workspace-inbox .queue-panel>.queue-filter{display:flex;flex-direction:row;align-items:center;padding:0 12px 8px}
+  :root[data-theme] body.workspace-inbox .queue-panel>label.field-label{display:block;padding:0 12px 8px!important}
+  :root[data-theme] body.workspace-inbox .composer-heading{display:flex!important;margin-bottom:8px}
+}
+@media(max-width:900px){
+  :root[data-theme] body.workspace-inbox .conversation-layout{grid-template-columns:232px minmax(0,1fr)}
+  :root[data-theme] body.workspace-inbox .conversation-header{flex-wrap:wrap;padding:12px 14px 8px}
+  :root[data-theme] body.workspace-inbox .conversation-actions{width:100%;margin-left:0;flex-wrap:wrap}
+  :root[data-theme] body.workspace-inbox .conversation-context{margin:0 14px 4px}
+  :root[data-theme] body.workspace-inbox .thread-scroll{padding:10px 14px 6px}
+  :root[data-theme] body.workspace-inbox .reply-composer{padding:8px 14px 14px}
+  :root[data-theme] body.workspace-inbox .message-card{padding:13px 14px 12px;max-width:min(80%,620px)}
+  :root[data-theme] body.workspace-inbox .thread-avatar{width:34px;height:34px;flex:0 0 34px}
+}
+@media(max-width:700px){
+  :root[data-theme] body.workspace-inbox .conversation-layout{grid-template-columns:1fr}
+  :root[data-theme] body.workspace-inbox .attachment-controls{flex-wrap:wrap;gap:4px}
+  :root[data-theme] body.workspace-inbox #attachment-status{font-size:9.5px;line-height:1.4}
+  :root[data-theme] body.workspace-inbox #detail-subject{font-size:15px}
+  :root[data-theme] body.workspace-inbox .thread-avatar{width:30px;height:30px;flex:0 0 30px}
+  :root[data-theme] body.workspace-inbox .thread-avatar svg{width:15px;height:15px}
+  :root[data-theme] body.workspace-inbox #draft-editor{height:82px;min-height:64px}
+  :root[data-theme] body.workspace-inbox #approve-button{align-self:flex-end;margin-left:auto}
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+   SYNVIO WORKSPACE INBOX — DEMO DESIGN PARITY (PURE CSS OVERLAY)
+   ═════════════════════════════════════════════════════════════════════════ */
+
+/* ── Typography & Global Atmosphere (Dark Demo Base) ── */
+:root:not([data-theme="light"]) body.workspace-inbox,
+:root[data-theme="dark"] body.workspace-inbox {
+  font-family: 'Plus Jakarta Sans', "Inter", system-ui, -apple-system, sans-serif !important;
+  background: #0e1117 !important;
+  color: #f1f5f9 !important;
+  -webkit-font-smoothing: antialiased !important;
+}
+
+:root[data-theme] body.workspace-inbox .app-shell {
+  background: transparent !important;
+}
+
+/* ── Top Bar Contract ── */
+:root[data-theme] body.workspace-inbox .topbar {
+  background: rgba(11, 15, 20, 0.9) !important;
+  backdrop-filter: blur(12px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+  height: 54px !important;
+  padding: 0 20px !important;
+}
+
+:root[data-theme] body.workspace-inbox .topbar .brand-name {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.01em !important;
+}
+
+:root[data-theme] body.workspace-inbox .top-nav .nav-button {
+  border-radius: 8px !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  padding: 6px 14px !important;
+  color: #94a3b8 !important;
+  transition: all 0.15s ease !important;
+}
+
+:root[data-theme] body.workspace-inbox .top-nav .nav-button:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: #f8fafc !important;
+}
+
+:root[data-theme] body.workspace-inbox .top-nav .nav-button.active {
+  background: #1e2633 !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+:root[data-theme] body.workspace-inbox .user-cluster .org-chip {
+  background: #141a23 !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  border-radius: 9999px !important;
+  padding: 4px 12px !important;
+}
+
+:root[data-theme] body.workspace-inbox .user-cluster .logout-button {
+  border-radius: 8px !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-size: 12px !important;
+  color: #cbd5e1 !important;
+}
+
+/* ── Sidebar Navigation ── */
+:root[data-theme] body.workspace-inbox .sidebar {
+  background: #0b0f14 !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  padding: 16px 10px !important;
+}
+
+:root[data-theme] body.workspace-inbox .side-label {
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em !important;
+  color: #64748b !important;
+  text-transform: uppercase !important;
+  padding: 12px 10px 6px !important;
+}
+
+:root[data-theme] body.workspace-inbox .side-button {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  min-height: 38px !important;
+  padding: 7px 12px !important;
+  margin: 1px 0 !important;
+  border: none !important;
+  border-radius: 9px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: #94a3b8 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  transition: all 0.15s ease !important;
+  text-decoration: none !important;
+}
+
+:root[data-theme] body.workspace-inbox .side-button:hover {
+  background: rgba(255, 255, 255, 0.04) !important;
+  color: #f8fafc !important;
+}
+
+:root[data-theme] body.workspace-inbox .side-button.active {
+  background: rgba(0, 231, 242, 0.08) !important;
+  color: #00e7f2 !important;
+  font-weight: 600 !important;
+}
+
+/* Sidebar Icons */
+:root[data-theme] body.workspace-inbox .side-icon {
+  width: 18px !important;
+  height: 18px !important;
+  display: grid !important;
+  place-items: center !important;
+  flex-shrink: 0 !important;
+}
+
+:root[data-theme] body.workspace-inbox .side-icon svg {
+  width: 16px !important;
+  height: 16px !important;
+  stroke-width: 1.8 !important;
+}
+
+:root[data-theme] body.workspace-inbox .si-inbox svg { color: #00e7f2 !important; stroke: #00e7f2 !important; }
+:root[data-theme] body.workspace-inbox .si-assign svg { color: #f59e0b !important; stroke: #f59e0b !important; }
+:root[data-theme] body.workspace-inbox .si-resolved svg { color: #10b981 !important; stroke: #10b981 !important; }
+:root[data-theme] body.workspace-inbox .si-trash svg { color: #f43f5e !important; stroke: #f43f5e !important; }
+:root[data-theme] body.workspace-inbox .si-archive svg { color: #94a3b8 !important; stroke: #94a3b8 !important; }
+:root[data-theme] body.workspace-inbox .si-spam svg { color: #fb923c !important; stroke: #fb923c !important; }
+:root[data-theme] body.workspace-inbox .si-knowledge svg { color: #a855f7 !important; stroke: #a855f7 !important; }
+:root[data-theme] body.workspace-inbox .si-setup svg { color: #38bdf8 !important; stroke: #38bdf8 !important; }
+:root[data-theme] body.workspace-inbox .si-company svg { color: #60a5fa !important; stroke: #60a5fa !important; }
+:root[data-theme] body.workspace-inbox .si-wallet svg { color: #fbbf24 !important; stroke: #fbbf24 !important; }
+:root[data-theme] body.workspace-inbox .si-history svg { color: #818cf8 !important; stroke: #818cf8 !important; }
+:root[data-theme] body.workspace-inbox .si-import svg { color: #34d399 !important; stroke: #34d399 !important; }
+:root[data-theme] body.workspace-inbox .si-appearance svg { color: #2dd4bf !important; stroke: #2dd4bf !important; }
+
+/* Sidebar Count Badges & Labels */
+:root[data-theme] body.workspace-inbox .side-button > span:nth-child(2) {
+  flex: 1 1 auto !important;
+  text-align: left !important;
+  color: inherit !important;
+}
+
+:root[data-theme] body.workspace-inbox .side-count,
+:root[data-theme] body.workspace-inbox .side-badge {
+  margin-left: auto !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  padding: 1px 7px !important;
+  border-radius: 9999px !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: #64748b !important;
+}
+
+:root[data-theme] body.workspace-inbox .side-button.active > .side-count,
+:root[data-theme] body.workspace-inbox .side-button.active > .side-badge {
+  background: rgba(0, 231, 242, 0.15) !important;
+  color: #00e7f2 !important;
+}
+
+/* ── Team Availability Widget (Modern Widget in Settings) ── */
+:root[data-theme] body.workspace-inbox details.availability-settings-panel,
+:root[data-theme] body.workspace-inbox .availability-settings-panel,
+:root[data-theme] body.workspace-inbox .team-availability-slot {
+  display: block !important;
+  margin: 6px 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+:root[data-theme] body.workspace-inbox details.availability-settings-panel summary,
+:root[data-theme] body.workspace-inbox .availability-settings-panel > summary,
+:root[data-theme] body.workspace-inbox .team-availability-slot summary {
+  list-style: none !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  min-height: 36px !important;
+  padding: 7px 10px !important;
+  border: 1px solid transparent !important;
+  border-radius: 8px !important;
+  color: #94a3b8 !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-size: 12.5px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  background: rgba(255, 255, 255, 0.02) !important;
+  transition: all 0.15s ease !important;
+  user-select: none !important;
+}
+
+:root[data-theme] body.workspace-inbox .ta-dot {
+  width: 7px !important;
+  height: 7px !important;
+  border-radius: 50% !important;
+  flex-shrink: 0 !important;
+}
+:root[data-theme] body.workspace-inbox .ta-dot.online {
+  background: #10b981 !important;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.6) !important;
+}
+:root[data-theme] body.workspace-inbox .ta-dot.offline {
+  background: #64748b !important;
+}
+:root[data-theme] body.workspace-inbox .ta-status-text {
+  margin-left: auto !important;
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  padding: 1px 6px !important;
+  border-radius: 9999px !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+:root[data-theme] body.workspace-inbox details.availability-settings-panel summary::-webkit-details-marker,
+:root[data-theme] body.workspace-inbox .team-availability-slot summary::-webkit-details-marker {
+  display: none !important;
+}
+
+:root[data-theme] body.workspace-inbox details.availability-settings-panel summary::marker,
+:root[data-theme] body.workspace-inbox .team-availability-slot summary::marker {
+  display: none !important;
+}
+
+:root[data-theme] body.workspace-inbox details.availability-settings-panel summary:hover,
+:root[data-theme] body.workspace-inbox .team-availability-slot summary:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: #f8fafc !important;
+}
+
+/* Green Live Dot indicator before summary text */
+:root[data-theme] body.workspace-inbox details.availability-settings-panel summary::before {
+  content: '' !important;
+  width: 7px !important;
+  height: 7px !important;
+  border-radius: 50% !important;
+  background: #10b981 !important;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.6) !important;
+  flex-shrink: 0 !important;
+}
+
+/* Chevron arrow on right */
+:root[data-theme] body.workspace-inbox details.availability-settings-panel summary::after {
+  content: '▾' !important;
+  margin-left: auto !important;
+  font-size: 11px !important;
+  color: #64748b !important;
+  transition: transform 0.2s ease !important;
+}
+
+:root[data-theme] body.workspace-inbox details.availability-settings-panel[open] summary::after {
+  transform: rotate(180deg) !important;
+}
+
+:root[data-theme] body.workspace-inbox details.availability-settings-panel[open] summary {
+  color: #f8fafc !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Internal rows of availability */
+:root[data-theme] body.workspace-inbox details.availability-settings-panel label,
+:root[data-theme] body.workspace-inbox .team-availability-rows label {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  font-size: 12px !important;
+  color: #cbd5e1 !important;
+  margin: 8px 0 !important;
+  cursor: pointer !important;
+  padding: 2px 4px !important;
+}
+
+:root[data-theme] body.workspace-inbox details.availability-settings-panel input[type="checkbox"],
+:root[data-theme] body.workspace-inbox .team-availability-rows input[type="checkbox"] {
+  width: 15px !important;
+  height: 15px !important;
+  accent-color: #00e7f2 !important;
+  cursor: pointer !important;
+}
+
+:root[data-theme] body.workspace-inbox details.availability-settings-panel small,
+:root[data-theme] body.workspace-inbox .team-availability-rows small {
+  display: block !important;
+  font-size: 11px !important;
+  line-height: 1.5 !important;
+  color: #64748b !important;
+  margin-top: 8px !important;
+  padding: 0 4px !important;
+}
+
+/* Access Card */
+:root[data-theme] body.workspace-inbox .access-card {
+  margin-top: 14px !important;
+  padding: 10px 12px !important;
+  background: rgba(255, 255, 255, 0.02) !important;
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  border-radius: 9px !important;
+  font-size: 11px !important;
+  color: #64748b !important;
+}
+
+:root[data-theme] body.workspace-inbox .access-card .mono {
+  font-size: 9.5px !important;
+  letter-spacing: 0.12em !important;
+  color: #475569 !important;
+}
+
+/* ── Middle Ticket Queue Column ── */
+:root[data-theme] body.workspace-inbox .queue-panel {
+  background: #0e1218 !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+}
+
+:root[data-theme] body.workspace-inbox .queue-panel .panel-head {
+  padding: 18px 18px 10px !important;
+}
+
+:root[data-theme] body.workspace-inbox .queue-panel .panel-title {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em !important;
+  color: #f8fafc !important;
+}
+
+:root[data-theme] body.workspace-inbox .queue-head-meta {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  color: #10b981 !important;
+}
+
+:root[data-theme] body.workspace-inbox .queue-head-meta i {
+  background: #10b981 !important;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.6) !important;
+}
+
+:root[data-theme] body.workspace-inbox .search-box {
+  background: #141a23 !important;
+  border: 1px solid rgba(255, 255, 255, 0.07) !important;
+  border-radius: 10px !important;
+  height: 38px !important;
+}
+
+:root[data-theme] body.workspace-inbox .search-box:focus-within {
+  border-color: rgba(0, 231, 242, 0.5) !important;
+  box-shadow: 0 0 0 3px rgba(0, 231, 242, 0.12) !important;
+}
+
+:root[data-theme] body.workspace-inbox .search-box input {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-size: 12.5px !important;
+  color: #f8fafc !important;
+}
+
+:root[data-theme] body.workspace-inbox .queue-filter select,
+:root[data-theme] body.workspace-inbox .queue-field select,
+:root[data-theme] body.workspace-inbox #channel-filter {
+  background: #141a23 !important;
+  border: 1px solid rgba(255, 255, 255, 0.07) !important;
+  border-radius: 9px !important;
+  height: 34px !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-size: 12px !important;
+  color: #cbd5e1 !important;
+  padding: 0 10px !important;
+}
+
+/* Ticket Cards */
+:root[data-theme] body.workspace-inbox .ticket-row {
+  margin: 3px 8px !important;
+  padding: 12px 14px !important;
+  border-radius: 11px !important;
+  border: 1px solid rgba(255, 255, 255, 0.03) !important;
+  background: rgba(255, 255, 255, 0.015) !important;
+  box-shadow: none !important;
+  transition: all 0.15s ease !important;
+}
+
+:root[data-theme] body.workspace-inbox .ticket-row:hover {
+  background: #18202b !important;
+  border-color: rgba(255, 255, 255, 0.07) !important;
+}
+
+:root[data-theme] body.workspace-inbox .ticket-row.active {
+  background: #1b2432 !important;
+  border-color: rgba(0, 231, 242, 0.35) !important;
+  box-shadow: inset 3px 0 0 #00e7f2, 0 4px 14px rgba(0, 0, 0, 0.3) !important;
+}
+
+:root[data-theme] body.workspace-inbox .ticket-customer {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: #f8fafc !important;
+}
+
+:root[data-theme] body.workspace-inbox .ticket-age {
+  font-size: 11px !important;
+  color: #64748b !important;
+}
+
+:root[data-theme] body.workspace-inbox .ticket-subject {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-size: 12px !important;
+  color: #94a3b8 !important;
+  line-height: 1.45 !important;
+  margin-top: 5px !important;
+}
+
+:root[data-theme] body.workspace-inbox .ticket-channel {
+  border-radius: 7px !important;
+  background: #1e2633 !important;
+  color: #94a3b8 !important;
+}
+
+:root[data-theme] body.workspace-inbox .ticket-channel.chat {
+  background: rgba(0, 231, 242, 0.12) !important;
+  color: #00e7f2 !important;
+}
+
+/* Ticket Statuses */
+:root[data-theme] body.workspace-inbox .ticket-meta {
+  font-family: 'Plus Jakarta Sans', "IBM Plex Mono", monospace !important;
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.08em !important;
+  margin-top: 6px !important;
+}
+
+/* ── Status Dropdown Styling & Animations ── */
+:root[data-theme] body.workspace-inbox .status-control {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 14px !important;
+  margin-left: auto !important;
+}
+
+:root[data-theme] body.workspace-inbox .status-select-wrap {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 3px !important;
+}
+
+:root[data-theme] body.workspace-inbox .status-select-wrap .field-label {
+  display: block !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-size: 9.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  color: #64748b !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+:root[data-theme] body.workspace-inbox #ticket-status {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  height: 32px !important;
+  min-height: 32px !important;
+  padding: 0 28px 0 26px !important;
+  font-family: 'Plus Jakarta Sans', "IBM Plex Mono", monospace !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  border-radius: 8px !important;
+  cursor: pointer !important;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  position: relative !important;
+  background-repeat: no-repeat !important;
+  background-position: left 9px center, right 9px center !important;
+  background-size: 8px 8px, 10px 10px !important;
+}
+
+/* Dark mode status colors */
+:root:not([data-theme="light"]) body.workspace-inbox #ticket-status[data-status="open"],
+:root[data-theme="dark"] body.workspace-inbox #ticket-status[data-status="open"] {
+  color: #38d39f !important;
+  background-color: rgba(56, 211, 159, 0.1) !important;
+  border: 1px solid rgba(56, 211, 159, 0.35) !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Ccircle cx='5' cy='5' r='4' fill='%2338d39f'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2338d39f' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") !important;
+}
+:root:not([data-theme="light"]) body.workspace-inbox #ticket-status[data-status="waiting"],
+:root[data-theme="dark"] body.workspace-inbox #ticket-status[data-status="waiting"] {
+  color: #f4b740 !important;
+  background-color: rgba(244, 183, 64, 0.1) !important;
+  border: 1px solid rgba(244, 183, 64, 0.35) !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Ccircle cx='5' cy='5' r='4' fill='%23f4b740'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f4b740' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") !important;
+}
+:root:not([data-theme="light"]) body.workspace-inbox #ticket-status[data-status="resolved"],
+:root[data-theme="dark"] body.workspace-inbox #ticket-status[data-status="resolved"] {
+  color: #818cf8 !important;
+  background-color: rgba(129, 140, 248, 0.1) !important;
+  border: 1px solid rgba(129, 140, 248, 0.35) !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Ccircle cx='5' cy='5' r='4' fill='%23818cf8'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23818cf8' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") !important;
+}
+:root:not([data-theme="light"]) body.workspace-inbox #ticket-status[data-status="spam"],
+:root[data-theme="dark"] body.workspace-inbox #ticket-status[data-status="spam"] {
+  color: #ff5b67 !important;
+  background-color: rgba(255, 91, 103, 0.1) !important;
+  border: 1px solid rgba(255, 91, 103, 0.35) !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Ccircle cx='5' cy='5' r='4' fill='%23ff5b67'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ff5b67' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") !important;
+}
+
+:root[data-theme] body.workspace-inbox #ticket-status:hover {
+  transform: translateY(-1px) scale(1.02) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25) !important;
+}
+:root[data-theme] body.workspace-inbox #ticket-status:focus-visible {
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(0, 231, 242, 0.2), 0 4px 12px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* Custom status option colors & expand styling */
+:root[data-theme] body.workspace-inbox #ticket-status option {
+  background-color: #1a1e26 !important;
+  color: #e8eaed !important;
+  padding: 10px 14px !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 11px !important;
+}
+:root[data-theme] body.workspace-inbox #ticket-status option[value="open"] {
+  color: #38d39f !important;
+  background-color: #122822 !important;
+}
+:root[data-theme] body.workspace-inbox #ticket-status option[value="waiting"] {
+  color: #f4b740 !important;
+  background-color: #2b2214 !important;
+}
+:root[data-theme] body.workspace-inbox #ticket-status option[value="resolved"] {
+  color: #818cf8 !important;
+  background-color: #1c1f36 !important;
+}
+:root[data-theme] body.workspace-inbox #ticket-status option[value="spam"] {
+  color: #ff5b67 !important;
+  background-color: #2e181b !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox #ticket-status option {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+:root[data-theme="light"] body.workspace-inbox #ticket-status option[value="open"] {
+  color: #059669 !important;
+  background-color: #ecfdf5 !important;
+}
+:root[data-theme="light"] body.workspace-inbox #ticket-status option[value="waiting"] {
+  color: #d97706 !important;
+  background-color: #fffbeb !important;
+}
+:root[data-theme="light"] body.workspace-inbox #ticket-status option[value="resolved"] {
+  color: #4f46e5 !important;
+  background-color: #eef2ff !important;
+}
+:root[data-theme="light"] body.workspace-inbox #ticket-status option[value="spam"] {
+  color: #e11d48 !important;
+  background-color: #fff1f2 !important;
+}
+
+/* ── Refresh Button cleanly under Status ── */
+:root[data-theme] body.workspace-inbox #status-refresh-wrap {
+  display: flex !important;
+  align-items: center !important;
+  margin-top: 3px !important;
+}
+
+:root[data-theme] body.workspace-inbox #status-refresh-wrap #refresh-button {
+  background: transparent !important;
+  border: none !important;
+  color: #64748b !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  padding: 2px 4px !important;
+  cursor: pointer !important;
+  transition: color 0.15s ease !important;
+  border-radius: 4px !important;
+  height: auto !important;
+  min-height: 0 !important;
+}
+
+:root[data-theme] body.workspace-inbox #status-refresh-wrap #refresh-button:hover {
+  color: #00e7f2 !important;
+  background: transparent !important;
+}
+
+:root[data-theme] body.workspace-inbox #status-refresh-wrap #refresh-button .refresh-icon {
+  font-size: 13px !important;
+  display: inline-block !important;
+  transition: transform 0.3s ease !important;
+}
+
+:root[data-theme] body.workspace-inbox #status-refresh-wrap #refresh-button:hover .refresh-icon {
+  transform: rotate(90deg) !important;
+}
+
+/* ── Ownership Actions: Take Ownership, Resolve & Compact Trash Icon ── */
+:root[data-theme] body.workspace-inbox .ownership-actions {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin-top: 15px !important;
+}
+
+:root[data-theme] body.workspace-inbox #take-ticket {
+  order: 1 !important;
+  height: 32px !important;
+  min-height: 32px !important;
+  padding: 0 14px !important;
+  border: 0 !important;
+  border-radius: 8px !important;
+  background: #2f81f7 !important;
+  color: #fff !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  white-space: nowrap !important;
+  transition: all 0.15s ease !important;
+  cursor: pointer !important;
+}
+:root[data-theme] body.workspace-inbox #take-ticket:hover {
+  background: #4b93ff !important;
+}
+
+:root[data-theme] body.workspace-inbox #resolve-ticket {
+  order: 2 !important;
+  height: 32px !important;
+  min-height: 32px !important;
+  padding: 0 14px !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 8px !important;
+  background: #18202b !important;
+  color: #dfe4ea !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-size: 11.5px !important;
+  font-weight: 500 !important;
+  white-space: nowrap !important;
+  transition: all 0.15s ease !important;
+  cursor: pointer !important;
+}
+:root[data-theme] body.workspace-inbox #resolve-ticket:hover {
+  background: #232c3a !important;
+  color: #fff !important;
+}
+
+/* Move to Trash: Clean, Compact Icon Button with NO overflowing text */
+:root[data-theme] body.workspace-inbox #trash-ticket {
+  order: 3 !important;
+  width: 32px !important;
+  min-width: 32px !important;
+  height: 32px !important;
+  padding: 0 !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 8px !important;
+  background: rgba(244, 63, 94, 0.1) !important;
+  border: 1px solid rgba(244, 63, 94, 0.25) !important;
+  color: #f43f5e !important;
+  cursor: pointer !important;
+  overflow: hidden !important;
+  transition: all 0.15s ease !important;
+}
+
+:root[data-theme] body.workspace-inbox #trash-ticket:hover {
+  background: rgba(244, 63, 94, 0.2) !important;
+  border-color: rgba(244, 63, 94, 0.45) !important;
+  transform: translateY(-1px) !important;
+}
+
+:root[data-theme] body.workspace-inbox #trash-ticket::before {
+  display: none !important;
+  content: none !important;
+}
+
+:root[data-theme] body.workspace-inbox #trash-ticket::after {
+  content: "" !important;
+  width: 15px !important;
+  height: 15px !important;
+  display: block !important;
+  background-color: currentColor !important;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='3 6 5 6 21 6'%3E%3C/polyline%3E%3Cpath d='M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2'%3E%3C/path%3E%3Cline x1='10' y1='11' x2='10' y2='17'%3E%3C/line%3E%3Cline x1='14' y1='11' x2='14' y2='17'%3E%3C/line%3E%3C/svg%3E") no-repeat center / contain !important;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='3 6 5 6 21 6'%3E%3C/polyline%3E%3Cpath d='M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2'%3E%3C/path%3E%3Cline x1='10' y1='11' x2='10' y2='17'%3E%3C/line%3E%3Cline x1='14' y1='11' x2='14' y2='17'%3E%3C/line%3E%3C/svg%3E") no-repeat center / contain !important;
+}
+
+/* ── Middle Empty State & Conversation Panel ── */
+:root[data-theme] body.workspace-inbox .conversation-panel {
+  background: #0b0f14 !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+}
+
+:root[data-theme] body.workspace-inbox #detail-empty .empty-symbol {
+  width: 10px !important;
+  height: 10px !important;
+  border-radius: 50% !important;
+  background: #00e7f2 !important;
+  box-shadow: 0 0 16px #00e7f2, 0 0 32px rgba(0, 231, 242, 0.4) !important;
+  margin: 0 auto 16px !important;
+}
+
+:root[data-theme] body.workspace-inbox #detail-empty h2 {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  color: #f8fafc !important;
+  margin-bottom: 6px !important;
+}
+
+:root[data-theme] body.workspace-inbox #detail-empty p {
+  font-size: 13px !important;
+  color: #64748b !important;
+}
+
+/* Conversation Header & Details */
+:root[data-theme] body.workspace-inbox .conversation-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+  background: rgba(11, 15, 20, 0.95) !important;
+  padding: 16px 22px !important;
+}
+
+/* Composer */
+:root[data-theme] body.workspace-inbox .reply-composer {
+  border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+  background: #0e1218 !important;
+}
+
+:root[data-theme] body.workspace-inbox #draft-editor {
+  background: #141a23 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 11px !important;
+  color: #f8fafc !important;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif !important;
+  font-size: 13.5px !important;
+  line-height: 1.6 !important;
+  padding: 12px 14px !important;
+}
+
+:root[data-theme] body.workspace-inbox #approve-button {
+  background: #00e7f2 !important;
+  color: #050505 !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-weight: 600 !important;
+  border-radius: 9px !important;
+}
+
+/* ── Right Panel: Synvio Copilot ── */
+:root[data-theme] body.workspace-inbox .ai-sidebar {
+  background: #0e1218 !important;
+  border-left: 1px solid rgba(255, 255, 255, 0.05) !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  overflow: hidden !important;
+}
+
+:root[data-theme] body.workspace-inbox .ai-brand-mark {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 50% !important;
+  background: linear-gradient(135deg, #0284c7, #00e7f2) !important;
+  box-shadow: 0 0 16px rgba(0, 231, 242, 0.3) !important;
+  display: grid !important;
+  place-items: center !important;
+}
+
+:root[data-theme] body.workspace-inbox .ai-brand-mark span {
+  width: 10px !important;
+  height: 10px !important;
+  background: #ffffff !important;
+  transform: rotate(45deg) !important;
+}
+
+:root[data-theme] body.workspace-inbox .ai-identity h2 {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  color: #f8fafc !important;
+}
+
+:root[data-theme] body.workspace-inbox .ai-identity small {
+  font-size: 9px !important;
+  letter-spacing: 0.12em !important;
+  color: #64748b !important;
+}
+
+:root[data-theme] body.workspace-inbox .ai-body {
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 0% !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+}
+
+/* Copilot message overflow containment & flex hierarchy */
+:root[data-theme] body.workspace-inbox #ai-transcript {
+  flex: 1 1 0% !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  padding: 14px 16px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+  box-sizing: border-box !important;
+  position: relative !important;
+}
+
+:root[data-theme] body.workspace-inbox #ai-empty {
+  color: #94a3b8 !important;
+  font-size: 12px !important;
+  line-height: 1.6 !important;
+}
+
+:root[data-theme] body.workspace-inbox #ai-spam-warning {
+  flex: 0 0 auto !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+:root[data-theme] body.workspace-inbox #ai-result {
+  flex: 0 0 auto !important;
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 14px 16px !important;
+  border-radius: 12px !important;
+  background: #141a23 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: #f8fafc !important;
+  box-sizing: border-box !important;
+  position: static !important;
+  overflow: visible !important;
+}
+
+:root[data-theme] body.workspace-inbox #ai-result section {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+  padding-bottom: 10px !important;
+  margin-bottom: 10px !important;
+}
+
+:root[data-theme] body.workspace-inbox #ai-result section:last-of-type {
+  border-bottom: 0 !important;
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+:root[data-theme] body.workspace-inbox #ai-result h3 {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  color: #f8fafc !important;
+  margin: 0 0 6px !important;
+}
+
+:root[data-theme] body.workspace-inbox #ai-result p,
+:root[data-theme] body.workspace-inbox #ai-result li {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-size: 11.5px !important;
+  line-height: 1.6 !important;
+  color: #94a3b8 !important;
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+}
+
+:root[data-theme] body.workspace-inbox #ai-chat-log {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  width: 100% !important;
+  flex: 0 0 auto !important;
+  position: static !important;
+  overflow: visible !important;
+  box-sizing: border-box !important;
+}
+
+:root[data-theme] body.workspace-inbox .ai-chat-message {
+  position: static !important;
+  margin: 2px 0 !important;
+  padding: 10px 14px !important;
+  border-radius: 12px !important;
+  max-width: 90% !important;
+  box-sizing: border-box !important;
+  line-height: 1.55 !important;
+  font-size: 12px !important;
+  word-break: break-word !important;
+  overflow-wrap: anywhere !important;
+}
+
+:root[data-theme] body.workspace-inbox .ai-chat-message.user {
+  align-self: flex-end !important;
+  margin-left: auto !important;
+  background: rgba(0, 231, 242, 0.12) !important;
+  border: 1px solid rgba(0, 231, 242, 0.28) !important;
+  color: #f8fafc !important;
+  border-bottom-right-radius: 4px !important;
+}
+
+:root[data-theme] body.workspace-inbox .ai-chat-message.assistant {
+  align-self: flex-start !important;
+  margin-right: auto !important;
+  background: #141a23 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: #f8fafc !important;
+  border-bottom-left-radius: 4px !important;
+}
+
+:root[data-theme] body.workspace-inbox .ai-chat-message strong {
+  display: block !important;
+  font-size: 10.5px !important;
+  font-weight: 700 !important;
+  margin-bottom: 3px !important;
+  color: #00e7f2 !important;
+}
+
+:root[data-theme] body.workspace-inbox .ai-chat {
+  flex: 0 0 auto !important;
+  padding: 12px 16px 14px !important;
+  background: #0e1218 !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+:root[data-theme] body.workspace-inbox #ai-question {
+  background: #141a23 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 10px !important;
+  color: #f8fafc !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-size: 12.5px !important;
+}
+
+:root[data-theme] body.workspace-inbox #ai-ask {
+  border-radius: 50% !important;
+  width: 32px !important;
+  height: 32px !important;
+  display: grid !important;
+  place-items: center !important;
+  background: #00e7f2 !important;
+  color: #050505 !important;
+  border: none !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+}
+
+:root[data-theme] body.workspace-inbox #ai-ask:hover {
+  background: #2ae6f0 !important;
+  box-shadow: 0 0 10px rgba(0, 231, 242, 0.4) !important;
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+   LIGHT THEME COMPLETE PARITY (Matches image_56bc6ee8.png)
+   ═════════════════════════════════════════════════════════════════════════ */
+:root[data-theme="light"] body.workspace-inbox {
+  background: #f4f6fb !important;
+  color: #0f172a !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .topbar {
+  background: rgba(255, 255, 255, 0.98) !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .topbar .brand-name {
+  color: #0f172a !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .top-nav .nav-button {
+  color: #64748b !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .top-nav .nav-button:hover {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .top-nav .nav-button.active {
+  background: #eff6ff !important;
+  color: #1d4ed8 !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .sidebar {
+  background: #ffffff !important;
+  border-right: 1px solid #e2e8f0 !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .side-label {
+  color: #94a3b8 !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .side-button {
+  color: #475569 !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .side-button:hover {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .side-button.active {
+  background: rgba(2, 132, 199, 0.08) !important;
+  color: #0284c7 !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .side-count,
+:root[data-theme="light"] body.workspace-inbox .side-badge {
+  background: #f1f5f9 !important;
+  color: #64748b !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .side-button.active > .side-count,
+:root[data-theme="light"] body.workspace-inbox .side-button.active > .side-badge {
+  background: rgba(2, 132, 199, 0.15) !important;
+  color: #0284c7 !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .queue-panel {
+  background: #ffffff !important;
+  border-right: 1px solid #e2e8f0 !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .queue-panel .panel-title {
+  color: #0f172a !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .search-box {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .search-box input {
+  color: #0f172a !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .queue-filter select,
+:root[data-theme="light"] body.workspace-inbox .queue-field select,
+:root[data-theme="light"] body.workspace-inbox #channel-filter {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #1e293b !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .ticket-row {
+  background: #ffffff !important;
+  border: 1px solid #f1f5f9 !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .ticket-row:hover {
+  background: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .ticket-row.active {
+  background: #eff6ff !important;
+  border-color: rgba(2, 132, 199, 0.3) !important;
+  box-shadow: inset 3px 0 0 #0284c7, 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .ticket-customer {
+  color: #0f172a !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .ticket-subject {
+  color: #64748b !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .ticket-channel {
+  background: #f1f5f9 !important;
+  color: #64748b !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .ticket-channel.chat {
+  background: rgba(2, 132, 199, 0.1) !important;
+  color: #0284c7 !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .conversation-panel {
+  background: #f8fafc !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .conversation-header {
+  background: #ffffff !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox #detail-subject {
+  color: #0f172a !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .customer-email {
+  color: #64748b !important;
+}
+
+/* Light mode Status Select */
+:root[data-theme="light"] body.workspace-inbox #ticket-status[data-status="open"] {
+  color: #0d8b67 !important;
+  background-color: #e6f9f2 !important;
+  border: 1px solid #a3e9cf !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Ccircle cx='5' cy='5' r='4' fill='%230d8b67'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230d8b67' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") !important;
+}
+:root[data-theme="light"] body.workspace-inbox #ticket-status[data-status="waiting"] {
+  color: #b45309 !important;
+  background-color: #fef3c7 !important;
+  border: 1px solid #fde68a !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Ccircle cx='5' cy='5' r='4' fill='%23b45309'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b45309' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") !important;
+}
+:root[data-theme="light"] body.workspace-inbox #ticket-status[data-status="resolved"] {
+  color: #4338ca !important;
+  background-color: #eef2ff !important;
+  border: 1px solid #c7d2fe !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Ccircle cx='5' cy='5' r='4' fill='%234338ca'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234338ca' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") !important;
+}
+:root[data-theme="light"] body.workspace-inbox #ticket-status[data-status="spam"] {
+  color: #be123c !important;
+  background-color: #ffe4e6 !important;
+  border: 1px solid #fecdd3 !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Ccircle cx='5' cy='5' r='4' fill='%23be123c'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23be123c' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox #status-refresh-wrap #refresh-button:hover {
+  color: #0284c7 !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox #resolve-ticket {
+  background: #f1f5f9 !important;
+  border-color: #e2e8f0 !important;
+  color: #334155 !important;
+}
+:root[data-theme="light"] body.workspace-inbox #resolve-ticket:hover {
+  background: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .message-card.inbound {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #1e293b !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .message-card.outbound {
+  background: #eff6ff !important;
+  border: 1px solid #bfdbfe !important;
+  color: #1e293b !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .message-author-name {
+  color: #0f172a !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .reply-composer {
+  background: #ffffff !important;
+  border-top: 1px solid #e2e8f0 !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox #draft-editor {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox #approve-button {
+  background: #0284c7 !important;
+  color: #ffffff !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .ai-sidebar {
+  background: #ffffff !important;
+  border-left: 1px solid #e2e8f0 !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .ai-sidebar h2 {
+  color: #0f172a !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox #ai-result {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox #ai-result h3 {
+  color: #0f172a !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox #ai-result p,
+:root[data-theme="light"] body.workspace-inbox #ai-result li {
+  color: #475569 !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .ai-chat {
+  background: #ffffff !important;
+  border-top: 1px solid #e2e8f0 !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox #ai-question {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .ai-chat-message.user {
+  background: #e0f2fe !important;
+  border: 1px solid #bae6fd !important;
+  color: #0369a1 !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .ai-chat-message.assistant {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #1e293b !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .details.availability-settings-panel summary,
+:root[data-theme="light"] body.workspace-inbox .availability-settings-panel > summary {
+  color: #475569 !important;
+  background: rgba(0, 0, 0, 0.02) !important;
+}
+:root[data-theme="light"] body.workspace-inbox .details.availability-settings-panel summary:hover,
+:root[data-theme="light"] body.workspace-inbox .availability-settings-panel > summary:hover {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+/* ── Light Mode Specific Overrides for Black Elements & Low Contrast ── */
+:root[data-theme="light"] body.workspace-inbox .user-cluster .org-chip {
+  background: #f1f5f9 !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #0f172a !important;
+}
+:root[data-theme="light"] body.workspace-inbox .user-cluster .org-chip strong {
+  color: #0f172a !important;
+}
+:root[data-theme="light"] body.workspace-inbox .user-cluster .org-chip span {
+  color: #64748b !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .conversation-context {
+  background: #f1f5f9 !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #334155 !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .composer-ai-actions .file-button,
+:root[data-theme="light"] body.workspace-inbox .create-draft,
+:root[data-theme="light"] body.workspace-inbox #ai-toggle {
+  background: #f1f5f9 !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #1e293b !important;
+}
+:root[data-theme="light"] body.workspace-inbox .composer-ai-actions .file-button:hover,
+:root[data-theme="light"] body.workspace-inbox .create-draft:hover,
+:root[data-theme="light"] body.workspace-inbox #ai-toggle:hover {
+  background: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .ai-attachment-choice {
+  color: #475569 !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .thread-avatar {
+  background: #e2e8f0 !important;
+  color: #475569 !important;
+}
+:root[data-theme="light"] body.workspace-inbox .thread-avatar.agent {
+  background: #dbe4f2 !important;
+  color: #1e293b !important;
+}
+:root[data-theme="light"] body.workspace-inbox .thread-avatar.visitor {
+  background: #e2e8f0 !important;
+  color: #475569 !important;
+}
+:root[data-theme="light"] body.workspace-inbox .thread-avatar.ai {
+  background: #0284c7 !important;
+  color: #ffffff !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .side-label {
+  color: #64748b !important;
+  font-weight: 700 !important;
+}
+:root[data-theme="light"] body.workspace-inbox .settings-hint {
+  color: #64748b !important;
+}
+:root[data-theme="light"] body.workspace-inbox .access-card {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #475569 !important;
+}
+:root[data-theme="light"] body.workspace-inbox .access-card .mono {
+  color: #64748b !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .ticket-age {
+  color: #64748b !important;
+}
+:root[data-theme="light"] body.workspace-inbox .ticket-meta {
+  color: #64748b !important;
+}
+
+:root[data-theme="light"] body.workspace-inbox .ai-sidebar-head .eyebrow {
+  color: #64748b !important;
+}
+:root[data-theme="light"] body.workspace-inbox .ai-identity small {
+  color: #64748b !important;
+}
+:root[data-theme="light"] body.workspace-inbox .ai-input-label {
+  color: #0f172a !important;
+}
+:root[data-theme="light"] body.workspace-inbox #ai-status,
+:root[data-theme="light"] body.workspace-inbox #ai-chat-status {
+  color: #64748b !important;
+}
+:root[data-theme="light"] body.workspace-inbox .ai-sidebar-foot {
+  color: #64748b !important;
+}
+:root[data-theme="light"] body.workspace-inbox #ai-close {
+  color: #64748b !important;
+}
+:root[data-theme="light"] body.workspace-inbox #ai-close:hover {
+  color: #0f172a !important;
+  background: #f1f5f9 !important;
+}
+
+/* Flow Live Chat detail panel light mode */
+:root[data-theme="light"] body.workspace-inbox .flow-detail {
+  background: #f8fafc !important;
+  color: #0f172a !important;
+}
+:root[data-theme="light"] body.workspace-inbox .flow-detail .conversation-header {
+  background: #ffffff !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+}
+:root[data-theme="light"] body.workspace-inbox #flow-title {
+  color: #0f172a !important;
+}
+:root[data-theme="light"] body.workspace-inbox #flow-text {
+  background: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #0f172a !important;
+}
+:root[data-theme="light"] body.workspace-inbox #flow-ownership {
+  color: #475569 !important;
+}
+:root[data-theme="light"] body.workspace-inbox #flow-context {
+  background: #f1f5f9 !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #334155 !important;
+}
+:root[data-theme="light"] body.workspace-inbox .flow-message.visitor {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #1e293b !important;
+}
+:root[data-theme="light"] body.workspace-inbox .flow-message.team {
+  background: #eff6ff !important;
+  border: 1px solid #bfdbfe !important;
+  color: #1e293b !important;
+}
+:root[data-theme="light"] body.workspace-inbox .flow-message.assistant {
+  background: #e0f2fe !important;
+  border: 1px solid #bae6fd !important;
+  color: #0369a1 !important;
+}
+:root[data-theme="light"] body.workspace-inbox .flow-message-avatar.visitor {
+  background: #e2e8f0 !important;
+  color: #475569 !important;
+}
+:root[data-theme="light"] body.workspace-inbox .flow-message-avatar.team {
+  background: #dbe4f2 !important;
+  color: #1e293b !important;
+}
+:root[data-theme="light"] body.workspace-inbox .flow-message-avatar.assistant {
+  background: #0284c7 !important;
+  color: #ffffff !important;
+}
+
+

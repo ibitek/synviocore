@@ -1,0 +1,7 @@
+/* Workspace queue polish and stable column behavior. */
+.sidebar,.queue-sidebar,.ticket-queue { overflow-y:auto; overflow-x:hidden; scrollbar-width:thin; }
+.sidebar::-webkit-scrollbar,.queue-sidebar::-webkit-scrollbar,.ticket-queue::-webkit-scrollbar { width:8px; }
+.sidebar::-webkit-scrollbar-thumb,.queue-sidebar::-webkit-scrollbar-thumb,.ticket-queue::-webkit-scrollbar-thumb { background:#26344a; border-radius:99px; }
+[data-queue-view="ai-handled"] { color:#82e9f2!important; }
+.ai-handled-queue { color:#82e9f2!important; }
+.ai-handled-queue svg { stroke:currentColor; }

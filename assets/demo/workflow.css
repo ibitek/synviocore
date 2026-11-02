@@ -1,0 +1,8 @@
+.notification-dot{width:7px;height:7px;min-width:7px;border-radius:50%;background:var(--green);box-shadow:0 0 9px var(--soft);display:inline-block}.notification-dot[hidden]{display:none}.ticket-meta{overflow-wrap:anywhere}.ownership-actions{display:flex;flex-direction:column;gap:7px;margin-top:9px}.ownership-actions button{font-size:10px;padding:7px 9px}.status-control{width:132px}.side-button{gap:8px}.side-button .side-count{margin-left:auto}#queue-more{margin:10px 16px}#queue-more[hidden]{display:none}.queue-panel .panel-title{font-size:16px}.workflow-help{font-size:11px;color:var(--muted)}.spam-action{margin-top:12px;border-color:var(--amber);color:var(--amber)}.ai-warning{color:var(--amber);font-size:12px;white-space:pre-wrap;line-height:1.75}@media(max-width:700px){.status-control{width:112px}.ownership-actions{flex-direction:row;flex-wrap:wrap}.ownership-actions button{font-size:9px}}
+
+.queue-view-mobile{display:none;padding:0 16px 12px}.ai-warning[hidden],#ai-context-draft[hidden],.ownership-actions button[hidden]{display:none}#ai-context-draft{margin-top:12px}@media(max-width:900px){.queue-view-mobile{display:block}}
+[data-queue-view="assigned"]{grid-template-columns:18px minmax(0,1fr) 7px auto}[data-queue-view="assigned"] .side-count{grid-column:4}[data-queue-view="assigned"]>span:nth-child(2){font-size:10px}
+
+[data-queue-view="inbox"]{grid-template-columns:18px minmax(0,1fr) 7px auto}[data-queue-view="inbox"] .side-count{grid-column:4}[data-queue-view="inbox"]>span:nth-child(2){font-size:10px}
+
+#trash-queue[hidden],#trash-option[hidden]{display:none!important}

@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>SYNVIO/APP — Interactive Workspace demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/demo/app.css?v=9">
+  <style>
+    #synvio-auth-veil{position:fixed;inset:0;z-index:9999;background:#050505;display:grid;place-items:center;color:#747a81;font:600 11px/1.5 "Inter",sans-serif}
+    #synvio-auth-veil.auth-ready{display:none}
+  </style>
+<link rel="stylesheet" href="/assets/demo/inbox.css?v=9">
+
+<link rel="stylesheet" href="/assets/demo/appearance.css?v=9">
+<link rel="icon" type="image/svg+xml" href="favicon.svg?v=8.2"><link rel="stylesheet" href="/assets/demo/copilot.css?v=9"><link rel="stylesheet" href="/assets/demo/workflow.css?v=9"><link rel="stylesheet" href="/assets/demo/motion.css?v=9"><style>body:not(.wallet-cleared) .page-shell{visibility:hidden}.wallet-gate-error{position:fixed;inset:0;display:grid;place-items:center;padding:30px;background:#0e1112;color:#fff;z-index:9999;text-align:center}</style><style>html,body{opacity:1!important;transform:none!important}</style><link rel="stylesheet" href="/assets/demo/flow-support-v27.css?v=9"><link rel="stylesheet" href="/assets/demo/workspace-theme.css?v=9"><link rel="stylesheet" href="/assets/demo/workspace-inbox.css?v=9"><link rel="stylesheet" href="/assets/demo/workspace-light.css?v=9"><link rel="stylesheet" href="/assets/synvio-brand.css?v=9"><link rel="stylesheet" href="/assets/demo/workspace-rework-v1.css?v=9"><link rel="stylesheet" href="/workspace-demo-v9.css?v=9"></head>
+<body class="workspace-inbox wallet-cleared">
+  <div id="synvio-auth-veil">Opening secure workspace…</div>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="synvio-brand" href="./index.html" aria-label="SYNVIO/APP"><svg class="synvio-logo-mark" width="27" height="27" viewBox="0 0 27 27" aria-hidden="true"><rect x="1" y="1" width="25" height="25" rx="7"/><circle cx="13.5" cy="13.5" r="4"/></svg><span class="synvio-wordmark">SYNVIO<span class="synvio-slash">/</span>APP</span></a>
+
+      <nav class="top-nav"><a class="nav-button" href="https://flow.synviocore.xyz/">Flow studio</a>
+        <a class="nav-button active" href="./index.html">Inbox</a>
+        <a class="nav-button admin-only" href="./knowledge.html">Knowledge</a>
+        <a class="nav-button admin-only" href="./inbox-setup.html">Inbox setup</a>
+        <a class="nav-button admin-only" href="./integrations.html">Integrations</a>
+        <a class="nav-button admin-only" href="./admin.html">Admin</a>
+        <a class="nav-button admin-only" href="./billing.html">Wallet</a>
+      </nav>
+
+      <div class="user-cluster">
+        <div class="org-chip"><span class="status-dot"></span><div><strong id="org-name">Workspace</strong><span id="org-role" class="mono">—</span></div></div>
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to light theme" title="Switch to light theme" aria-pressed="false"><svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg><svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" hidden><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg></button>
+      <button id="logout-button" class="logout-button" type="button">Sign out</button>
+      </div>
+    </header>
+
+    <div class="workspace">
+      <aside class="sidebar">
+        <div>
+          <div class="side-label">Support</div>
+          <button class="side-button active" data-queue-view="inbox" type="button"><span class="side-icon si-inbox"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11Z"/></svg></span><span>Inbox</span><span id="inbox-notification" class="notification-dot" hidden aria-label="New inbox messages" title="New inbox messages"></span><span id="ticket-count" class="side-count">0</span></button><button class="side-button" data-queue-view="assigned" type="button"><span class="side-icon si-assign"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span>Assigned to you</span><span id="assigned-notification" class="notification-dot" hidden aria-label="New customer messages" title="New customer messages"></span><span id="assigned-count" class="side-count">0</span></button><button class="side-button" data-queue-view="resolved" type="button"><span class="side-icon si-resolve"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="20 6 9 17 4 12"/></svg></span><span>Resolved</span><span id="resolved-count" class="side-count">0</span></button><button id="trash-queue" hidden class="side-button" data-queue-view="trash" type="button"><span class="side-icon si-trash"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></span><span>Trash</span><span id="trash-count" class="side-count">0</span></button><button class="side-button" data-queue-view="archive" type="button"><span class="side-icon si-archive"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><path d="M7 12h10"/><path d="M7 16h10"/></svg></span><span>Archive</span><span id="archive-count" class="side-count">0</span></button><button class="side-button" data-queue-view="spam" type="button"><span class="side-icon si-spam"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></span><span>Spam</span><span id="spam-count" class="side-count">0</span></button>
+        </div>
+
+        <div class="admin-only" style="flex-direction:column">
+          <div class="side-label">Administration</div>
+          <a class="side-button" href="./knowledge.html"><span class="side-icon si-knowledge"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></span><span>Knowledge</span><span></span></a>
+          <a class="side-button" href="./inbox-setup.html"><span class="side-icon si-setup"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span><span>Inbox setup</span><span></span></a>
+          <a class="side-button" href="./admin.html"><span class="side-icon si-company"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><span>Company & team</span><span></span></a>
+          <a class="side-button" href="./integrations.html"><span class="side-icon si-wallet"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 13a5 5 0 0 0 7.1.1l2-2a5 5 0 0 0-7.1-7.1l-1.1 1.1"/><path d="M14 11a5 5 0 0 0-7.1-.1l-2 2A5 5 0 0 0 12 20l1.1-1.1"/></svg></span><span>Integrations</span><span></span></a>
+          <a class="side-button" href="./billing.html"><span class="side-icon si-wallet"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></span><span>Wallet & BYOK</span><span></span></a>
+          <a class="side-button" href="./usage-history.html"><span class="side-icon si-history"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span><span>Charge history</span><span></span></a>
+          <button class="side-button" type="button" data-open-knowledge-upload data-knowledge-drop aria-haspopup="dialog"><span class="side-icon si-import"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="16 4 12 8 8 4"/><line x1="12" y1="19" x2="12" y2="4"/><line x1="12" y1="4" x2="16" y2="8"/></svg></span><span>Import TXT</span><span></span></button>
+          <p class="settings-hint">Or drop TXT files here</p>
+        </div>
+
+        <div class="workspace-settings"><div class="side-label">Settings</div><button class="side-button" type="button" data-open-appearance aria-haspopup="dialog"><span class="side-icon si-appearance"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M16 8h2M20 8h-2M8 8h2M4 8h2M16 16h2M20 16h-2M8 16h2M4 16h2"/></svg></span><span>Appearance</span><span></span></button><p class="settings-hint">Theme and animations</p></div>
+        <div class="access-card">
+          <span class="mono">ACCESS</span><br>
+          <span id="access-summary">Customer conversations</span>
+        </div>
+      </aside>
+
+      <main class="main">
+        <div id="setup-banner" class="setup-view hidden">
+          <div class="setup-kicker">Workspace unavailable</div>
+          <h1 class="setup-title" data-title>Unable to open Synvio</h1>
+          <p class="setup-copy" data-detail>Please contact your Synvio administrator.</p>
+        </div>
+
+        <div id="main-shell" class="inbox-grid conversation-layout">
+          <section class="panel queue-panel">
+            <div class="panel-head">
+              <div><div class="eyebrow mono">Ticket queue</div><h1 id="queue-title" class="panel-title">Inbox</h1></div>
+              <span class="queue-head-meta" aria-hidden="true"><i></i>Live</span>
+              <button id="refresh-button" class="icon-button" aria-label="Refresh">↻</button>
+            </div>
+
+            <div class="search-area">
+              <div class="search-box"><span style="color:#555b63">⌕</span><input id="ticket-search" maxlength="200" type="search" placeholder="Search conversations or #10000001"></div>
+            </div>
+
+            <div class="queue-view-mobile"><label for="queue-view" class="field-label">Queue</label><select id="queue-view" class="admin-input"><option value="inbox">Inbox</option><option value="assigned">Assigned to you</option><option value="ai-handled">AI handled</option><option value="resolved">Resolved</option><option value="spam">Spam</option><option id="trash-option" hidden value="trash">Trash</option><option value="archive">Archive · resolved over 60 days</option></select></div><div class="queue-filter"><label for="queue-status" class="field-label">Show</label><select id="queue-status" class="admin-input"><option value="all">All in this view</option><option value="open">Handled</option><option value="ai_handled">AI handled</option><option value="waiting">Waiting</option><option value="expired">Expired</option><option value="resolved">Resolved</option><option value="spam">Spam</option></select></div>
+            <label class="field-label" style="padding:12px">Channel<select id="channel-filter" class="admin-input"><option value="all">All channels</option><option value="email">Email</option><option value="chat">Chat</option><option value="instagram">Instagram</option></select></label><div id="ticket-list" class="ticket-list"></div><button id="queue-more" class="file-button" type="button" hidden>Load more conversations</button>
+            <div id="ticket-empty" class="empty">
+              <div class="empty-inner"><div class="empty-symbol"></div><h2>No conversations yet</h2><p>New customer emails and human-handoff chats will appear here.</p></div>
+            </div>
+          </section>
+
+          <section class="panel conversation-panel">
+            <div id="detail-empty" class="empty"><div class="empty-inner"><div class="empty-symbol"></div><h2>Select a conversation</h2><p>Read the full conversation and reply from one workspace.</p></div></div>
+            <div id="detail-loaded" class="hidden conversation-loaded">
+              <div class="conversation-header">
+                <button id="queue-back" class="icon-button mobile-back" type="button" aria-label="Back to inbox">←</button>
+                <div class="conversation-heading"><h2 id="detail-subject" class="panel-title">—</h2><div class="customer-head"><div class="avatar">CU</div><div><div id="detail-customer" class="customer-name">—</div><div id="detail-email" class="customer-email mono">—</div></div></div><div id="detail-meta" class="detail-meta"></div></div>
+                <div class="status-control"><div class="status-select-wrap"><label for="ticket-status" class="field-label">Status</label><select id="ticket-status" class="admin-input" data-status="open"><option value="open">Open</option><option value="waiting">Waiting</option><option value="resolved">Resolved</option><option value="spam">Spam</option></select></div><div class="ownership-actions"><button id="take-ticket" class="file-button" type="button">Take ownership</button><button id="resolve-ticket" class="file-button" type="button">Resolve</button><button id="trash-ticket" hidden class="file-button" type="button" title="Move to Trash" aria-label="Move to Trash">Move to Trash</button></div></div>
+              </div>
+              <div id="thread-scroll" class="thread-scroll" tabindex="0" aria-label="Conversation history"><div id="attachments-health" role="status" style="color:#f5b83d;font-size:12px;overflow-wrap:anywhere;margin-bottom:12px"></div><div id="continuation-links"></div><div id="continuation-suggestion" class="ai-warning" hidden></div><button id="continue-ticket" class="file-button" type="button">Continue in new ticket</button><div id="message-thread" role="log" aria-live="polite"></div></div>
+              <div id="copilot-empty" class="hidden"></div>
+              <div id="copilot-loaded" class="hidden reply-composer">
+                <div class="composer-heading"><label for="draft-editor" class="field-label">Reply to customer</label><div class="composer-ai-actions"><button id="ai-toggle" class="file-button" type="button" aria-controls="ai-sidebar" aria-expanded="false">Open Copilot</button><label class="ai-attachment-choice" title="Uses extra AI tokens only when selected"><input id="ai-include-attachments" type="checkbox"> Analyze attachments</label><button id="ai-generate" class="file-button create-draft" type="button">✦ Create draft</button><span id="draft-confidence" class="eyebrow mono">MANUAL REPLY</span></div></div>
+                <textarea id="draft-editor" class="draft" placeholder="Write a reply…" maxlength="20000" rows="9"></textarea>
+                <input id="attachment-input" type="file" class="hidden" multiple accept=".png,.jpg,.jpeg,.gif,.webp,.pdf,.txt,.csv,.doc,.docx,.xls,.xlsx">
+                <div id="staged-attachments" class="staged-attachments"></div>
+                <div class="attachment-controls"><button id="attach-button" class="file-button" type="button" disabled>Attach files</button><span id="attachment-status" role="status">10 MB per file · 20 MB per reply</span></div>
+                <div class="composer-footer"><span id="composer-status" role="status">Your reply stays here while you switch conversations.</span><button id="approve-button" class="action primary" type="button" disabled>Send Reply</button></div>
+              </div>
+            </div>
+          </section>
+<aside id="ai-sidebar" class="panel ai-sidebar" aria-label="AI Copilot for the employee" data-open="false"><div class="ai-sidebar-head"><div><div class="eyebrow">FOR THE EMPLOYEE</div><div class="ai-identity"><span class="ai-brand-mark" aria-hidden="true"><span></span></span><div><h2>Synvio Copilot</h2><small>YOUR SUPPORT ASSISTANT</small></div></div></div><button id="ai-close" class="icon-button" type="button" aria-label="Close AI panel">×</button></div><div class="ai-body"><div id="ai-transcript" role="log" aria-label="Copilot conversation"><div id="ai-status" role="status" aria-live="polite"></div><div id="ai-chat-log" role="log" aria-live="polite" aria-label="Your conversation with AI"></div><div id="ai-thinking" class="ai-thinking" hidden role="status" aria-live="polite"><span class="ai-brand-mark mini" aria-hidden="true"><span></span></span><span id="ai-thinking-label">Thinking</span><span class="thinking-dots" aria-hidden="true"><i></i><i></i><i></i></span></div></div><section class="ai-chat" aria-label="Employee conversation with Copilot"><div class="ai-input-label">Ask Copilot</div><form id="ai-chat-form"><label class="field-label" for="ai-question">Your question</label><textarea id="ai-question" class="admin-textarea" maxlength="2000" rows="2" placeholder="Ask about this conversation…"></textarea><button id="ai-ask" class="file-button" type="submit" aria-label="Send question to Copilot">↗</button></form><button id="ai-context-draft" class="file-button" type="button" hidden>Create draft with this context</button><div id="ai-chat-status" role="status" aria-live="polite"></div></section></div><div class="ai-sidebar-foot">AI suggests. You decide and send.</div></aside>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <dialog id="attachment-preview" class="attachment-dialog" aria-labelledby="attachment-preview-title"><div class="preview-toolbar"><strong id="attachment-preview-title"></strong><button id="attachment-preview-close" class="icon-button" type="button" aria-label="Close preview">×</button></div><div id="attachment-preview-content"></div></dialog>
+  
+  
+  
+  
+  
+
+
+
+  <script src="/workspace-demo-v9.js?v=9"></script></body>
+</html>
+
+
+
+
+
+
+

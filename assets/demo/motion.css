@@ -1,0 +1,20 @@
+/* Sliding selection stays behind text, so text never scales or blurs. */
+.motion-page-entering :is(.page-shell,.app-shell){animation:motion-page-in .2s cubic-bezier(.2,.8,.2,1) both}
+.motion-page-leaving :is(.page-shell,.app-shell){opacity:0;transition:opacity .17s ease!important}
+@keyframes motion-page-in{from{opacity:0}to{opacity:1}}
+.motion-slider-host{position:relative;isolation:isolate}
+.motion-slider{position:absolute;left:0;top:0;z-index:0;pointer-events:none;opacity:0;border:1px solid var(--line-strong);border-radius:12px;background:linear-gradient(115deg,var(--soft),var(--panel-2));box-shadow:0 0 0 1px var(--soft),0 9px 30px var(--glow);transition:transform .5s cubic-bezier(.17,.76,.19,1),width .5s cubic-bezier(.17,.76,.19,1),height .5s cubic-bezier(.17,.76,.19,1),opacity .22s ease}
+.motion-slider.top{border-radius:11px}.motion-slider.side{border-radius:12px}.motion-slider.ticket{z-index:0;border-radius:14px;background:var(--soft);box-shadow:inset 3px 0 var(--cyan),0 0 22px var(--glow)}
+.motion-ready .top-nav .nav-button, .motion-ready .sidebar [data-queue-view], .motion-ready .sidebar .side-button, .motion-ready .sidebar a { position: relative; z-index: 1; pointer-events: auto !important; }
+.motion-ready .top-nav .nav-button.active, .motion-ready .sidebar [data-queue-view].active, .motion-ready .sidebar .side-button.active { background: transparent; border-color: transparent; }
+.motion-ready .ticket-row{position:relative;z-index:1}
+.motion-ready .ticket-row.active{background:transparent;border-color:transparent;box-shadow:none}
+.motion-ready .ticket-list{isolation:isolate}
+.motion-ready .ticket-row,.motion-ready .message-card,.motion-ready .message-file,.motion-ready .admin-card,.motion-ready #ai-result{transition:border-color .2s ease,box-shadow .2s ease,background-color .2s ease}
+.motion-ready .ticket-row:hover{border-color:var(--line-strong);box-shadow:0 8px 22px var(--glow)}
+.motion-ready .message-card:hover,.motion-ready .message-file:hover{border-color:var(--line-strong);box-shadow:0 12px 30px var(--glow)}
+.motion-ready .admin-card:hover,.motion-ready #ai-result:hover{border-color:var(--line-strong);box-shadow:0 14px 35px var(--glow)}
+@media(min-width:1200px){.conversation-layout{transition:grid-template-columns .52s cubic-bezier(.17,.76,.19,1)!important}.ai-sidebar{transition:opacity .42s cubic-bezier(.17,.76,.19,1),transform .52s cubic-bezier(.17,.76,.19,1),visibility .52s!important}}
+@media(max-width:1199px){.ai-sidebar{display:flex!important;visibility:hidden;opacity:0;transform:translateX(28px) scale(.985);pointer-events:none;transition:opacity .36s ease,transform .5s cubic-bezier(.17,.76,.19,1),visibility .5s!important}.ai-sidebar[data-open="true"]{visibility:visible;opacity:1;transform:translateX(0) scale(1);pointer-events:auto}}
+.motion-suspended .motion-slider,.motion-suspended .ticket-row,.motion-suspended .message-card,.motion-suspended .message-file,.motion-suspended .ai-sidebar,.motion-suspended .conversation-layout,.motion-suspended :is(.page-shell,.app-shell){transition:none!important;animation:none!important}
+@media(prefers-reduced-motion:reduce){.motion-slider,.ticket-row,.message-card,.message-file,.ai-sidebar,.conversation-layout{transition:none!important;animation:none!important}}
