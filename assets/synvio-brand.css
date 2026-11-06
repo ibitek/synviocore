@@ -10,3 +10,5 @@
 @media(prefers-reduced-motion:reduce){.synvio-brand .synvio-logo-mark{transition:none!important;transform:none!important}}
 
 .synvio-brand-row{display:flex;align-items:center;justify-content:space-between;gap:16px;min-width:0}.synvio-brand-row>.theme-toggle{flex-shrink:0;margin-left:auto}
+
+.synvio-brand img.synvio-logo-mark{object-fit:contain;flex-basis:32px!important;width:32px!important;height:32px!important}.synvio-brand:hover img.synvio-logo-mark{transform:none;filter:drop-shadow(0 0 6px #00dce533)}

@@ -42,5 +42,7 @@
   }
   document.querySelectorAll('[data-open-chat]').forEach(button=>button.addEventListener('click',openChat));
   retry.addEventListener('click',openChat);
+  const openFromLink=()=>{if(location.hash==='#talk-to-ai')openChat();};
+  window.addEventListener('hashchange',openFromLink);openFromLink();
   document.querySelector('#marketing-chat-dismiss').addEventListener('click',()=>state.hidden=true);
 })();
