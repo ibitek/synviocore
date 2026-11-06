@@ -35,7 +35,17 @@
     try{
       const [,result]=await Promise.all([loadLibrary(),call({action:'config'})]);
       if(!result.config)throw new Error('Chat is temporarily unavailable.');
-      widget=new window.SynvioFlowWidget({mount,config:result.config,call,storageKey:'synvio-flow:'+botId});
+      // Marketing CTAs reopen the chat; do not add a second corner launcher.
+      // Keep the node for the widget's positioning logic, across every render.
+      class MarketingWidget extends window.SynvioFlowWidget {
+        render(){
+          super.render();
+          const style=document.createElement('style');
+          style.textContent='.launch{display:none!important}';
+          this.root.append(style);
+        }
+      }
+      widget=new MarketingWidget({mount,config:result.config,call,storageKey:'synvio-flow:'+botId});
       state.hidden=true;reveal();
     }catch{state.hidden=false;state.querySelector('p').textContent='We couldn’t open the conversation. Please try again.';retry.hidden=false;}
     finally{loading=false;}
